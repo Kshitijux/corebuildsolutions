@@ -117,6 +117,20 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [homeSections, setHomeSections] = useState<HomeSection[]>(fallbackHomeSections);
   const [media, setMedia] = useState<MediaItem[]>([]);
 
+  // Helper to map flat database Project columns to nested client Project object
+  const mapProjectFromDB = (p: any): Project => {
+    return {
+      ...p,
+      id: p.id,
+      testimonial: p.testimonialName ? {
+        name: p.testimonialName,
+        role: p.testimonialRole || '',
+        text: p.testimonialText || '',
+        avatar: p.testimonialAvatar || ''
+      } : undefined
+    };
+  };
+
   // Fetch initial public content directly from Supabase
   const loadInitialData = async () => {
     try {
@@ -146,7 +160,7 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         supabase.from('HomeSection').select('*')
       ]);
 
-      if (resProj.data && resProj.data.length > 0) setProjects(resProj.data);
+      if (resProj.data && resProj.data.length > 0) setProjects(resProj.data.map(mapProjectFromDB));
       if (resBlogs.data && resBlogs.data.length > 0) setBlogs(resBlogs.data);
       if (resTest.data && resTest.data.length > 0) setTestimonials(resTest.data);
       if (resSrv.data && resSrv.data.length > 0) setServices(resSrv.data);
@@ -203,21 +217,31 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Projects CRUD
   const addProject = async (proj: Omit<Project, 'id'>) => {
+    const { testimonial, ...rest } = proj;
     const newProj = { 
       id: generateUUID(), 
-      ...proj,
+      ...rest,
+      testimonialName: testimonial?.name || null,
+      testimonialRole: testimonial?.role || null,
+      testimonialText: testimonial?.text || null,
+      testimonialAvatar: testimonial?.avatar || null,
       updatedAt: new Date().toISOString()
     };
     const { data, error } = await supabase.from('Project').insert([newProj]).select().single();
     if (error) throw error;
     if (data) {
-      setProjects(prev => [data, ...prev]);
+      setProjects(prev => [mapProjectFromDB(data), ...prev]);
     }
   };
 
   const updateProject = async (proj: Project) => {
+    const { testimonial, ...rest } = proj;
     const updateData = { 
-      ...proj,
+      ...rest,
+      testimonialName: testimonial?.name || null,
+      testimonialRole: testimonial?.role || null,
+      testimonialText: testimonial?.text || null,
+      testimonialAvatar: testimonial?.avatar || null,
       updatedAt: new Date().toISOString()
     };
     delete (updateData as any).id;
@@ -226,7 +250,7 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const { data, error } = await supabase.from('Project').update(updateData).eq('id', proj.id).select().single();
     if (error) throw error;
     if (data) {
-      setProjects(prev => prev.map(p => p.id === proj.id ? data : p));
+      setProjects(prev => prev.map(p => p.id === proj.id ? mapProjectFromDB(data) : p));
     }
   };
 
@@ -605,8 +629,78 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setMedia(prev => prev.filter(m => m.id !== id && m._id !== id));
   };
 
+  // Database Seeder
   const resetToSeedData = async () => {
-    await loadInitialData();
+    try {
+      setLoading(true);
+      
+      // 1. Delete existing records
+      await Promise.all([
+        supabase.from('Project').delete().neq('id', ''),
+        supabase.from('Blog').delete().neq('id', ''),
+        supabase.from('Testimonial').delete().neq('id', ''),
+        supabase.from('Service').delete().neq('id', ''),
+        supabase.from('Career').delete().neq('id', ''),
+        supabase.from('TeamMember').delete().neq('id', ''),
+        supabase.from('FaqItem').delete().neq('id', ''),
+        supabase.from('HomeSection').delete().neq('id', ''),
+        supabase.from('SystemSettings').delete().neq('id', ''),
+        supabase.from('SeoSettings').delete().neq('id', '')
+      ]);
+
+      const now = new Date().toISOString();
+
+      // 2. Flatten project testimonials to match flat PostgreSQL columns
+      const projectsWithDates = fallbackProjects.map(p => {
+        const { testimonial, ...rest } = p;
+        return {
+          ...rest,
+          testimonialName: testimonial?.name || null,
+          testimonialRole: testimonial?.role || null,
+          testimonialText: testimonial?.text || null,
+          testimonialAvatar: testimonial?.avatar || null,
+          updatedAt: now
+        };
+      });
+
+      const blogsWithDates = fallbackBlogs.map(b => ({ ...b, updatedAt: now }));
+      const testimonialsWithDates = fallbackTestimonials.map(t => ({ ...t, updatedAt: now }));
+      const servicesWithDates = fallbackServices.map(s => ({ ...s, updatedAt: now }));
+      const careersWithDates = fallbackCareers.map(c => ({ ...c, updatedAt: now }));
+      const teamWithDates = fallbackTeam.map(tm => ({ ...tm, updatedAt: now }));
+      const faqsWithDates = fallbackFaqs.map(f => ({ ...f, updatedAt: now }));
+      const homeSecWithDates = fallbackHomeSections.map(hs => ({ ...hs, updatedAt: now }));
+      const settingsWithDate = { ...fallbackSettings, key: 'global', id: generateUUID(), updatedAt: now };
+      const seoWithDates = fallbackSeoSettings.map(seo => ({ ...seo, id: generateUUID(), updatedAt: now }));
+
+      // 3. Insert all records
+      await Promise.all([
+        supabase.from('Project').insert(projectsWithDates),
+        supabase.from('Blog').insert(blogsWithDates),
+        supabase.from('Testimonial').insert(testimonialsWithDates),
+        supabase.from('Service').insert(servicesWithDates),
+        supabase.from('Career').insert(careersWithDates),
+        supabase.from('TeamMember').insert(teamWithDates),
+        supabase.from('FaqItem').insert(faqsWithDates),
+        supabase.from('HomeSection').insert(homeSecWithDates),
+        supabase.from('SystemSettings').insert([settingsWithDate]),
+        supabase.from('SeoSettings').insert(seoWithDates)
+      ]);
+
+      // 4. Reload
+      await loadInitialData();
+
+      window.dispatchEvent(new CustomEvent('show-toast', {
+        detail: { message: 'Database reset to seed data successfully!', type: 'success' }
+      }));
+    } catch (err: any) {
+      console.error('Seed reset failure:', err.message);
+      window.dispatchEvent(new CustomEvent('show-toast', {
+        detail: { message: 'Failed to seed database: ' + err.message, type: 'error' }
+      }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -87,6 +87,18 @@ interface DatabaseContextProps extends DatabaseState {
   resetToSeedData: () => Promise<void>;
 }
 
+// Utility to generate a v4 UUID on the client side
+const generateUUID = () => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
 export const DatabaseContext = createContext<DatabaseContextProps | undefined>(undefined);
 
 export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -191,7 +203,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Projects CRUD
   const addProject = async (proj: Omit<Project, 'id'>) => {
-    const { data, error } = await supabase.from('Project').insert([proj]).select().single();
+    const newProj = { id: generateUUID(), ...proj };
+    const { data, error } = await supabase.from('Project').insert([newProj]).select().single();
     if (error) throw error;
     if (data) {
       setProjects(prev => [data, ...prev]);
@@ -219,7 +232,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Blogs CRUD
   const addBlog = async (blog: Omit<Blog, 'id'>) => {
-    const { data, error } = await supabase.from('Blog').insert([blog]).select().single();
+    const newBlog = { id: generateUUID(), ...blog };
+    const { data, error } = await supabase.from('Blog').insert([newBlog]).select().single();
     if (error) throw error;
     if (data) {
       setBlogs(prev => [data, ...prev]);
@@ -247,7 +261,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Testimonials CRUD
   const addTestimonial = async (test: Omit<Testimonial, 'id'>) => {
-    const { data, error } = await supabase.from('Testimonial').insert([test]).select().single();
+    const newTest = { id: generateUUID(), ...test };
+    const { data, error } = await supabase.from('Testimonial').insert([newTest]).select().single();
     if (error) throw error;
     if (data) {
       setTestimonials(prev => [data, ...prev]);
@@ -275,7 +290,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Services CRUD
   const addService = async (srv: Omit<Service, 'id'>) => {
-    const { data, error } = await supabase.from('Service').insert([srv]).select().single();
+    const newSrv = { id: generateUUID(), ...srv };
+    const { data, error } = await supabase.from('Service').insert([newSrv]).select().single();
     if (error) throw error;
     if (data) {
       setServices(prev => [...prev, data]);
@@ -303,7 +319,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Careers CRUD
   const addCareer = async (car: Omit<Career, 'id'>) => {
-    const { data, error } = await supabase.from('Career').insert([car]).select().single();
+    const newCar = { id: generateUUID(), ...car };
+    const { data, error } = await supabase.from('Career').insert([newCar]).select().single();
     if (error) throw error;
     if (data) {
       setCareers(prev => [...prev, data]);
@@ -331,7 +348,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Team Member CRUD
   const addTeamMember = async (tm: Omit<TeamMember, 'id'>) => {
-    const { data, error } = await supabase.from('TeamMember').insert([tm]).select().single();
+    const newTm = { id: generateUUID(), ...tm };
+    const { data, error } = await supabase.from('TeamMember').insert([newTm]).select().single();
     if (error) throw error;
     if (data) {
       setTeam(prev => [...prev, data]);
@@ -360,6 +378,7 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Leads CRM CRUD
   const addLead = async (lead: Omit<Lead, 'id' | 'date' | 'status'>) => {
     const leadData = {
+      id: generateUUID(),
       ...lead,
       date: new Date().toLocaleDateString('en-US'),
       status: 'unread',
@@ -403,11 +422,18 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // General Settings Update
   const updateSettings = async (nextSettings: SystemSettings) => {
     const updateData = { ...nextSettings };
-    delete (updateData as any).id;
     delete (updateData as any).createdAt;
     delete (updateData as any).updatedAt;
 
-    const { data, error } = await supabase.from('SystemSettings').upsert({ ...updateData, key: 'global' }).select().single();
+    // Use current ID in state or generate a new UUID if setting row doesn't exist
+    const existingId = (settings as any).id || generateUUID();
+
+    const { data, error } = await supabase.from('SystemSettings').upsert({ 
+      id: existingId,
+      ...updateData, 
+      key: 'global' 
+    }).select().single();
+    
     if (error) throw error;
     if (data) {
       setSettings(data);
@@ -416,7 +442,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // FAQs CRUD
   const addFaq = async (faq: Omit<FaqItem, 'id'>) => {
-    const { data, error } = await supabase.from('FaqItem').insert([faq]).select().single();
+    const newFaq = { id: generateUUID(), ...faq };
+    const { data, error } = await supabase.from('FaqItem').insert([newFaq]).select().single();
     if (error) throw error;
     if (data) {
       setFaqs(prev => [...prev, data]);
@@ -444,7 +471,15 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Home Sections Update
   const updateHomeSection = async (key: string, content: any) => {
-    const { data, error } = await supabase.from('HomeSection').upsert({ key, content }).select().single();
+    const existing = homeSections.find(hs => hs.key === key);
+    const existingId = existing?.id || generateUUID();
+
+    const { data, error } = await supabase.from('HomeSection').upsert({ 
+      id: existingId,
+      key, 
+      content 
+    }).select().single();
+    
     if (error) throw error;
     if (data) {
       setHomeSections(prev => {
@@ -481,6 +516,7 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     // 3. Record in MediaItem table
     const mediaItem = {
+      id: generateUUID(),
       filename: uniqueFilename,
       url: publicUrl,
       sizeBytes: file.size,

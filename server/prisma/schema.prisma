@@ -1,0 +1,177 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("editor") // "super_admin" | "admin" | "editor"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id                String   @id @default(uuid())
+  title             String
+  client            String
+  category          String
+  description       String
+  longDescription   String   @db.Text
+  image             String
+  gallery           Json     @default("[]")
+  tags              Json     @default("[]")
+  stats             Json     @default("[]")
+  testimonialName   String?
+  testimonialRole   String?
+  testimonialText   String?  @db.Text
+  testimonialAvatar String?
+  beforeImage       String?
+  afterImage        String?
+  featured          Boolean  @default(false)
+  url               String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  category  String
+  summary   String   @db.Text
+  content   String   @db.Text
+  image     String
+  date      String
+  author    String
+  readTime  String
+  tags      Json     @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String
+  role      String
+  company   String
+  rating    Int      @default(5)
+  text      String   @db.Text
+  image     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  name        String
+  subtitle    String
+  description String   @db.Text
+  icon        String
+  details     Json     @default("[]")
+  workflow    Json     @default("[]")
+  pricing     Json     @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Career {
+  id           String   @id @default(uuid())
+  title        String
+  department   String
+  location     String
+  type         String
+  description  String   @db.Text
+  requirements Json     @default("[]")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model TeamMember {
+  id         String   @id @default(uuid())
+  name       String
+  role       String
+  image      String
+  bio        String   @db.Text
+  experience String?
+  skills     Json     @default("[]")
+  order      Int      @default(0)
+  active     Boolean  @default(true)
+  socials    Json     @default("{}")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  subject   String?
+  message   String   @db.Text
+  service   String?
+  date      String
+  status    String   @default("unread") // "unread" | "read" | "resolved" | "pending"
+  source    String
+  ip        String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SeoSettings {
+  id          String   @id @default(uuid())
+  page        String   @unique
+  title       String
+  description String   @db.Text
+  keywords    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SystemSettings {
+  id             String   @id @default(uuid())
+  key            String   @unique @default("global")
+  agencyName     String
+  contactEmail   String
+  contactPhone   String
+  whatsappNumber String
+  address        String
+  socialLinks    Json     @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model FaqItem {
+  id        String   @id @default(uuid())
+  q         String
+  a         String   @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HomeSection {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaItem {
+  id          String   @id @default(uuid())
+  filename    String
+  url         String
+  sizeBytes   Int
+  mimetype    String
+  storageType String   @default("supabase")
+  publicId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

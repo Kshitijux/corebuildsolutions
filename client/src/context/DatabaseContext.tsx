@@ -203,7 +203,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Projects CRUD
   const addProject = async (proj: Omit<Project, 'id'>) => {
-    const newProj = { id: generateUUID(), ...proj };
+    const newProj = { 
+      id: generateUUID(), 
+      ...proj,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('Project').insert([newProj]).select().single();
     if (error) throw error;
     if (data) {
@@ -212,10 +216,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateProject = async (proj: Project) => {
-    const updateData = { ...proj };
+    const updateData = { 
+      ...proj,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
     
     const { data, error } = await supabase.from('Project').update(updateData).eq('id', proj.id).select().single();
     if (error) throw error;
@@ -232,7 +238,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Blogs CRUD
   const addBlog = async (blog: Omit<Blog, 'id'>) => {
-    const newBlog = { id: generateUUID(), ...blog };
+    const newBlog = { 
+      id: generateUUID(), 
+      ...blog,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('Blog').insert([newBlog]).select().single();
     if (error) throw error;
     if (data) {
@@ -241,10 +251,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateBlog = async (blog: Blog) => {
-    const updateData = { ...blog };
+    const updateData = { 
+      ...blog,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('Blog').update(updateData).eq('id', blog.id).select().single();
     if (error) throw error;
@@ -261,7 +273,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Testimonials CRUD
   const addTestimonial = async (test: Omit<Testimonial, 'id'>) => {
-    const newTest = { id: generateUUID(), ...test };
+    const newTest = { 
+      id: generateUUID(), 
+      ...test,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('Testimonial').insert([newTest]).select().single();
     if (error) throw error;
     if (data) {
@@ -270,10 +286,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateTestimonial = async (test: Testimonial) => {
-    const updateData = { ...test };
+    const updateData = { 
+      ...test,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('Testimonial').update(updateData).eq('id', test.id).select().single();
     if (error) throw error;
@@ -290,7 +308,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Services CRUD
   const addService = async (srv: Omit<Service, 'id'>) => {
-    const newSrv = { id: generateUUID(), ...srv };
+    const newSrv = { 
+      id: generateUUID(), 
+      ...srv,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('Service').insert([newSrv]).select().single();
     if (error) throw error;
     if (data) {
@@ -299,10 +321,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateService = async (srv: Service) => {
-    const updateData = { ...srv };
+    const updateData = { 
+      ...srv,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('Service').update(updateData).eq('id', srv.id).select().single();
     if (error) throw error;
@@ -319,7 +343,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Careers CRUD
   const addCareer = async (car: Omit<Career, 'id'>) => {
-    const newCar = { id: generateUUID(), ...car };
+    const newCar = { 
+      id: generateUUID(), 
+      ...car,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('Career').insert([newCar]).select().single();
     if (error) throw error;
     if (data) {
@@ -328,10 +356,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateCareer = async (car: Career) => {
-    const updateData = { ...car };
+    const updateData = { 
+      ...car,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('Career').update(updateData).eq('id', car.id).select().single();
     if (error) throw error;
@@ -348,7 +378,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Team Member CRUD
   const addTeamMember = async (tm: Omit<TeamMember, 'id'>) => {
-    const newTm = { id: generateUUID(), ...tm };
+    const newTm = { 
+      id: generateUUID(), 
+      ...tm,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('TeamMember').insert([newTm]).select().single();
     if (error) throw error;
     if (data) {
@@ -357,10 +391,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateTeamMember = async (tm: TeamMember) => {
-    const updateData = { ...tm };
+    const updateData = { 
+      ...tm,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('TeamMember').update(updateData).eq('id', tm.id).select().single();
     if (error) throw error;
@@ -382,7 +418,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       ...lead,
       date: new Date().toLocaleDateString('en-US'),
       status: 'unread',
-      source: 'web'
+      source: 'web',
+      updatedAt: new Date().toISOString()
     };
     const { error } = await supabase.from('Lead').insert([leadData]);
     if (error) throw error;
@@ -392,7 +429,10 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateLeadStatus = async (id: string, status: 'new' | 'contacted' | 'archived') => {
-    const { data, error } = await supabase.from('Lead').update({ status }).eq('id', id).select().single();
+    const { data, error } = await supabase.from('Lead').update({ 
+      status,
+      updatedAt: new Date().toISOString() 
+    }).eq('id', id).select().single();
     if (error) throw error;
     if (data) {
       setLeads(prev => prev.map(l => l.id === id ? data : l));
@@ -407,10 +447,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // SEO Page Metadata Update
   const updateSeoSettings = async (page: string, seo: Omit<SeoSettings, 'page'>) => {
-    const updateData = { ...seo };
+    const updateData = { 
+      ...seo,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('SeoSettings').update(updateData).eq('page', page).select().single();
     if (error) throw error;
@@ -421,9 +463,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // General Settings Update
   const updateSettings = async (nextSettings: SystemSettings) => {
-    const updateData = { ...nextSettings };
+    const updateData = { 
+      ...nextSettings,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     // Use current ID in state or generate a new UUID if setting row doesn't exist
     const existingId = (settings as any).id || generateUUID();
@@ -442,7 +486,11 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // FAQs CRUD
   const addFaq = async (faq: Omit<FaqItem, 'id'>) => {
-    const newFaq = { id: generateUUID(), ...faq };
+    const newFaq = { 
+      id: generateUUID(), 
+      ...faq,
+      updatedAt: new Date().toISOString()
+    };
     const { data, error } = await supabase.from('FaqItem').insert([newFaq]).select().single();
     if (error) throw error;
     if (data) {
@@ -451,10 +499,12 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const updateFaq = async (faq: FaqItem) => {
-    const updateData = { ...faq };
+    const updateData = { 
+      ...faq,
+      updatedAt: new Date().toISOString()
+    };
     delete (updateData as any).id;
     delete (updateData as any).createdAt;
-    delete (updateData as any).updatedAt;
 
     const { data, error } = await supabase.from('FaqItem').update(updateData).eq('id', faq.id).select().single();
     if (error) throw error;
@@ -477,7 +527,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const { data, error } = await supabase.from('HomeSection').upsert({ 
       id: existingId,
       key, 
-      content 
+      content,
+      updatedAt: new Date().toISOString()
     }).select().single();
     
     if (error) throw error;
@@ -521,7 +572,8 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       url: publicUrl,
       sizeBytes: file.size,
       mimetype: file.type,
-      storageType: 'supabase' as const
+      storageType: 'supabase' as const,
+      updatedAt: new Date().toISOString()
     };
 
     const { data, error } = await supabase.from('MediaItem').insert([mediaItem]).select().single();

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { supabase } from '../utils/supabaseClient';
 
 interface User {
   id: string;
@@ -18,79 +19,93 @@ interface AuthContextProps {
 
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-  ? 'http://localhost:5000/api' 
-  : `http://${window.location.hostname}:5000/api`;
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Check auth session on boot
+  // Helper to map Supabase User model to App User model
+  const mapSupabaseUser = (sbUser: any, session: any): User => {
+    return {
+      id: sbUser.id,
+      name: sbUser.user_metadata?.name || sbUser.email?.split('@')[0] || 'Administrator',
+      email: sbUser.email || '',
+      role: sbUser.user_metadata?.role || 'admin',
+    };
+  };
+
+  // Monitor Auth Changes automatically via Supabase Listener
   useEffect(() => {
-    const checkAuthSession = async () => {
+    const getInitialSession = async () => {
       try {
-        const response = await fetch(`${API_BASE}/auth/me`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include'
-        });
-        const data = await response.json();
-        if (data.success && data.user) {
-          setUser(data.user);
-          // Token is kept in cookie, but we can set a dummy active session token string
-          setToken('session_active');
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) throw error;
+        
+        if (session && session.user) {
+          setUser(mapSupabaseUser(session.user, session));
+          setToken(session.access_token);
         } else {
           setUser(null);
           setToken(null);
         }
-      } catch (e) {
-        setUser(null);
-        setToken(null);
+      } catch (err) {
+        console.error('Failed to restore Supabase session:', err);
       } finally {
         setLoading(false);
       }
     };
-    checkAuthSession();
+
+    getInitialSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && session.user) {
+        setUser(mapSupabaseUser(session.user, session));
+        setToken(session.access_token);
+      } else {
+        setUser(null);
+        setToken(null);
+      }
+      setLoading(false);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const response = await fetch(`${API_BASE}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include'
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password,
       });
 
-      const data = await response.json();
-
-      if (data.success && data.user) {
-        setToken(data.token || 'session_active');
-        setUser(data.user);
-        return true;
-      } else {
-        throw new Error(data.message || 'Login failed.');
+      if (error) {
+        throw new Error(error.message);
       }
+
+      if (data && data.user) {
+        setUser(mapSupabaseUser(data.user, data.session));
+        setToken(data.session?.access_token || null);
+        return true;
+      }
+      
+      throw new Error('Authentication returned an empty session.');
     } catch (error: any) {
-      console.error('Login error:', error.message);
+      console.error('Supabase Login Error:', error.message);
       throw error;
     }
   };
 
   const logout = async () => {
     try {
-      await fetch(`${API_BASE}/auth/logout`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
-      });
-    } catch (e) {
-      console.error('Logout API failure:', e);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch (e: any) {
+      console.error('Logout error:', e.message);
     } finally {
-      setToken(null);
       setUser(null);
+      setToken(null);
       
       window.dispatchEvent(new CustomEvent('show-toast', {
         detail: { message: 'Logged out successfully.', type: 'info' }

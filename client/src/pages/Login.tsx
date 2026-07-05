@@ -37,7 +37,18 @@ export default function Login() {
         navigate('/admin');
       }
     } catch (err: any) {
-      setErrorMsg(err.message || 'Authentication failed. Please check credentials.');
+      const message = err.message || '';
+      if (message.includes('Invalid API key') || message.includes('API key') || message.includes('apiKey')) {
+        setErrorMsg('Configuration error: The Supabase API key is invalid. Please verify VITE_SUPABASE_ANON_KEY in client/.env.');
+      } else if (message.includes('Failed to fetch') || message.includes('fetch')) {
+        setErrorMsg('Network error: Unable to connect to Supabase authentication server. Please check your internet connection.');
+      } else if (message.includes('Invalid login credentials')) {
+        setErrorMsg('Invalid email or password. Please verify your credentials.');
+      } else if (message.includes('Email not confirmed')) {
+        setErrorMsg('Your email address has not been confirmed yet. Please check your email inbox to verify your account.');
+      } else {
+        setErrorMsg(message || 'An error occurred during authentication. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }

@@ -36,6 +36,11 @@ function AppRoutes() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
 
+  // Reset scroll position to top on every route change
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <>
       {!isAdmin && <Navbar />}

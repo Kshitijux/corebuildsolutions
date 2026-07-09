@@ -2,14 +2,16 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowLeft, ArrowUpRight, User, BookOpen } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import { useAuth } from '../context/AuthContext';
 import SEO from '../components/SEO';
 
 export default function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { blogs } = useDatabase();
+  const { user } = useAuth();
 
-  const post = blogs.find(b => b.id === id);
+  const post = blogs.find(b => b.slug === id || b.id === id);
 
   if (!post) {
     return (
@@ -28,6 +30,25 @@ export default function BlogDetail() {
     );
   }
 
+  // Draft protection: hide drafts from non-administrators
+  const isAdmin = user && (user.role === 'admin' || user.role === 'super_admin');
+  if (post.published === false && !isAdmin) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 gap-6 pt-24 pb-20">
+        <h1 className="font-heading text-4xl font-extrabold text-red-500">Draft Access Restricted</h1>
+        <p className="text-sm text-slate-500 max-w-sm text-center">
+          The requested engineering article or system architecture document is currently in draft state and cannot be accessed.
+        </p>
+        <Link 
+          to="/blog" 
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-semibold text-xs uppercase tracking-wider shadow-md transition-colors"
+        >
+          Return to Blog Directory
+        </Link>
+      </div>
+    );
+  }
+
   // Related posts (excluding current post)
   const relatedPosts = blogs.filter(b => b.id !== post.id).slice(0, 2);
 
@@ -35,7 +56,7 @@ export default function BlogDetail() {
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "@id": `https://corebuildsolutions.in/blog/${post.id}#blogposting`,
+    "@id": `https://corebuildsolutions.in/blog/${post.slug || post.id}#blogposting`,
     "headline": post.title,
     "description": post.summary,
     "image": post.image,
@@ -55,7 +76,7 @@ export default function BlogDetail() {
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://corebuildsolutions.in/blog/${post.id}`
+      "@id": `https://corebuildsolutions.in/blog/${post.slug || post.id}`
     },
     "articleBody": post.content
   };
@@ -80,7 +101,7 @@ export default function BlogDetail() {
         "@type": "ListItem",
         "position": 3,
         "name": post.title,
-        "item": `https://corebuildsolutions.in/blog/${post.id}`
+        "item": `https://corebuildsolutions.in/blog/${post.slug || post.id}`
       }
     ]
   };
@@ -145,9 +166,9 @@ export default function BlogDetail() {
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
       <SEO 
-        title={`${post.title} | CoreBuild Solutions Blog`}
-        description={post.summary}
-        keywords={post.tags}
+        title={post.metaTitle || `${post.title} | CoreBuild Solutions Blog`}
+        description={post.metaDescription || post.summary}
+        keywords={post.keywords || (post.tags || []).join(', ')}
         image={post.image}
         type="article"
         schema={[blogPostingSchema, breadcrumbSchema]}
@@ -233,7 +254,7 @@ export default function BlogDetail() {
               {relatedPosts.map(related => (
                 <div
                   key={related.id}
-                  onClick={() => navigate(`/blog/${related.id}`)}
+                  onClick={() => navigate(`/blog/${related.slug || related.id}`)}
                   className="glass-card rounded-2xl p-5 border border-slate-200 dark:border-slate-900 hover:border-blue-500/20 cursor-pointer flex flex-col justify-between group"
                 >
                   <div className="flex flex-col gap-3">

@@ -37,6 +37,11 @@ export interface Blog {
   author: string;
   readTime: string;
   tags: string[];
+  published?: boolean;
+  slug?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
 }
 
 export interface Testimonial {

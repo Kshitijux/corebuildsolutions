@@ -9,6 +9,9 @@ export default function Blog() {
   const navigate = useNavigate();
   const { blogs, seoSettings } = useDatabase();
   const [activeCategory, setActiveCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
 
   // Dynamic SEO from database
   const blogSeo = seoSettings.find(s => s.page === 'blog') || {
@@ -36,19 +39,36 @@ export default function Blog() {
     ]
   };
 
-  // Distinct Categories list
-  const categories = ['All', ...Array.from(new Set(blogs.map(b => b.category)))];
+  // Only display published blog posts
+  const publishedBlogs = blogs.filter(b => b.published !== false);
 
-  // Filter posts
-  const filteredBlogs = activeCategory === 'All'
-    ? blogs
-    : blogs.filter(b => b.category === activeCategory);
+  // Distinct Categories list based on published posts
+  const categories = ['All', ...Array.from(new Set(publishedBlogs.map(b => b.category)))];
 
-  // Set the first blog in the array as Featured, the rest in the list
-  const featuredPost = blogs[0];
-  const gridBlogs = activeCategory === 'All' 
+  // Filter posts by category and search query
+  const filteredBlogs = publishedBlogs.filter(b => {
+    const matchesCategory = activeCategory === 'All' || b.category === activeCategory;
+    const matchesSearch = searchQuery === '' || 
+      b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      b.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      b.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (b.tags && b.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
+    return matchesCategory && matchesSearch;
+  });
+
+  // Set the first blog in the array as Featured, the rest in the list (only under default view)
+  const isDefaultView = activeCategory === 'All' && searchQuery === '';
+  const featuredPost = isDefaultView ? filteredBlogs[0] : null;
+  const gridBlogs = featuredPost 
     ? filteredBlogs.slice(1) 
     : filteredBlogs;
+
+  // Paginated grid blogs
+  const totalPages = Math.ceil(gridBlogs.length / postsPerPage) || 1;
+  const paginatedGridBlogs = gridBlogs.slice(
+    (currentPage - 1) * postsPerPage,
+    currentPage * postsPerPage
+  );
 
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
@@ -83,10 +103,10 @@ export default function Blog() {
         </div>
 
         {/* ==========================================
-            FEATURED POST SECTION (Only on 'All')
+            FEATURED POST SECTION (Only on 'All' and no search query)
            ========================================== */}
-        {activeCategory === 'All' && featuredPost && (
-          <div className="mb-20">
+        {featuredPost && (
+          <div className="mb-16">
             <h2 className="font-heading text-xs font-semibold uppercase tracking-wider text-slate-400 mb-6 text-left">
               Featured Case Study & Blueprint
             </h2>
@@ -95,7 +115,7 @@ export default function Blog() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              onClick={() => navigate(`/blog/${featuredPost.id}`)}
+              onClick={() => navigate(`/blog/${featuredPost.slug || featuredPost.id}`)}
               className="glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-900 hover:border-blue-500/20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch cursor-pointer group"
             >
               {/* Media layout (span 7) */}
@@ -150,13 +170,48 @@ export default function Blog() {
         )}
 
         {/* ==========================================
+            SEARCH BAR
+           ========================================== */}
+        <div className="max-w-md mx-auto mb-8 relative">
+          <input
+            type="text"
+            placeholder="Search insights by title, summary, tags..."
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full px-5 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl text-xs focus:outline-none focus:border-blue-500 text-slate-900 dark:text-white shadow-md shadow-blue-500/5 transition-all pl-10"
+          />
+          <span className="absolute left-3.5 top-3.5 text-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </span>
+          {searchQuery && (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setCurrentPage(1);
+              }}
+              className="absolute right-3.5 top-3 px-2 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[10px] rounded text-slate-450 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+
+        {/* ==========================================
             FILTER TABS
            ========================================== */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12 border-b border-slate-200 dark:border-slate-900 pb-6">
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => {
+                setActiveCategory(cat);
+                setCurrentPage(1);
+              }}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === cat
                   ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-md'
@@ -171,72 +226,105 @@ export default function Blog() {
         {/* ==========================================
             BLOG LIST GRID
            ========================================== */}
-        {gridBlogs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {gridBlogs.map((blog) => (
-                <motion.div
-                  layout
-                  key={blog.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
-                  onClick={() => navigate(`/blog/${blog.id}`)}
-                  className="glass-card rounded-3xl overflow-hidden text-left flex flex-col justify-between group border border-slate-200 dark:border-slate-900 hover:border-blue-500/20 cursor-pointer"
-                >
-                  
-                  {/* Media banner */}
-                  <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
-                    <img
-                      src={blog.image}
-                      alt={`Article - ${blog.title}`}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-[0.16,1,0.3,1]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-slate-950/70 border border-white/10 backdrop-blur-sm rounded-full text-[9px] text-white tracking-widest font-semibold uppercase">
-                      {blog.category}
-                    </div>
-                  </div>
-
-                  {/* Body details */}
-                  <div className="p-6 flex flex-col justify-between flex-grow">
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
-                        <span>{blog.date}</span>
-                        <span>&bull;</span>
-                        <span>{blog.readTime}</span>
-                      </div>
-
-                      <h3 className="font-heading text-lg font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors line-clamp-2">
-                        {blog.title}
-                      </h3>
-
-                      <p className="text-xs text-slate-605 dark:text-slate-400 leading-relaxed line-clamp-3">
-                        {blog.summary}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-4 mt-6">
-                      <div className="h-[1px] bg-slate-200 dark:bg-slate-800 w-full" />
-                      
-                      <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
-                        <span className="text-slate-700 dark:text-slate-300 truncate max-w-[120px]">{blog.author}</span>
-                        <span className="inline-flex items-center gap-0.5 text-blue-600 dark:text-blue-400 uppercase tracking-wider group-hover:translate-x-0.5 transition-transform text-[10px]">
-                          View Post <ArrowUpRight size={12} />
-                        </span>
+        {paginatedGridBlogs.length > 0 ? (
+          <div className="flex flex-col gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <AnimatePresence mode="popLayout">
+                {paginatedGridBlogs.map((blog) => (
+                  <motion.div
+                    layout
+                    key={blog.id}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5 }}
+                    onClick={() => navigate(`/blog/${blog.slug || blog.id}`)}
+                    className="glass-card rounded-3xl overflow-hidden text-left flex flex-col justify-between group border border-slate-200 dark:border-slate-900 hover:border-blue-500/20 cursor-pointer"
+                  >
+                    
+                    {/* Media banner */}
+                    <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
+                      <img
+                        src={blog.image}
+                        alt={`Article - ${blog.title}`}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-[0.16,1,0.3,1]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-slate-950/70 border border-white/10 backdrop-blur-sm rounded-full text-[9px] text-white tracking-widest font-semibold uppercase">
+                        {blog.category}
                       </div>
                     </div>
-                  </div>
 
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                    {/* Body details */}
+                    <div className="p-6 flex flex-col justify-between flex-grow">
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                          <span>{blog.date}</span>
+                          <span>&bull;</span>
+                          <span>{blog.readTime}</span>
+                        </div>
+
+                        <h3 className="font-heading text-lg font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors line-clamp-2">
+                          {blog.title}
+                        </h3>
+
+                        <p className="text-xs text-slate-605 dark:text-slate-400 leading-relaxed line-clamp-3">
+                          {blog.summary}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col gap-4 mt-6">
+                        <div className="h-[1px] bg-slate-200 dark:bg-slate-800 w-full" />
+                        
+                        <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
+                          <span className="text-slate-700 dark:text-slate-300 truncate max-w-[120px]">{blog.author}</span>
+                          <span className="inline-flex items-center gap-0.5 text-blue-600 dark:text-blue-400 uppercase tracking-wider group-hover:translate-x-0.5 transition-transform text-[10px]">
+                            View Post <ArrowUpRight size={12} />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between mt-4 border-t border-slate-200 dark:border-slate-900 pt-6">
+                <span className="text-xs text-slate-500">
+                  Showing page {currentPage} of {totalPages}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    disabled={currentPage === 1}
+                    onClick={() => {
+                      setCurrentPage(prev => Math.max(prev - 1, 1));
+                      window.scrollTo({ top: 300, behavior: 'smooth' });
+                    }}
+                    className="px-4 py-2 bg-slate-200 dark:bg-slate-900 hover:bg-slate-300 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-slate-200 dark:disabled:hover:bg-slate-900 text-slate-800 dark:text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition-colors disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    disabled={currentPage === totalPages}
+                    onClick={() => {
+                      setCurrentPage(prev => Math.min(prev + 1, totalPages));
+                      window.scrollTo({ top: 300, behavior: 'smooth' });
+                    }}
+                    className="px-4 py-2 bg-slate-205 dark:bg-slate-900 hover:bg-slate-300 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-slate-200 dark:disabled:hover:bg-slate-900 text-slate-800 dark:text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition-colors disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="py-20 text-center text-slate-400">
-            No articles found matching this filter category.
+            No articles found matching your search options.
           </div>
         )}
 

@@ -25,6 +25,16 @@ import {
 } from 'lucide-react';
 import { Project, Blog, Testimonial, Service, Career, Lead, SeoSettings, SystemSettings, FaqItem, HomeSection } from '../types';
 
+const slugify = (text: string) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-');
+};
+
 export default function Admin() {
   const db = useDatabase();
   const { user } = useAuth();
@@ -63,8 +73,13 @@ export default function Admin() {
 
   // Blog Form State
   const [blogForm, setBlogForm] = useState<Omit<Blog, 'id' | 'date'>>({
-    title: '', category: '', summary: '', content: '', image: '', author: '', readTime: '', tags: []
+    title: '', category: 'Technology', summary: '', content: '', image: '', author: '', readTime: '5 min read', tags: [],
+    published: true, slug: '', metaTitle: '', metaDescription: '', keywords: ''
   });
+
+  const [blogSearch, setBlogSearch] = useState('');
+  const [blogCmsPage, setBlogCmsPage] = useState(1);
+  const blogsPerPage = 8;
 
   // Testimonial Form State
   const [testForm, setTestForm] = useState<Omit<Testimonial, 'id'>>({
@@ -432,7 +447,8 @@ export default function Admin() {
       setBlogForm({
         title: '', category: 'Technology', summary: '', content: '',
         image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80',
-        author: user?.name || 'Administrator', readTime: '5 min read', tags: ['AI']
+        author: user?.name || 'Administrator', readTime: '5 min read', tags: ['AI'],
+        published: true, slug: '', metaTitle: '', metaDescription: '', keywords: ''
       });
     } else if (type === 'testimonial') {
       setTestForm({
@@ -460,7 +476,23 @@ export default function Admin() {
       if (match) setProjForm({ ...match });
     } else if (type === 'blog') {
       const match = db.blogs.find(b => b.id === id);
-      if (match) setBlogForm({ ...match });
+      if (match) {
+        setBlogForm({
+          title: match.title || '',
+          category: match.category || 'Technology',
+          summary: match.summary || '',
+          content: match.content || '',
+          image: match.image || '',
+          author: match.author || '',
+          readTime: match.readTime || '',
+          tags: match.tags || [],
+          published: match.published ?? true,
+          slug: match.slug || '',
+          metaTitle: match.metaTitle || '',
+          metaDescription: match.metaDescription || '',
+          keywords: match.keywords || ''
+        });
+      }
     } else if (type === 'testimonial') {
       const match = db.testimonials.find(t => t.id === id);
       if (match) setTestForm({ ...match });
@@ -931,43 +963,121 @@ export default function Admin() {
               </button>
             </div>
 
-            <div className="border border-slate-800 rounded-2xl overflow-hidden bg-slate-950/50">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 uppercase font-semibold border-b border-slate-800">
-                  <tr>
-                    <th className="px-6 py-4">Title</th>
-                    <th className="px-6 py-4">Category</th>
-                    <th className="px-6 py-4">Author</th>
-                    <th className="px-6 py-4">Date</th>
-                    <th className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800">
-                  {db.blogs.map((blog) => (
-                    <tr key={blog.id} className="hover:bg-slate-900/50">
-                      <td className="px-6 py-4 font-bold text-white max-w-xs truncate">{blog.title}</td>
-                      <td className="px-6 py-4 text-slate-300 font-semibold uppercase text-[10px]">{blog.category}</td>
-                      <td className="px-6 py-4 text-slate-400">{blog.author}</td>
-                      <td className="px-6 py-4 text-slate-400">{blog.date}</td>
-                      <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+            {/* Search, Filter & Paging calculations */}
+            {(() => {
+              const filteredCmsBlogs = db.blogs.filter(b => 
+                b.title.toLowerCase().includes(blogSearch.toLowerCase()) || 
+                b.category.toLowerCase().includes(blogSearch.toLowerCase()) ||
+                b.author.toLowerCase().includes(blogSearch.toLowerCase()) ||
+                (b.tags && b.tags.some(t => t.toLowerCase().includes(blogSearch.toLowerCase())))
+              );
+              
+              const totalCmsPages = Math.ceil(filteredCmsBlogs.length / blogsPerPage) || 1;
+              const paginatedCmsBlogs = filteredCmsBlogs.slice(
+                (blogCmsPage - 1) * blogsPerPage,
+                blogCmsPage * blogsPerPage
+              );
+              
+              return (
+                <>
+                  {/* Search Bar Input */}
+                  <div className="flex gap-4 items-center">
+                    <input
+                      type="text"
+                      placeholder="Search articles by title, author, category, or tags..."
+                      value={blogSearch}
+                      onChange={(e) => {
+                        setBlogSearch(e.target.value);
+                        setBlogCmsPage(1); // reset to page 1 on search
+                      }}
+                      className="flex-1 px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white"
+                    />
+                  </div>
+
+                  <div className="border border-slate-800 rounded-2xl overflow-hidden bg-slate-950/50">
+                    <table className="w-full text-left text-xs">
+                      <thead className="bg-slate-950 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                        <tr>
+                          <th className="px-6 py-4">Title</th>
+                          <th className="px-6 py-4">Category</th>
+                          <th className="px-6 py-4">Author</th>
+                          <th className="px-6 py-4">Status</th>
+                          <th className="px-6 py-4">Date</th>
+                          <th className="px-6 py-4 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800">
+                        {paginatedCmsBlogs.map((blog) => (
+                          <tr key={blog.id} className="hover:bg-slate-900/50">
+                            <td className="px-6 py-4 font-bold text-white max-w-xs truncate">{blog.title}</td>
+                            <td className="px-6 py-4 text-slate-300 font-semibold uppercase text-[10px]">{blog.category}</td>
+                            <td className="px-6 py-4 text-slate-400">{blog.author}</td>
+                            <td className="px-6 py-4">
+                              {blog.published ?? true ? (
+                                <span className="inline-flex items-center px-2 py-0.5 bg-green-500/10 text-green-400 border border-green-500/20 text-[9px] font-bold rounded-full uppercase tracking-wider">
+                                  Published
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center px-2 py-0.5 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 text-[9px] font-bold rounded-full uppercase tracking-wider">
+                                  Draft
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-6 py-4 text-slate-400">{blog.date}</td>
+                            <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                              <button
+                                onClick={() => openEditModal('blog', blog.id)}
+                                className="p-1.5 hover:bg-slate-800 rounded text-slate-400 hover:text-white cursor-pointer"
+                              >
+                                <Edit2 size={14} />
+                              </button>
+                              <button
+                                onClick={() => handleDelete('blog', blog.id)}
+                                className="p-1.5 hover:bg-slate-800 rounded text-slate-400 hover:text-red-500 cursor-pointer"
+                              >
+                                <Trash2 size={14} />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                        {paginatedCmsBlogs.length === 0 && (
+                          <tr>
+                            <td colSpan={6} className="px-6 py-8 text-center text-slate-500 italic">
+                              No blog posts found matching current filters.
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Pagination Controls */}
+                  {totalCmsPages > 1 && (
+                    <div className="flex items-center justify-between mt-2 px-2">
+                      <span className="text-[10px] text-slate-400 font-medium">
+                        Showing page {blogCmsPage} of {totalCmsPages} ({filteredCmsBlogs.length} articles)
+                      </span>
+                      <div className="flex gap-2">
                         <button
-                          onClick={() => openEditModal('blog', blog.id)}
-                          className="p-1.5 hover:bg-slate-800 rounded text-slate-400 hover:text-white"
+                          disabled={blogCmsPage === 1}
+                          onClick={() => setBlogCmsPage(prev => Math.max(prev - 1, 1))}
+                          className="px-3 py-1.5 bg-slate-900 border border-slate-850 hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-slate-900 text-white rounded-lg text-[10px] font-semibold uppercase tracking-wider transition-colors disabled:cursor-not-allowed cursor-pointer"
                         >
-                          <Edit2 size={14} />
+                          Prev
                         </button>
                         <button
-                          onClick={() => handleDelete('blog', blog.id)}
-                          className="p-1.5 hover:bg-slate-800 rounded text-slate-400 hover:text-red-500"
+                          disabled={blogCmsPage === totalCmsPages}
+                          onClick={() => setBlogCmsPage(prev => Math.min(prev + 1, totalCmsPages))}
+                          className="px-3 py-1.5 bg-slate-900 border border-slate-850 hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-slate-900 text-white rounded-lg text-[10px] font-semibold uppercase tracking-wider transition-colors disabled:cursor-not-allowed cursor-pointer"
                         >
-                          <Trash2 size={14} />
+                          Next
                         </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         )}
 
@@ -2325,7 +2435,14 @@ export default function Admin() {
                     <label className="text-[10px] text-slate-500 uppercase font-semibold">Title</label>
                     <input
                       type="text" required value={blogForm.title}
-                      onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })}
+                      onChange={(e) => {
+                        const newTitle = e.target.value;
+                        setBlogForm(prev => ({
+                          ...prev,
+                          title: newTitle,
+                          slug: modalMode === 'add' ? slugify(newTitle) : prev.slug
+                        }));
+                      }}
                       className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white"
                     />
                   </div>
@@ -2380,7 +2497,6 @@ export default function Admin() {
                         />
                       </div>
                     </div>
-
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -2402,6 +2518,40 @@ export default function Admin() {
                     </div>
                   </div>
 
+                  {/* Dynamic Tags Manager */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[10px] text-slate-500 uppercase font-semibold">Tags (Press Enter to add)</label>
+                    <div className="flex flex-wrap gap-1.5 p-2 bg-slate-900 border border-slate-850 rounded-xl min-h-[40px] items-center">
+                      {(blogForm.tags || []).map((t, idx) => (
+                        <span key={idx} className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-600/10 text-blue-400 border border-blue-500/20 text-[10px] uppercase tracking-wide font-semibold rounded-md">
+                          {t}
+                          <button
+                            type="button"
+                            onClick={() => setBlogForm(prev => ({ ...prev, tags: prev.tags.filter(tag => tag !== t) }))}
+                            className="hover:text-red-500 font-bold ml-0.5 focus:outline-none cursor-pointer"
+                          >
+                            &times;
+                          </button>
+                        </span>
+                      ))}
+                      <input
+                        type="text"
+                        placeholder="Add tag..."
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            const val = e.currentTarget.value.trim().toLowerCase();
+                            if (val && !blogForm.tags.includes(val)) {
+                              setBlogForm(prev => ({ ...prev, tags: [...prev.tags, val] }));
+                              e.currentTarget.value = '';
+                            }
+                          }
+                        }}
+                        className="flex-1 bg-transparent text-xs text-white focus:outline-none min-w-[80px] p-0.5"
+                      />
+                    </div>
+                  </div>
+
                   <div className="flex flex-col gap-1">
                     <label className="text-[10px] text-slate-500 uppercase font-semibold">Short Summary</label>
                     <input
@@ -2411,13 +2561,124 @@ export default function Admin() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[10px] text-slate-500 uppercase font-semibold">Detailed markdown/text Content</label>
-                    <textarea
-                      rows={6} required value={blogForm.content}
-                      onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
-                      className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white resize-none"
+                  {/* Draft/Publish Status Toggle */}
+                  <div className="flex items-center gap-2.5 p-3 bg-slate-900/50 border border-slate-850 rounded-xl">
+                    <input
+                      type="checkbox"
+                      id="published"
+                      checked={blogForm.published ?? true}
+                      onChange={(e) => setBlogForm(prev => ({ ...prev, published: e.target.checked }))}
+                      className="w-4 h-4 rounded border-slate-800 bg-slate-900 text-blue-600 focus:ring-blue-500 cursor-pointer"
                     />
+                    <div className="flex flex-col text-left">
+                      <label htmlFor="published" className="text-xs text-white font-bold select-none cursor-pointer">Publish Article</label>
+                      <span className="text-[9px] text-slate-500">Drafts are hidden from the public blog directory and direct search indexing.</span>
+                    </div>
+                  </div>
+
+                  {/* SEO Metadata Settings */}
+                  <div className="border border-slate-850 bg-slate-950/30 rounded-2xl p-4 flex flex-col gap-4">
+                    <h4 className="font-heading text-xs font-extrabold tracking-wide uppercase text-blue-500 border-b border-slate-850 pb-2 flex items-center justify-between">
+                      SEO Optimization Panel
+                      <span className="text-[9px] font-normal text-slate-500 capitalize">Custom Search Engine Meta</span>
+                    </h4>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] text-slate-500 uppercase font-semibold font-mono">SEO URL Slug</label>
+                        <input
+                          type="text" required value={blogForm.slug || ''}
+                          onChange={(e) => setBlogForm(prev => ({ ...prev, slug: slugify(e.target.value) }))}
+                          className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white font-mono"
+                          placeholder="e.g. why-every-startup-needs-a-website"
+                        />
+                      </div>
+                      
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] text-slate-500 uppercase font-semibold">SEO Meta Title</label>
+                        <input
+                          type="text" value={blogForm.metaTitle || ''}
+                          onChange={(e) => setBlogForm(prev => ({ ...prev, metaTitle: e.target.value }))}
+                          className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white"
+                          placeholder="If blank, defaults to main title"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">SEO Target Keywords (comma separated)</label>
+                      <input
+                        type="text" value={blogForm.keywords || ''}
+                        onChange={(e) => setBlogForm(prev => ({ ...prev, keywords: e.target.value }))}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white"
+                        placeholder="e.g. nextjs development, startups, cost, seo ranking"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">SEO Meta Description</label>
+                      <textarea
+                        rows={2} value={blogForm.metaDescription || ''}
+                        onChange={(e) => setBlogForm(prev => ({ ...prev, metaDescription: e.target.value }))}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white resize-none"
+                        placeholder="A concise, keyword-rich article description (150-160 characters)"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Beautiful Markdown Writer with Live Preview */}
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">Detailed Article Body (Markdown supported)</label>
+                      <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wide font-bold">
+                        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-blue-500">Editor</span>
+                        <span className="text-slate-600">&bull;</span>
+                        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-green-500">Live Preview</span>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch min-h-[300px]">
+                      {/* Editor side */}
+                      <textarea
+                        rows={14}
+                        required
+                        value={blogForm.content}
+                        onChange={(e) => setBlogForm(prev => ({ ...prev, content: e.target.value }))}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white font-mono leading-relaxed resize-y w-full h-full min-h-[250px]"
+                        placeholder="Write your article body in Markdown format..."
+                      />
+                      
+                      {/* Live Preview side */}
+                      <div className="p-3 bg-slate-950 border border-slate-850 rounded-xl text-xs overflow-y-auto max-h-[300px] text-left leading-relaxed text-slate-350">
+                        {blogForm.content ? (
+                          blogForm.content.split('\n\n').map((paragraph, index) => {
+                            const trimmed = paragraph.trim();
+                            if (trimmed.startsWith('### ')) {
+                              return <h4 key={index} className="text-sm font-bold text-white mt-4 mb-2">{trimmed.replace('### ', '')}</h4>;
+                            }
+                            if (trimmed.startsWith('## ')) {
+                              return <h3 key={index} className="text-base font-extrabold text-white mt-5 mb-2">{trimmed.replace('## ', '')}</h3>;
+                            }
+                            if (trimmed.startsWith('# ')) {
+                              return <h2 key={index} className="text-lg font-black text-white mt-6 mb-3 border-b border-slate-800 pb-1">{trimmed.replace('# ', '')}</h2>;
+                            }
+                            if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                              const items = trimmed.split(/\n[-*]\s+/);
+                              return (
+                                <ul key={index} className="list-disc pl-5 my-2 space-y-1">
+                                  {items.map((item, iIdx) => (
+                                    <li key={iIdx}>{item.replace(/^[-*]\s+/, '')}</li>
+                                  ))}
+                                </ul>
+                              );
+                            }
+                            return <p key={index} className="mb-3 whitespace-pre-line">{trimmed}</p>;
+                          })
+                        ) : (
+                          <span className="text-slate-500 italic">No content written yet. Markdown elements will render here in real-time.</span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </>
               )}

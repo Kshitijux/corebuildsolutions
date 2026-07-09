@@ -161,7 +161,23 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       ]);
 
       if (resProj.data && resProj.data.length > 0) setProjects(resProj.data.map(mapProjectFromDB));
-      if (resBlogs.data && resBlogs.data.length > 0) setBlogs(resBlogs.data);
+      
+      // Merge local storage blogs with Supabase/fallback blogs to preserve custom fields (published, SEO, slugs)
+      const localBlogsRaw = localStorage.getItem("core_blogs");
+      const localBlogs: Blog[] = localBlogsRaw ? JSON.parse(localBlogsRaw) : [];
+      let finalBlogs = resBlogs.data && resBlogs.data.length > 0 ? resBlogs.data : fallbackBlogs;
+      
+      const mergedBlogs = [...finalBlogs];
+      localBlogs.forEach((lb: Blog) => {
+        const idx = mergedBlogs.findIndex(b => b.id === lb.id);
+        if (idx !== -1) {
+          mergedBlogs[idx] = { ...mergedBlogs[idx], ...lb };
+        } else {
+          mergedBlogs.unshift(lb);
+        }
+      });
+      setBlogs(mergedBlogs);
+
       if (resTest.data && resTest.data.length > 0) setTestimonials(resTest.data);
       if (resSrv.data && resSrv.data.length > 0) setServices(resSrv.data);
       if (resCar.data && resCar.data.length > 0) setCareers(resCar.data);
@@ -267,10 +283,26 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       ...blog,
       updatedAt: new Date().toISOString()
     };
-    const { data, error } = await supabase.from('Blog').insert([newBlog]).select().single();
-    if (error) throw error;
-    if (data) {
-      setBlogs(prev => [data, ...prev]);
+    
+    let savedInDb = false;
+    try {
+      const { data, error } = await supabase.from('Blog').insert([newBlog]).select().single();
+      if (!error && data) {
+        setBlogs(prev => [data, ...prev]);
+        savedInDb = true;
+      }
+    } catch (e) {
+      console.warn("Supabase blog insert failed, falling back to local sync.", e);
+    }
+    
+    // Always persist to local storage to preserve custom draft status and SEO tags
+    const localBlogsRaw = localStorage.getItem("core_blogs");
+    const localBlogs: Blog[] = localBlogsRaw ? JSON.parse(localBlogsRaw) : [];
+    localBlogs.unshift(newBlog as Blog);
+    localStorage.setItem("core_blogs", JSON.stringify(localBlogs));
+    
+    if (!savedInDb) {
+      setBlogs(prev => [newBlog as Blog, ...prev]);
     }
   };
 
@@ -279,19 +311,51 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       ...blog,
       updatedAt: new Date().toISOString()
     };
-    delete (updateData as any).id;
-    delete (updateData as any).createdAt;
-
-    const { data, error } = await supabase.from('Blog').update(updateData).eq('id', blog.id).select().single();
-    if (error) throw error;
-    if (data) {
-      setBlogs(prev => prev.map(b => b.id === blog.id ? data : b));
+    
+    let savedInDb = false;
+    try {
+      const supabaseData = { ...updateData };
+      delete (supabaseData as any).id;
+      delete (supabaseData as any).createdAt;
+      
+      const { data, error } = await supabase.from('Blog').update(supabaseData).eq('id', blog.id).select().single();
+      if (!error && data) {
+        setBlogs(prev => prev.map(b => b.id === blog.id ? data : b));
+        savedInDb = true;
+      }
+    } catch (e) {
+      console.warn("Supabase blog update failed, falling back to local sync.", e);
+    }
+    
+    const localBlogsRaw = localStorage.getItem("core_blogs");
+    const localBlogs: Blog[] = localBlogsRaw ? JSON.parse(localBlogsRaw) : [];
+    const idx = localBlogs.findIndex(b => b.id === blog.id);
+    if (idx !== -1) {
+      localBlogs[idx] = updateData;
+    } else {
+      localBlogs.push(updateData);
+    }
+    localStorage.setItem("core_blogs", JSON.stringify(localBlogs));
+    
+    if (!savedInDb) {
+      setBlogs(prev => prev.map(b => b.id === blog.id ? updateData : b));
     }
   };
 
   const deleteBlog = async (id: string) => {
-    const { error } = await supabase.from('Blog').delete().eq('id', id);
-    if (error) throw error;
+    try {
+      await supabase.from('Blog').delete().eq('id', id);
+    } catch (e) {
+      console.warn("Supabase blog delete failed, falling back to local sync.", e);
+    }
+    
+    const localBlogsRaw = localStorage.getItem("core_blogs");
+    if (localBlogsRaw) {
+      const localBlogs: Blog[] = JSON.parse(localBlogsRaw);
+      const filtered = localBlogs.filter(b => b.id !== id);
+      localStorage.setItem("core_blogs", JSON.stringify(filtered));
+    }
+    
     setBlogs(prev => prev.filter(b => b.id !== id));
   };
 

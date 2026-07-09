@@ -322,10 +322,14 @@ export default function Contact() {
                         onChange={(e) => setFormService(e.target.value)}
                         className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
                       >
-                        <option>Custom Web Applications</option>
+                        <option>Web Development</option>
                         <option>Mobile App Development</option>
-                        <option>AI & Machine Learning Systems</option>
-                        <option>UI/UX Design or Brand Audits</option>
+                        <option>E-commerce Development</option>
+                        <option>UI/UX Interface Design</option>
+                        <option>Branding & Logo Design</option>
+                        <option>SEO Optimization</option>
+                        <option>AI & Machine Learning</option>
+                        <option>Custom Enterprise Software</option>
                       </select>
                     </div>
                   </div>

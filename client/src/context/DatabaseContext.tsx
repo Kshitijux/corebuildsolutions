@@ -216,7 +216,19 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (resTest.data && resTest.data.length > 0) setTestimonials(resTest.data);
       if (resSrv.data && resSrv.data.length > 0) setServices(resSrv.data);
       if (resCar.data && resCar.data.length > 0) setCareers(resCar.data);
-      if (resTeam.data && resTeam.data.length > 0) setTeam(resTeam.data);
+      if (resTeam.data && resTeam.data.length > 0) {
+        const cleanedTeam = resTeam.data.map(tm => {
+          if (tm.id === 'team-1' || tm.name === 'Kshitij Tiwari') {
+            return {
+              ...tm,
+              bio: tm.bio ? tm.bio.replace('15 years', '5 years') : '',
+              experience: '5+ Years'
+            };
+          }
+          return tm;
+        });
+        setTeam(cleanedTeam);
+      }
       if (resSeo.data && resSeo.data.length > 0) setSeoSettings(resSeo.data);
       if (resSet.data) setSettings(resSet.data);
       if (resFaq.data && resFaq.data.length > 0) setFaqs(resFaq.data);

@@ -248,7 +248,7 @@ export default function Contact() {
                       <input
                         type="text"
                         required
-                        placeholder="Sarah Jenkins"
+                        placeholder="Aarav Mehta"
                         value={formName}
                         onChange={(e) => setFormName(e.target.value)}
                         className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
@@ -259,7 +259,7 @@ export default function Contact() {
                       <input
                         type="email"
                         required
-                        placeholder="s.jenkins@apex.com"
+                        placeholder="aarav.mehta@gmail.com"
                         value={formEmail}
                         onChange={(e) => setFormEmail(e.target.value)}
                         className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
@@ -283,7 +283,7 @@ export default function Contact() {
                       <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">Company (Optional)</label>
                       <input
                         type="text"
-                        placeholder="Apex Group Ltd"
+                        placeholder="Reliance Industries"
                         value={formCompany}
                         onChange={(e) => setFormCompany(e.target.value)}
                         className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
@@ -460,7 +460,7 @@ export default function Contact() {
                           <input
                             type="text"
                             required
-                            placeholder=" Sarah Jenkins"
+                            placeholder="Aarav Mehta"
                             value={bookName}
                             onChange={(e) => setBookName(e.target.value)}
                             className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
@@ -472,7 +472,7 @@ export default function Contact() {
                           <input
                             type="email"
                             required
-                            placeholder="s.jenkins@company.com"
+                            placeholder="aarav.mehta@gmail.com"
                             value={bookEmail}
                             onChange={(e) => setBookEmail(e.target.value)}
                             className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"

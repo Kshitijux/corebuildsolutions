@@ -198,7 +198,7 @@ export default function LeadCapture() {
                     <input
                       type="text"
                       required
-                      placeholder="Your Name"
+                      placeholder="e.g. Rahul Sharma"
                       value={exitFormName}
                       onChange={(e) => setExitFormName(e.target.value)}
                       className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
@@ -206,7 +206,7 @@ export default function LeadCapture() {
                     <input
                       type="email"
                       required
-                      placeholder="business@company.com"
+                      placeholder="rahul.sharma@gmail.com"
                       value={exitFormEmail}
                       onChange={(e) => setExitFormEmail(e.target.value)}
                       className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"

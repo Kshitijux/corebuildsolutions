@@ -109,7 +109,7 @@ export default function PrivacyPolicy() {
               For questions regarding database audits, data erasure requests, or this policy, please reach out to our team at:
             </p>
             <p className="font-semibold text-blue-600 dark:text-blue-400">
-              partner@corebuildsolutions.in
+              corebuildsolutionsin@gmail.com
             </p>
           </div>
 

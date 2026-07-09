@@ -197,7 +197,7 @@ export default function Footer() {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  placeholder="partner@company.com"
+                  placeholder="rahul@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-4 pr-12 py-3 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900"

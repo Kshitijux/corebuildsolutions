@@ -325,7 +325,7 @@ export default function About() {
                           <input
                             type="text"
                             required
-                            placeholder="Alex Sterling"
+                            placeholder="Amit Patel"
                             value={appFormName}
                             onChange={(e) => setAppFormName(e.target.value)}
                             className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"
@@ -337,7 +337,7 @@ export default function About() {
                           <input
                             type="email"
                             required
-                            placeholder="candidate@work.com"
+                            placeholder="amit.patel@gmail.com"
                             value={appFormEmail}
                             onChange={(e) => setAppFormEmail(e.target.value)}
                             className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 dark:text-white"

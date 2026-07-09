@@ -230,7 +230,17 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setTeam(cleanedTeam);
       }
       if (resSeo.data && resSeo.data.length > 0) setSeoSettings(resSeo.data);
-      if (resSet.data) setSettings(resSet.data);
+      if (resSet.data) {
+        setSettings({
+          ...resSet.data,
+          contactEmail: 'corebuildsolutionsin@gmail.com',
+          contactPhone: '+91 9244007322',
+          whatsappNumber: '+919244007322',
+          address: 'Raipur, Sector 14 B, Chhattisgarh, India - 492001'
+        });
+      } else {
+        setSettings(fallbackSettings);
+      }
       if (resFaq.data && resFaq.data.length > 0) setFaqs(resFaq.data);
       if (resHomeSec.data && resHomeSec.data.length > 0) setHomeSections(resHomeSec.data);
 

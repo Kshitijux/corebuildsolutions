@@ -123,9 +123,9 @@ export default function Home() {
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+1-800-555-0199",
+      "telephone": "+91-9244007322",
       "contactType": "customer service",
-      "email": "partner@corebuildsolutions.in"
+      "email": "corebuildsolutionsin@gmail.com"
     }
   };
 

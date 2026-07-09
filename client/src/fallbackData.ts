@@ -2,10 +2,10 @@ import { Project, Blog, Testimonial, Service, Career, TeamMember, SeoSettings, S
 
 export const fallbackSettings: SystemSettings = {
   agencyName: 'CoreBuild Solutions',
-  contactEmail: 'partner@corebuildsolutions.in',
-  contactPhone: '+1 (800) 555-0199',
-  whatsappNumber: '+18005550199',
-  address: 'Level 42, Vercel Tower, 100 Hudson Street, New York, NY 10013',
+  contactEmail: 'corebuildsolutionsin@gmail.com',
+  contactPhone: '+91 9244007322',
+  whatsappNumber: '+919244007322',
+  address: 'Raipur, Sector 14 B, Chhattisgarh, India - 492001',
   socialLinks: {
     twitter: 'https://twitter.com',
     linkedin: 'https://linkedin.com',

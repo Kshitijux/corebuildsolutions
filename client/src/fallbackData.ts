@@ -150,7 +150,7 @@ To maintain the sub-100ms response times expected of modern premium web apps, co
 At CoreBuild Solutions, we specialize in building these hybrid architectures, combining the reliability of PostgreSQL with the cognitive versatility of OpenAI and Claude integrations.`,
     image: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80',
     date: 'July 01, 2026',
-    author: 'Elena Vance, CTO',
+    author: 'Kshitij, Founder & CEO',
     readTime: '6 min read',
     tags: ['AI', 'System Design', 'Next.js', 'Vector DB']
   },
@@ -175,7 +175,7 @@ Cheap sites use jarring entrances and bounce animations. Premium design utilizes
 By implementing custom hover glows, magnetic buttons, and glassmorphic blur overlays, you establish a sense of tactility and high-end craft.`,
     image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
     date: 'June 28, 2026',
-    author: 'Marcus Sterling, Lead Designer',
+    author: 'Kshitij, Founder & CEO',
     readTime: '4 min read',
     tags: ['Design', 'UX Research', 'Animations']
   },
@@ -203,7 +203,7 @@ Building a secure digital presence requires recurring support fees:
 - **Lighthouse and Speed Optimization:** Guaranteeing a 95+ performance score requires deep optimization, ensuring long-term organic traffic growth.`,
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
     date: 'July 05, 2026',
-    author: 'Elena Vance, CTO',
+    author: 'Kshitij, Founder & CEO',
     readTime: '8 min read',
     tags: ['Web Dev', 'Pricing', 'Business Guide', 'India Cost']
   },
@@ -230,7 +230,7 @@ Next.js solves this bottleneck by compiling page contents on the edge server bef
 Pure React remains ideal for gated administrator dashboards, quantitative internal tools, and software interfaces where content is private and search engine indexing is not required. For public landing pages, SaaS products, and e-commerce stores, Next.js is essential for SEO growth.`,
     image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80',
     date: 'July 02, 2026',
-    author: 'Marcus Sterling, Lead Designer',
+    author: 'Kshitij, Founder & CEO',
     readTime: '6 min read',
     tags: ['React', 'Next.js', 'SEO', 'Frameworks']
   },
@@ -258,7 +258,7 @@ To prevent API costs from spiraling, small businesses should adopt:
 - **Model Routing:** Route simple verification tasks to open-source models (like Llama 3) and save complex reasoning tasks for premium APIs (like Claude 3.5 Sonnet).`,
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
     date: 'June 29, 2026',
-    author: 'Elena Vance, CTO',
+    author: 'Kshitij, Founder & CEO',
     readTime: '5 min read',
     tags: ['AI', 'Automation', 'Small Business', 'RAG']
   },
@@ -285,7 +285,7 @@ Deploy your catalog database endpoints on global edge networks (like AWS CloudFr
 Integrate secure, tokenized payment checkouts (Stripe, Apple Pay, Google Pay) directly into the UI. Avoid redirecting users to external payment pages, as this increases checkout abandonment. Keep the checkout process clean, single-page, and secure.`,
     image: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80',
     date: 'June 24, 2026',
-    author: 'Marcus Sterling, Lead Designer',
+    author: 'Kshitij, Founder & CEO',
     readTime: '7 min read',
     tags: ['E-commerce', 'Web Dev', 'Checkout Speed', 'Stripe']
   },
@@ -309,7 +309,7 @@ Rather than using basic contact forms that get lost in inbox spam, custom web ap
 As a startup grows, operational needs shift from simple information pages to customer dashboards, analytics portals, and subscription gates. A custom web application built with React, Vite, and Node.js can scale dynamically to add these features without requiring a complete platform rebuild.`,
     image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
     date: 'June 18, 2026',
-    author: 'Elena Vance, CTO',
+    author: 'Kshitij, Founder & CEO',
     readTime: '5 min read',
     tags: ['Startups', 'Lead Gen', 'Growth', 'Custom Web']
   },
@@ -346,7 +346,7 @@ Businesses trust us because we deliver modern & premium design, fast loading spe
 If you're looking for a trusted Website Development Company in Raipur, CoreBuild Solutions is here to help. We build websites that don't just look great—they help businesses generate leads, improve customer trust, and grow online. Let's build your next digital success together.`,
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
     date: 'July 10, 2026',
-    author: 'Kshitij Tiwari, Founder',
+    author: 'Kshitij, Founder & CEO',
     readTime: '5 min read',
     tags: ['raipur', 'chhattisgarh', 'web development', 'local seo'],
     published: true,
@@ -384,7 +384,7 @@ To yield maximum return on investment, every modern website must implement:
 At CoreBuild Solutions, we build high-performance digital solutions designed to help businesses grow. Our expertise includes custom website development, mobile app development, AI solutions, e-commerce development, UI/UX design, custom software development, and SEO-friendly websites. We focus on creating scalable, secure, and user-friendly solutions tailored to your business goals.`,
     image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80',
     date: 'July 10, 2026',
-    author: 'Kshitij Tiwari, Founder',
+    author: 'Kshitij, Founder & CEO',
     readTime: '4 min read',
     tags: ['website development', 'mobile apps', 'business growth', 'digital transformation'],
     published: true,

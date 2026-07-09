@@ -17,10 +17,11 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import SEO from '../components/SEO';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { projects, services, testimonials, blogs, faqs, homeSections } = useDatabase();
+  const { projects, services, testimonials, blogs, faqs, homeSections, seoSettings } = useDatabase();
   
   // Testimonial Carousel State
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -101,8 +102,52 @@ export default function Home() {
     ctaText: 'Initiate Discussion'
   });
 
+  const homeSeo = seoSettings.find(s => s.page === 'home') || {
+    title: 'CoreBuild Solutions | Premium Global Web & Software Agency',
+    description: 'We design and engineer elite web applications, mobile apps, and custom AI systems that premium businesses trust. Beautiful design meets world-class engineering.',
+    keywords: 'web design, web development, premium agency, custom software, AI automation, luxury brands design'
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://corebuildsolutions.in/#organization",
+    "name": "CoreBuild Solutions",
+    "url": "https://corebuildsolutions.in",
+    "logo": "https://corebuildsolutions.in/logo.png",
+    "sameAs": [
+      "https://twitter.com",
+      "https://linkedin.com",
+      "https://github.com",
+      "https://www.instagram.com/corebuildsolutions.in/"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-800-555-0199",
+      "contactType": "customer service",
+      "email": "partner@corebuildsolutions.in"
+    }
+  };
+
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://corebuildsolutions.in/#website",
+    "name": "CoreBuild Solutions",
+    "url": "https://corebuildsolutions.in",
+    "publisher": {
+      "@id": "https://corebuildsolutions.in/#organization"
+    }
+  };
+
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors">
+      <SEO 
+        title={homeSeo.title}
+        description={homeSeo.description}
+        keywords={homeSeo.keywords}
+        schema={[orgSchema, webSiteSchema]}
+      />
       
       {/* BACKGROUND DECORATIONS */}
       <div className="liquid-bg">
@@ -358,7 +403,8 @@ export default function Home() {
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
                 <img
                   src={proj.image}
-                  alt={proj.title}
+                  alt={`CoreBuild Solutions Case Study - ${proj.title}`}
+                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[0.16,1,0.3,1]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
@@ -518,7 +564,8 @@ export default function Home() {
                     <div className="flex items-center gap-4 text-left">
                       <img
                         src={testimonials[currentTestimonial].image}
-                        alt={testimonials[currentTestimonial].name}
+                        alt={`Client testimonial by ${testimonials[currentTestimonial].name}`}
+                        loading="lazy"
                         className="w-12 h-12 rounded-full object-cover border border-slate-300 dark:border-slate-800"
                       />
                       <div>

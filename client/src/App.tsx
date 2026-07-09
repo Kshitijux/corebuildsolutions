@@ -3,7 +3,10 @@ import React from 'react';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
 import Portfolio from "./pages/Portfolio";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
@@ -48,7 +51,10 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/services/:id" element={<ServiceDetail />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/contact" element={<Contact />} />
         
         {/* Admin Login Gate */}

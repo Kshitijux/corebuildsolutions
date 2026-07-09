@@ -13,19 +13,56 @@ import {
   Award 
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import SEO from '../components/SEO';
+import { Plus, Minus } from 'lucide-react';
 
 export default function Services() {
-  const { services } = useDatabase();
-  const [activeTab, setActiveTab] = useState('');
+  const { services, faqs, seoSettings } = useDatabase();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Keep active tab in sync when services load
-  useEffect(() => {
-    if (services.length > 0 && !activeTab) {
-      setActiveTab(services[0].id);
-    }
-  }, [services, activeTab]);
+  const servicesSeo = seoSettings.find(s => s.page === 'services') || {
+    title: 'Elite Digital Services | CoreBuild Solutions',
+    description: 'Explore our tailored services including custom web apps, native-feeling mobile software, and vector-backed artificial intelligence systems.',
+    keywords: 'web development cost, mobile app dev, AI systems, SaaS creation, custom CMS development'
+  };
 
-  const activeService = services.find(s => s.id === activeTab) || services[0];
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "CoreBuild Solutions Digital Services",
+    "description": "Premium digital engineering and design services including custom web development, React Native mobile apps, and enterprise AI integrations.",
+    "itemListElement": services.map((srv, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Service",
+        "name": srv.name,
+        "description": srv.description,
+        "provider": {
+          "@type": "Organization",
+          "name": "CoreBuild Solutions",
+          "url": "https://corebuildsolutions.in"
+        }
+      }
+    }))
+  };
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
 
   const serviceIcons = {
     'Globe': Globe,
@@ -33,8 +70,20 @@ export default function Services() {
     'Cpu': Cpu
   };
 
+  const idToSlugMap: Record<string, string> = {
+    'srv-1': 'custom-web-applications',
+    'srv-2': 'mobile-app-development',
+    'srv-3': 'ai-machine-learning'
+  };
+
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
+      <SEO 
+        title={servicesSeo.title}
+        description={servicesSeo.description}
+        keywords={servicesSeo.keywords}
+        schema={[servicesSchema, faqSchema]}
+      />
       
       {/* Background blobs */}
       <div className="liquid-bg">
@@ -58,200 +107,66 @@ export default function Services() {
         </div>
 
         {/* ==========================================
-            TABS INTERFACE
+            SERVICES GRID
            ========================================== */}
         {services.length > 0 && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-8 items-start">
-            
-            {/* Tab Selectors (Left side) */}
-            <div className="lg:col-span-4 flex flex-col gap-2">
-              {services.map((srv) => {
-                const Icon = serviceIcons[srv.icon as keyof typeof serviceIcons] || Globe;
-                const isActive = srv.id === activeTab;
-                return (
-                  <button
-                    key={srv.id}
-                    onClick={() => setActiveTab(srv.id)}
-                    className={`flex items-center justify-between p-5 rounded-2xl border text-left transition-all duration-300 group cursor-pointer ${
-                      isActive 
-                        ? 'bg-white dark:bg-slate-900 border-blue-500 shadow-lg text-blue-600 dark:text-blue-500' 
-                        : 'bg-white/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-900 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-800'
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`p-2.5 rounded-xl transition-colors ${
-                        isActive ? 'bg-blue-600/10 text-blue-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
-                      }`}>
-                        <Icon size={18} />
-                      </div>
-                      <span className="font-heading font-bold text-sm tracking-wide uppercase text-slate-900 dark:text-white">
-                        {srv.name}
-                      </span>
-                    </div>
-                    <ChevronRight size={16} className={`transition-transform duration-300 ${
-                      isActive ? 'translate-x-1 text-blue-500' : 'text-slate-400 group-hover:translate-x-0.5'
-                    }`} />
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Tab Contents (Right side) */}
-            <div className="lg:col-span-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.4 }}
-                  className="glass-card rounded-3xl p-8 md:p-12 text-left flex flex-col gap-8"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 text-left">
+            {services.map((srv) => {
+              const Icon = serviceIcons[srv.icon as keyof typeof serviceIcons] || Globe;
+              const slug = idToSlugMap[srv.id] || srv.id;
+              
+              return (
+                <div
+                  key={srv.id}
+                  className="glass-card rounded-3xl p-8 border border-slate-200 dark:border-slate-900 flex flex-col justify-between group hover:border-blue-500/20 transition-all duration-300"
                 >
-                  
-                  {/* Service Overview */}
-                  <div className="flex flex-col gap-4">
-                    <h2 className="font-heading text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                      {activeService.name}
-                    </h2>
-                    <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                      {activeService.subtitle}
-                    </p>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {activeService.longDescription || activeService.description}
-                    </p>
-                  </div>
-
-                  {/* Bullet Spec Checklist */}
-                  <div className="flex flex-col gap-4">
-                    <h3 className="font-heading text-xs font-semibold uppercase tracking-wider text-slate-400">
-                      Key Technical Specifications
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm text-slate-600 dark:text-slate-400">
-                      {activeService.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                          <div className="w-5 h-5 rounded-full bg-blue-600/10 text-blue-600 flex items-center justify-center flex-shrink-0">
-                            <Check size={12} />
-                          </div>
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Horizontal Divider */}
-                  <div className="h-[1px] bg-slate-200 dark:bg-slate-900 w-full" />
-
-                  {/* Interactive Service Roadmap */}
                   <div className="flex flex-col gap-6">
-                    <h3 className="font-heading text-xs font-semibold uppercase tracking-wider text-slate-400">
-                      Our Interactive Workflow
-                    </h3>
-                    <div className="flex flex-col md:flex-row gap-6">
-                      {activeService.workflow.map((item) => (
-                        <div key={item.step} className="flex-1 flex flex-col gap-2">
-                          <span className="font-heading font-extrabold text-blue-500 text-sm">
-                            STEP 0{item.step}
-                          </span>
-                          <h4 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase">
-                            {item.title}
-                          </h4>
-                          <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
-                            {item.desc}
-                          </p>
-                        </div>
-                      ))}
+                    {/* Icon */}
+                    <div className="p-4 bg-blue-600/10 text-blue-600 rounded-2xl w-max group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                      <Icon size={24} />
+                    </div>
+
+                    {/* Title */}
+                    <div>
+                      <h2 className="font-heading font-extrabold text-xl md:text-2xl tracking-tight text-slate-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">
+                        {srv.name}
+                      </h2>
+                      <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                        {srv.subtitle}
+                      </p>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                      {srv.description}
+                    </p>
+
+                    {/* Detail Highlights */}
+                    <div className="flex flex-col gap-2 mt-2">
+                      <h3 className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                        Technical Deliverables
+                      </h3>
+                      <ul className="space-y-2 text-xs text-slate-650 dark:text-slate-400">
+                        {srv.details.slice(0, 4).map((detail, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                            <span>{detail}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
 
-                  {/* Horizontal Divider */}
-                  <div className="h-[1px] bg-slate-200 dark:bg-slate-900 w-full" />
-
-                  {/* Service Tier pricing cards */}
-                  <div className="flex flex-col gap-6">
-                    <h3 className="font-heading text-xs font-semibold uppercase tracking-wider text-slate-400">
-                      Pricing Plans
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {activeService.pricing
-                        .filter(tier => tier.active !== false)
-                        .sort((a, b) => (a.order || 0) - (b.order || 0))
-                        .map((tier, idx) => {
-                          const isPopular = tier.popular === true;
-                          return (
-                            <div 
-                              key={idx} 
-                              className={`p-6 rounded-2xl border flex flex-col justify-between ${
-                                isPopular 
-                                  ? 'bg-slate-900 dark:bg-slate-900 border-blue-500 text-white shadow-lg' 
-                                  : 'bg-white/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800'
-                              }`}
-                            >
-                              <div className="flex flex-col gap-4">
-                                <div className="flex justify-between items-start">
-                                  <h4 className="font-heading font-bold text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                                    {tier.plan}
-                                  </h4>
-                                  {isPopular && (
-                                    <span className="px-2 py-0.5 bg-blue-600 text-white text-[9px] uppercase tracking-widest font-semibold rounded-md">
-                                      BEST VALUE
-                                    </span>
-                                  )}
-                                </div>
-
-                                {tier.description && (
-                                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug mt-1">
-                                    {tier.description}
-                                  </p>
-                                )}
-
-                                <div className="flex items-baseline gap-1 mt-2">
-                                  {tier.originalPrice && (
-                                    <span className={`text-xs line-through mr-1 ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
-                                      {tier.originalPrice}
-                                    </span>
-                                  )}
-                                  <span className="font-heading text-3xl font-extrabold tracking-tight">
-                                    {tier.price}
-                                  </span>
-                                  <span className="text-[10px] text-slate-400 uppercase tracking-widest">
-                                    / starting
-                                  </span>
-                                </div>
-                                
-                                <div className="h-[1px] bg-slate-200 dark:bg-slate-800/80 w-full my-2" />
-                                
-                                <ul className="space-y-2 text-[11px] text-slate-600 dark:text-slate-400">
-                                  {tier.features.map((feature, fIdx) => (
-                                    <li key={fIdx} className="flex items-center gap-2">
-                                      <Check size={12} className="text-blue-500 flex-shrink-0" />
-                                      <span className={isPopular ? 'text-slate-350' : 'text-slate-600 dark:text-slate-400'}>
-                                        {feature}
-                                      </span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-
-                              <Link
-                                to="/contact"
-                                className={`w-full py-2.5 rounded-xl font-semibold text-xs text-center uppercase tracking-wider mt-6 transition-all ${
-                                  isPopular 
-                                    ? 'bg-blue-600 text-white hover:bg-blue-500' 
-                                    : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-white'
-                                }`}
-                              >
-                                {tier.ctaText || 'Initiate Project'}
-                              </Link>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </div>
-
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
+                  {/* Call to Action */}
+                  <Link
+                    to={`/services/${slug}`}
+                    className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-white rounded-2xl font-semibold text-xs text-center uppercase tracking-wider mt-8 transition-all flex items-center justify-center gap-1.5 shadow-sm group-hover:shadow-md cursor-pointer"
+                  >
+                    Explore Service & Pricing <ArrowUpRight size={14} />
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -284,6 +199,54 @@ export default function Services() {
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                     {benefit.desc}
                   </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ==========================================
+            FAQ ACCORDIONS
+           ========================================== */}
+        <div className="py-20 border-t border-slate-200 dark:border-slate-900 mt-10">
+          <div className="text-center mb-16 flex flex-col gap-4">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-500">FAQ</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Services & Technical FAQ
+            </h2>
+          </div>
+
+          <div className="flex flex-col gap-4 max-w-4xl mx-auto text-left">
+            {faqs.map((faq, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div
+                  key={index}
+                  className="border border-slate-200 dark:border-slate-900 rounded-2xl overflow-hidden bg-white dark:bg-slate-950/20 backdrop-blur-sm"
+                >
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="w-full px-6 py-5 flex items-center justify-between text-left font-heading font-semibold text-sm md:text-base text-slate-900 dark:text-white transition-colors hover:bg-slate-100/50 dark:hover:bg-slate-900/30 cursor-pointer"
+                  >
+                    <span>{faq.q}</span>
+                    {isOpen ? <Minus size={16} className="text-blue-500" /> : <Plus size={16} />}
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200 dark:border-slate-900 pt-4">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}

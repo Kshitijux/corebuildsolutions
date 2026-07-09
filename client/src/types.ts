@@ -19,6 +19,11 @@ export interface Project {
   afterImage?: string;
   featured: boolean;
   url?: string;
+  businessProblem?: string;
+  solution?: string;
+  results?: string;
+  features?: string[];
+  timeline?: string;
 }
 
 export interface Blog {
@@ -67,6 +72,11 @@ export interface Service {
     active?: boolean;
     order?: number;
   }[];
+  whatIsIt?: string;
+  whoIsItFor?: string;
+  processDescription?: string;
+  technologiesDescription?: string;
+  serviceFaqs?: { q: string; a: string }[];
 }
 
 export interface Career {

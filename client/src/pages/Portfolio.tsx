@@ -10,10 +10,14 @@ import {
   Flame 
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import SEO from '../components/SEO';
+import { X, Check } from 'lucide-react';
+import { Project } from '../types';
 
 export default function Portfolio() {
-  const { projects } = useDatabase();
+  const { projects, seoSettings } = useDatabase();
   const [filter, setFilter] = useState<'all' | 'web' | 'mobile' | 'ai' | 'saas'>('all');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
   // Custom Before/After Slider state
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -56,8 +60,60 @@ export default function Portfolio() {
   // Grab the first project that has before/after images for our slider
   const sliderProject = projects.find(p => p.beforeImage && p.afterImage) || projects[0];
 
+  const portfolioSeo = seoSettings.find(s => s.page === 'portfolio') || {
+    title: 'Award-Winning Projects Showcase | CoreBuild Solutions',
+    description: 'View the elite projects we have shipped for real estate platforms, global concierge apps, and Quantitative FinTech funds.',
+    keywords: 'portfolio, design gallery, case studies, nextjs examples, react app showcase'
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://corebuildsolutions.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Portfolio",
+        "item": "https://corebuildsolutions.in/portfolio"
+      }
+    ]
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "CoreBuild Solutions Portfolio Showcase",
+    "description": "A showcase of engineering and design projects completed by CoreBuild Solutions.",
+    "itemListElement": projects.map((proj, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "CreativeWork",
+        "name": proj.title,
+        "description": proj.description,
+        "image": proj.image,
+        "author": {
+          "@type": "Organization",
+          "name": "CoreBuild Solutions"
+        }
+      }
+    }))
+  };
+
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
+      <SEO 
+        title={portfolioSeo.title}
+        description={portfolioSeo.description}
+        keywords={portfolioSeo.keywords}
+        schema={[breadcrumbSchema, itemListSchema]}
+      />
       
       {/* Background blobs */}
       <div className="liquid-bg">
@@ -104,7 +160,8 @@ export default function Portfolio() {
                   {/* Before (Bottom Image) */}
                   <img
                     src={sliderProject.beforeImage}
-                    alt="Legacy System Design"
+                    alt={`Legacy System Design comparison for - ${sliderProject.title}`}
+                    loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                   />
                   <div className="absolute bottom-4 left-4 px-3 py-1 bg-slate-950/70 border border-white/10 rounded-lg text-[10px] text-white tracking-widest font-semibold uppercase">
@@ -118,7 +175,8 @@ export default function Portfolio() {
                   >
                     <img
                       src={sliderProject.afterImage}
-                      alt="Re-engineered System"
+                      alt={`Re-engineered System Design by CoreBuild Solutions - ${sliderProject.title}`}
+                      loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{ width: containerRef.current?.getBoundingClientRect().width || '100%', height: '100%' }}
                     />
@@ -223,7 +281,8 @@ export default function Portfolio() {
                 <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
                   <img
                     src={proj.image}
-                    alt={proj.title}
+                    alt={`CoreBuild Solutions Project Case Study - ${proj.title}`}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-[0.16,1,0.3,1]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
@@ -270,7 +329,8 @@ export default function Portfolio() {
                         {proj.testimonial.avatar && (
                           <img
                             src={proj.testimonial.avatar}
-                            alt={proj.testimonial.name}
+                            alt={`Client representative ${proj.testimonial.name}`}
+                            loading="lazy"
                             className="w-6 h-6 rounded-full object-cover"
                           />
                         )}
@@ -289,22 +349,30 @@ export default function Portfolio() {
                   {/* Tags & Action */}
                   <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-4 text-xs mt-2">
                     <div className="flex gap-1.5 flex-wrap">
-                      {proj.tags.slice(0, 4).map(t => (
+                      {proj.tags.slice(0, 3).map(t => (
                         <span key={t} className="px-2 py-0.5 bg-slate-200/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 rounded-md text-[9px] text-slate-500 uppercase font-semibold">
                           {t}
                         </span>
                       ))}
                     </div>
-                    {proj.url && (
-                      <a 
-                        href={proj.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-500 font-semibold uppercase tracking-wider group-hover:translate-x-0.5 transition-transform"
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setSelectedProject(proj)}
+                        className="text-blue-600 dark:text-blue-500 font-semibold uppercase tracking-wider hover:underline cursor-pointer"
                       >
-                        Visit Link <ExternalLink size={12} />
-                      </a>
-                    )}
+                        Case Study
+                      </button>
+                      {proj.url && (
+                        <a 
+                          href={proj.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 font-semibold uppercase tracking-wider group-hover:translate-x-0.5 transition-transform"
+                        >
+                          Visit <ExternalLink size={10} />
+                        </a>
+                      )}
+                    </div>
                   </div>
 
                 </div>
@@ -315,6 +383,194 @@ export default function Portfolio() {
         </div>
 
       </div>
+
+      {/* Case Study Detail Modal Overlay */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-3xl w-full p-6 md:p-10 relative max-h-[90vh] overflow-y-auto shadow-2xl text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-6 right-6 p-2 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X size={18} />
+              </button>
+
+              {/* Breadcrumb info */}
+              <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4">
+                <span>Case Studies</span>
+                <span>/</span>
+                <span>{selectedProject.category}</span>
+              </div>
+
+              {/* Title */}
+              <h2 className="font-heading text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">
+                {selectedProject.title}
+              </h2>
+              <p className="text-xs text-slate-500 mb-6">
+                Client Partner: {selectedProject.client}
+              </p>
+
+              {/* Featured Image */}
+              <div className="rounded-2xl overflow-hidden aspect-[16/9] bg-slate-900 mb-8">
+                <img
+                  src={selectedProject.image}
+                  alt={`CoreBuild Solutions Case Study - ${selectedProject.title}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Case Study Grid Content */}
+              <div className="flex flex-col gap-6 text-sm leading-relaxed text-slate-650 dark:text-slate-400">
+                {/* Long description */}
+                <p className="font-medium text-slate-950 dark:text-slate-205 text-base">
+                  {selectedProject.longDescription}
+                </p>
+
+                <div className="h-[1px] bg-slate-250 dark:bg-slate-800 w-full" />
+
+                {/* Business Problem */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                    Client Problem & Challenges
+                  </h3>
+                  <p>
+                    {selectedProject.businessProblem || "The client was facing engagement challenges, system scalability constraints, and legacy speed bottlenecks that reduced online user conversions."}
+                  </p>
+                </div>
+
+                {/* Technical Solution */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                    Our Engineered Solution
+                  </h3>
+                  <p>
+                    {selectedProject.solution || "We designed a robust system architecture using a modern single-page-app framework, caching structures, database schema optimizations, and custom animations."}
+                  </p>
+                </div>
+
+                {/* Project Features */}
+                {selectedProject.features && selectedProject.features.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                      Key Features & Functionalities
+                    </h3>
+                    <ul className="list-disc pl-6 space-y-2 text-xs md:text-sm text-slate-655 dark:text-slate-400">
+                      {selectedProject.features.map((feat, fIdx) => (
+                        <li key={fIdx}>{feat}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Project Timeline */}
+                {selectedProject.timeline && (
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                      Development Timeline
+                    </h3>
+                    <p className="font-semibold text-blue-600 dark:text-blue-400">
+                      {selectedProject.timeline}
+                    </p>
+                  </div>
+                )}
+
+                {/* Business Results */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-heading text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                    Measurable Results
+                  </h3>
+                  <p>
+                    {selectedProject.results || "The deployment achieved a major lift in active sessions, maximized search engine rank metrics, and generated a massive growth in lead pipelines."}
+                  </p>
+                </div>
+
+                {/* Stats and details */}
+                <div className="grid grid-cols-3 gap-4 border-t border-b border-slate-200 dark:border-slate-800 py-6 my-4 text-center bg-slate-50 dark:bg-slate-950/40 rounded-2xl">
+                  {selectedProject.stats.map((stat, sIdx) => (
+                    <div key={sIdx}>
+                      <h4 className="font-heading text-xl md:text-2xl font-extrabold text-blue-600 dark:text-blue-500">
+                        {stat.value}
+                      </h4>
+                      <p className="text-[9px] uppercase tracking-wider text-slate-550 mt-1 font-semibold">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Technologies tag group */}
+                <div className="flex flex-col gap-3">
+                  <h4 className="font-heading text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    Infrastructure & Technologies Used
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.tags.map(t => (
+                      <span key={t} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/20 rounded-md text-xs text-blue-600 dark:text-blue-400 font-medium">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Client testimonial */}
+                {selectedProject.testimonial && (
+                  <div className="p-6 rounded-2xl bg-[#FEF2E8] dark:bg-slate-950/60 border border-[#E9D5C7] dark:border-slate-900 flex flex-col gap-4 mt-4">
+                    <p className="italic leading-relaxed text-slate-850 dark:text-slate-200 text-sm">
+                      "{selectedProject.testimonial.text}"
+                    </p>
+                    <div className="flex items-center gap-3">
+                      {selectedProject.testimonial.avatar && (
+                        <img
+                          src={selectedProject.testimonial.avatar}
+                          alt={selectedProject.testimonial.name}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      )}
+                      <div>
+                        <h5 className="text-xs font-bold text-slate-900 dark:text-white uppercase">
+                          {selectedProject.testimonial.name}
+                        </h5>
+                        <p className="text-[9px] text-slate-500 uppercase tracking-widest mt-0.5">
+                          {selectedProject.testimonial.role}, {selectedProject.client}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Live Link action */}
+                {selectedProject.url && (
+                  <a
+                    href={selectedProject.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-semibold text-sm text-center flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 mt-6 cursor-pointer"
+                  >
+                    Visit Live Project Website <ExternalLink size={14} />
+                  </a>
+                )}
+
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

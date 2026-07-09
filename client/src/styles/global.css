@@ -19,7 +19,7 @@ body[data-theme="light"] {
   --color-text-primary: #111111;
   --color-text-secondary: #4B5563;
   --color-text-body: #4B5563;
-  --color-text-muted: #6B7280;
+  --color-text-muted: #5E6A75;
   
   --color-accent-primary: #E88B5A;
   --color-accent-secondary: #F4A261;
@@ -44,7 +44,7 @@ body[data-theme="dark"] {
   --color-text-primary: #FFFFFF;   /* Pure White headings */
   --color-text-secondary: #CBD5E1; /* Light Slate sub-headings */
   --color-text-body: #94A3B8;      /* Muted Slate body copy */
-  --color-text-muted: #6B7280;     /* Muted captions */
+  --color-text-muted: #7E8A9F;     /* Muted captions */
   
   --color-accent-primary: #2563EB;   /* Premium Accent Blue */
   --color-accent-secondary: #3B82F6; 
@@ -65,7 +65,9 @@ body[data-theme="dark"] {
   /* Text Contrast scale */
   --color-slate-400: var(--color-text-muted);
   --color-slate-500: var(--color-text-muted);
+  --color-slate-550: var(--color-text-muted);
   --color-slate-600: var(--color-text-body);
+  --color-slate-650: var(--color-text-body);
   
   /* Borders */
   --color-slate-700: var(--color-border-subtle);
@@ -168,7 +170,7 @@ body[data-theme="light"] select {
 }
 body[data-theme="light"] input::placeholder, 
 body[data-theme="light"] textarea::placeholder {
-  color: #94A3B8 !important;
+  color: var(--color-text-muted) !important;
 }
 
 body[data-theme="dark"] input, 
@@ -180,7 +182,7 @@ body[data-theme="dark"] select {
 }
 body[data-theme="dark"] input::placeholder, 
 body[data-theme="dark"] textarea::placeholder {
-  color: #6B7280 !important;
+  color: var(--color-text-muted) !important;
 }
 
 /* ==========================================
@@ -275,7 +277,7 @@ body[data-theme="light"] button.bg-blue-600,
 body[data-theme="light"] a.bg-blue-600, 
 body[data-theme="light"] .bg-blue-600 {
   background: linear-gradient(135deg, #E88B5A 0%, #F4A261 100%) !important;
-  color: #FFFFFF !important;
+  color: #111111 !important;
   border: none !important;
   box-shadow: 0 4px 14px rgba(232, 139, 90, 0.2) !important;
   transition: all 0.3s ease !important;
@@ -285,7 +287,7 @@ body[data-theme="light"] button.bg-blue-600:hover,
 body[data-theme="light"] a.bg-blue-600:hover, 
 body[data-theme="light"] .bg-blue-600:hover {
   background: linear-gradient(135deg, #F4A261 0%, #E88B5A 100%) !important;
-  color: #FFFFFF !important;
+  color: #111111 !important;
   transform: translateY(-1px) !important;
   box-shadow: 0 6px 20px rgba(232, 139, 90, 0.35) !important;
 }
@@ -293,7 +295,7 @@ body[data-theme="light"] .bg-blue-600:hover {
 body[data-theme="light"] button.bg-blue-600 *, 
 body[data-theme="light"] a.bg-blue-600 *, 
 body[data-theme="light"] .bg-blue-600 * {
-  color: #FFFFFF !important;
+  color: #111111 !important;
 }
 
 body[data-theme="dark"] button.bg-blue-600, 

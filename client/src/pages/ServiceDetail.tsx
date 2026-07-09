@@ -5,6 +5,7 @@ import { Globe, Smartphone, Cpu, Check, ArrowLeft, ArrowUpRight, Plus, Minus, La
 import { useDatabase } from '../context/DatabaseContext';
 import SEO from '../components/SEO';
 import { detailedServices } from '../servicesContent';
+import { fallbackServices } from '../fallbackData';
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ export default function ServiceDetail() {
   };
 
   const serviceId = slugToIdMap[id || ''] || id || '';
-  const service = services.find(s => s.id === serviceId);
+  const service = services.find(s => s.id === serviceId) || fallbackServices.find(s => s.id === serviceId);
   const detailedContent = detailedServices[serviceId];
 
   if (!service || !detailedContent) {

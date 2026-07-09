@@ -214,7 +214,16 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setBlogs(mergedBlogs);
 
       if (resTest.data && resTest.data.length > 0) setTestimonials(resTest.data);
-      if (resSrv.data && resSrv.data.length > 0) setServices(resSrv.data);
+      if (resSrv.data && resSrv.data.length > 0) {
+        const mergedServices = [...resSrv.data];
+        fallbackServices.forEach(fs => {
+          if (!mergedServices.some(ms => ms.id === fs.id)) {
+            mergedServices.push(fs);
+          }
+        });
+        mergedServices.sort((a, b) => a.id.localeCompare(b.id));
+        setServices(mergedServices);
+      }
       if (resCar.data && resCar.data.length > 0) setCareers(resCar.data);
       if (resTeam.data && resTeam.data.length > 0) {
         const cleanedTeam = resTeam.data.map(tm => {
@@ -229,7 +238,15 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         });
         setTeam(cleanedTeam);
       }
-      if (resSeo.data && resSeo.data.length > 0) setSeoSettings(resSeo.data);
+      if (resSeo.data && resSeo.data.length > 0) {
+        const mergedSeo = [...resSeo.data];
+        fallbackSeoSettings.forEach(fs => {
+          if (!mergedSeo.some(ms => ms.page === fs.page)) {
+            mergedSeo.push(fs);
+          }
+        });
+        setSeoSettings(mergedSeo);
+      }
       if (resSet.data) {
         setSettings({
           ...resSet.data,

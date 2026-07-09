@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Smartphone, Cpu, Check, ArrowLeft, ArrowUpRight, Plus, Minus, Layers } from 'lucide-react';
+import { Globe, Smartphone, Cpu, Check, ArrowLeft, ArrowUpRight, Plus, Minus, Layers, Users, Zap, Award } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
 import SEO from '../components/SEO';
+import { detailedServices } from '../servicesContent';
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -18,8 +19,9 @@ export default function ServiceDetail() {
 
   const serviceId = slugToIdMap[id || ''] || id || '';
   const service = services.find(s => s.id === serviceId);
+  const detailedContent = detailedServices[serviceId];
 
-  if (!service) {
+  if (!service || !detailedContent) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 gap-6 pt-24 pb-20">
         <h1 className="font-heading text-4xl font-extrabold">Service Architecture Not Found</h1>
@@ -54,7 +56,7 @@ export default function ServiceDetail() {
     "@type": "Service",
     "@id": `https://corebuildsolutions.in/services/${id}#service`,
     "name": service.name,
-    "description": service.description,
+    "description": detailedContent.metaDescription,
     "provider": {
       "@type": "Organization",
       "name": "CoreBuild Solutions",
@@ -88,11 +90,10 @@ export default function ServiceDetail() {
     ]
   };
 
-  const serviceFaqsList = service.serviceFaqs || [];
-  const faqSchema = serviceFaqsList.length > 0 ? {
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": serviceFaqsList.map(faq => ({
+    "mainEntity": detailedContent.faqs.map(faq => ({
       "@type": "Question",
       "name": faq.q,
       "acceptedAnswer": {
@@ -100,17 +101,15 @@ export default function ServiceDetail() {
         "text": faq.a
       }
     }))
-  } : undefined;
-
-  const schemas = faqSchema ? [serviceSchema, breadcrumbSchema, faqSchema] : [serviceSchema, breadcrumbSchema];
+  };
 
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
       <SEO 
-        title={`${service.name} Services | CoreBuild Solutions`}
-        description={service.description}
-        keywords={`${service.name}, custom services, pricing, business blueprints`}
-        schema={schemas}
+        title={detailedContent.seoTitle}
+        description={detailedContent.metaDescription}
+        keywords={detailedContent.keywords}
+        schema={[serviceSchema, breadcrumbSchema, faqSchema]}
       />
 
       {/* Background blobs */}
@@ -119,12 +118,12 @@ export default function ServiceDetail() {
         <div className="liquid-blob bottom-20 right-10 w-80 h-80 bg-indigo-500/10 dark:bg-indigo-600/10 blur-[120px] pointer-events-none" />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10 text-left">
+      <div className="max-w-4xl mx-auto px-6 relative z-10 text-left">
         
         {/* Back navigation */}
         <Link 
           to="/services"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-blue-500 transition-colors mb-12 cursor-pointer"
+          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-blue-500 transition-colors mb-10 cursor-pointer"
         >
           <ArrowLeft size={14} /> Back to Services Catalog
         </Link>
@@ -132,66 +131,72 @@ export default function ServiceDetail() {
         {/* ==========================================
             HERO HEADER
            ========================================== */}
-        <div className="flex flex-col gap-6 border-b border-slate-200 dark:border-slate-900 pb-12">
+        <div className="flex flex-col gap-6 border-b border-slate-200 dark:border-slate-900 pb-10 mb-10">
           <div className="p-4 bg-blue-600/10 text-blue-600 rounded-2xl w-max">
             <Icon size={28} />
           </div>
           <h1 className="font-heading text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-            {service.name}
+            {detailedContent.h1}
           </h1>
-          <p className="text-sm font-semibold text-blue-650 dark:text-blue-400 uppercase tracking-wider">
-            {service.subtitle}
-          </p>
-          <p className="text-sm md:text-base text-slate-650 dark:text-slate-400 leading-relaxed max-w-2xl">
-            {service.description}
+          <p className="text-xs md:text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest">
+            {detailedContent.subtitle}
           </p>
         </div>
 
         {/* ==========================================
-            WHAT IS IT SECTION
+            1. INTRODUCTION SECTION
            ========================================== */}
-        <div className="py-12 border-b border-slate-200 dark:border-slate-900 flex flex-col gap-4">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            What is {service.name}?
+        <div className="py-8 flex flex-col gap-4">
+          <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {detailedContent.introTitle}
           </h2>
-          <p className="text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
-            {service.whatIsIt || "We engineer elite software systems custom designed for your specific workflows."}
+          <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            {detailedContent.introduction}
           </p>
         </div>
 
-        {/* ==========================================
-            WHO IS IT FOR SECTION
-           ========================================== */}
-        <div className="py-12 border-b border-slate-200 dark:border-slate-900 flex flex-col gap-4">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Who is this Service Designed for?
-          </h2>
-          <p className="text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
-            {service.whoIsItFor || "Our services are tailored for medium to large enterprises looking to scale their digital infrastructure."}
-          </p>
+        {/* CTA 1 (Inline After Intro) */}
+        <div className="my-8 p-6 bg-slate-100/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-900 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="font-heading font-bold text-xs uppercase text-slate-900 dark:text-white">
+              Ready to automate your workflows?
+            </h3>
+            <p className="text-[10px] text-slate-500 mt-1">
+              Discuss your database architecture and custom feature list with our engineering leads.
+            </p>
+          </div>
+          <Link
+            to="/contact"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1 flex-shrink-0"
+          >
+            Request Free Proposal <ArrowUpRight size={12} />
+          </Link>
         </div>
 
         {/* ==========================================
-            PROCESS SECTION
+            2. WHY CHOOSE COREBUILD SOLUTIONS
            ========================================== */}
-        <div className="py-12 border-b border-slate-200 dark:border-slate-900 flex flex-col gap-6">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Engineered Workflow Process
-          </h2>
-          <p className="text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
-            {service.processDescription}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-            {service.workflow.map(item => (
-              <div key={item.step} className="flex flex-col gap-2 p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl">
-                <span className="font-heading font-extrabold text-blue-500 text-sm">
-                  STEP 0{item.step}
-                </span>
-                <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">
-                  {item.title}
+        <div className="py-8 flex flex-col gap-6">
+          <div>
+            <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {detailedContent.whyChooseUsTitle}
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500">
+              {detailedContent.whyChooseUsDesc}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {detailedContent.whyChooseUsPoints.map((point, idx) => (
+              <div key={idx} className="flex flex-col gap-2 p-5 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-900 rounded-2xl">
+                <div className="w-6 h-6 rounded-full bg-blue-600/10 text-blue-600 flex items-center justify-center font-bold text-[10px]">
+                  ✓
+                </div>
+                <h3 className="font-heading text-xs font-bold text-slate-900 dark:text-white uppercase mt-1">
+                  {point.title}
                 </h3>
-                <p className="text-[10px] text-slate-550 dark:text-slate-400 leading-relaxed">
-                  {item.desc}
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {point.desc}
                 </p>
               </div>
             ))}
@@ -199,99 +204,215 @@ export default function ServiceDetail() {
         </div>
 
         {/* ==========================================
-            TECHNOLOGIES SECTION
+            3. DEVELOPMENT PROCESS
            ========================================== */}
-        <div className="py-12 border-b border-slate-200 dark:border-slate-900 flex flex-col gap-6">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Core Technologies & Infrastructure Stack
-          </h2>
-          <p className="text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
-            {service.technologiesDescription}
+        <div className="py-8 flex flex-col gap-6">
+          <div>
+            <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {detailedContent.processTitle}
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500">
+              {detailedContent.processDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {detailedContent.processSteps.map((step, idx) => (
+              <div key={idx} className="p-5 bg-white dark:bg-slate-900/20 border border-slate-200 dark:border-slate-900 rounded-2xl flex gap-4">
+                <span className="font-heading font-extrabold text-blue-500 text-xl leading-none">
+                  {step.step}
+                </span>
+                <div className="flex flex-col gap-1 text-left">
+                  <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">
+                    {step.title}
+                  </h3>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA 2 (After Process) */}
+        <div className="my-8 p-8 bg-slate-900 text-white rounded-3xl relative overflow-hidden flex flex-col items-center gap-4 text-center">
+          <h3 className="font-heading text-lg md:text-xl font-bold relative z-10">
+            Let's structure your customized timeline.
+          </h3>
+          <p className="text-[10px] md:text-xs text-slate-400 max-w-md relative z-10 leading-relaxed">
+            Every software product we build is designed for sub-second edge rendering and matches corporate security guidelines.
           </p>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {service.details.map(tech => (
-              <span key={tech} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/20 rounded-md text-xs text-blue-600 dark:text-blue-400 font-semibold uppercase">
-                {tech}
-              </span>
+          <Link
+            to="/contact"
+            className="px-6 py-3 bg-blue-650 hover:bg-blue-600 text-white rounded-full font-semibold text-[10px] uppercase tracking-wider relative z-10 transition-colors cursor-pointer"
+          >
+            Book Free Consultation Session
+          </Link>
+        </div>
+
+        {/* ==========================================
+            4. TECHNOLOGIES WE USE
+           ========================================== */}
+        <div className="py-8 flex flex-col gap-6">
+          <div>
+            <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {detailedContent.techTitle}
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500">
+              {detailedContent.techDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {detailedContent.techCategories.map((cat, idx) => (
+              <div key={idx} className="flex flex-col gap-3 p-5 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-900 rounded-2xl">
+                <h3 className="font-heading text-xs font-extrabold uppercase text-blue-600 dark:text-blue-400 tracking-wider">
+                  {cat.name}
+                </h3>
+                <div className="h-[1px] bg-slate-100 dark:bg-slate-800 w-full" />
+                <ul className="space-y-2 text-[11px] text-slate-600 dark:text-slate-400 font-semibold">
+                  {cat.items.map((item, iIdx) => (
+                    <li key={iIdx} className="flex items-center gap-1.5">
+                      <div className="w-1 h-1 rounded-full bg-blue-500" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
 
         {/* ==========================================
-            PRICING TIERS SECTION
+            5. INDUSTRIES WE SERVE
            ========================================== */}
-        <div className="py-12 border-b border-slate-200 dark:border-slate-900 flex flex-col gap-6">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Pricing Plans & Packages
+        <div className="py-8 flex flex-col gap-6">
+          <div>
+            <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {detailedContent.industriesTitle}
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500">
+              {detailedContent.industriesDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {detailedContent.industries.map((ind, idx) => (
+              <div key={idx} className="p-5 bg-white dark:bg-slate-900/20 border border-slate-200 dark:border-slate-900 rounded-2xl">
+                <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider mb-2">
+                  {ind.name}
+                </h3>
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {ind.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ==========================================
+            6. BENEFITS
+           ========================================== */}
+        <div className="py-8 flex flex-col gap-6">
+          <div>
+            <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {detailedContent.benefitsTitle}
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500">
+              {detailedContent.benefitsDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {detailedContent.benefits.map((benefit, idx) => (
+              <div key={idx} className="flex gap-4">
+                <div className="w-8 h-8 rounded-xl bg-blue-600/10 text-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
+                  <Zap size={14} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-[11px] text-slate-650 dark:text-slate-400 leading-relaxed">
+                    {benefit.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ==========================================
+            7. WHY BUSINESSES CHOOSE US
+           ========================================== */}
+        <div className="py-8 flex flex-col gap-6">
+          <div>
+            <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              {detailedContent.whyBusinessesChooseUsTitle}
+            </h2>
+            <p className="text-xs md:text-sm text-slate-500">
+              {detailedContent.whyBusinessesChooseUsDesc}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {detailedContent.whyBusinessesChooseUsPoints.map((point, idx) => (
+              <div key={idx} className="flex gap-4 p-5 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-900 rounded-2xl">
+                <div className="w-8 h-8 rounded-xl bg-blue-600/10 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Award size={16} />
+                </div>
+                <div className="flex flex-col gap-1 text-left">
+                  <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">
+                    {point.title}
+                  </h3>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {point.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ==========================================
+            8. FAQ ACCORDIONS (6-8 Questions)
+           ========================================== */}
+        <div className="py-12 border-t border-slate-200 dark:border-slate-900 mt-8">
+          <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-8">
+            Frequently Asked Questions
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-            {service.pricing.map((tier, idx) => {
-              const isPopular = tier.popular === true;
+          <div className="flex flex-col gap-4">
+            {detailedContent.faqs.map((faq, index) => {
+              const isOpen = openFaq === index;
               return (
-                <div 
-                  key={idx} 
-                  className={`p-8 rounded-3xl border flex flex-col justify-between ${
-                    isPopular 
-                      ? 'bg-slate-900 dark:bg-slate-900 border-blue-500 text-white shadow-xl' 
-                      : 'bg-white/50 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800'
-                  }`}
+                <div
+                  key={index}
+                  className="border border-slate-200 dark:border-slate-900 rounded-2xl overflow-hidden bg-white dark:bg-slate-950/20 backdrop-blur-sm"
                 >
-                  <div className="flex flex-col gap-4">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-heading font-bold text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                        {tier.plan}
-                      </h3>
-                      {isPopular && (
-                        <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[9px] uppercase tracking-widest font-semibold rounded-md">
-                          BEST VALUE
-                        </span>
-                      )}
-                    </div>
-
-                    {tier.description && (
-                      <p className="text-xs text-slate-550 dark:text-slate-450 leading-snug mt-1">
-                        {tier.description}
-                      </p>
-                    )}
-
-                    <div className="flex items-baseline gap-1 mt-2">
-                      {tier.originalPrice && (
-                        <span className={`text-xs line-through mr-1 ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
-                          {tier.originalPrice}
-                        </span>
-                      )}
-                      <span className="font-heading text-3xl font-extrabold tracking-tight">
-                        {tier.price}
-                      </span>
-                      <span className="text-[10px] text-slate-400 uppercase tracking-widest">
-                        / starting
-                      </span>
-                    </div>
-                    
-                    <div className="h-[1px] bg-slate-200 dark:bg-slate-800/80 w-full my-2" />
-                    
-                    <ul className="space-y-3 text-xs">
-                      {tier.features.map((feature, fIdx) => (
-                        <li key={fIdx} className="flex items-center gap-2">
-                          <Check size={14} className="text-blue-500 flex-shrink-0" />
-                          <span className={isPopular ? 'text-slate-300' : 'text-slate-650 dark:text-slate-400'}>
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <Link
-                    to="/contact"
-                    className={`w-full py-4 rounded-xl font-bold text-xs text-center uppercase tracking-wider mt-8 transition-all ${
-                      isPopular 
-                        ? 'bg-blue-600 text-white hover:bg-blue-500' 
-                        : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-white'
-                    }`}
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="w-full px-6 py-5 flex items-center justify-between text-left font-heading font-semibold text-sm md:text-base text-slate-900 dark:text-white transition-colors hover:bg-slate-100/50 dark:hover:bg-slate-900/30 cursor-pointer"
                   >
-                    {tier.ctaText || 'Initiate Project'}
-                  </Link>
+                    <span>{faq.q}</span>
+                    {isOpen ? <Minus size={16} className="text-blue-500" /> : <Plus size={16} />}
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200 dark:border-slate-900 pt-4">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
@@ -299,63 +420,17 @@ export default function ServiceDetail() {
         </div>
 
         {/* ==========================================
-            FAQ ACCORDIONS
+            9. CALL TO ACTION (Bottom Banner)
            ========================================== */}
-        {serviceFaqsList.length > 0 && (
-          <div className="py-12 border-b border-slate-200 dark:border-slate-900">
-            <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-8">
-              Frequently Asked Questions
-            </h2>
-            <div className="flex flex-col gap-4">
-              {serviceFaqsList.map((faq, index) => {
-                const isOpen = openFaq === index;
-                return (
-                  <div
-                    key={index}
-                    className="border border-slate-200 dark:border-slate-900 rounded-2xl overflow-hidden bg-white dark:bg-slate-950/20 backdrop-blur-sm"
-                  >
-                    <button
-                      onClick={() => toggleFaq(index)}
-                      className="w-full px-6 py-5 flex items-center justify-between text-left font-heading font-semibold text-sm md:text-base text-slate-900 dark:text-white transition-colors hover:bg-slate-100/50 dark:hover:bg-slate-900/30 cursor-pointer"
-                    >
-                      <span>{faq.q}</span>
-                      {isOpen ? <Minus size={16} className="text-blue-500" /> : <Plus size={16} />}
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0 }}
-                          animate={{ height: 'auto' }}
-                          exit={{ height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-6 text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed border-t border-slate-200 dark:border-slate-900 pt-4">
-                            {faq.a}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* ==========================================
-            CONSULTATION CTA BANNER
-           ========================================== */}
-        <div className="relative rounded-3xl bg-slate-900 text-white p-12 overflow-hidden shadow-2xl flex flex-col items-center gap-6 mt-16 text-center">
+        <div className="relative rounded-3xl bg-slate-900 text-white p-12 overflow-hidden shadow-2xl flex flex-col items-center gap-6 mt-12 text-center border border-slate-800">
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-blue-500/10 blur-[100px] pointer-events-none" />
           
-          <h2 className="font-heading text-3xl md:text-4xl font-extrabold tracking-tight leading-none relative z-10">
-            Let's build your next digital asset together.
+          <h2 className="font-heading text-2xl md:text-3xl font-extrabold tracking-tight leading-none relative z-10">
+            Secure your complimentary strategic blueprint.
           </h2>
           
           <p className="text-xs md:text-sm text-slate-400 max-w-lg relative z-10 leading-relaxed">
-            Secure a free strategic blueprint session with our engineering leads to map your database schema, API routing, and project timeline.
+            We partner with enterprises in Raipur, Chhattisgarh, and all across India to build premium digital assets. Contact us today.
           </p>
           
           <Link

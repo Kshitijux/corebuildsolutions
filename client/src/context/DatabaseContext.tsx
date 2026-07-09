@@ -163,19 +163,54 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       if (resProj.data && resProj.data.length > 0) setProjects(resProj.data.map(mapProjectFromDB));
       
       // Merge local storage blogs with Supabase/fallback blogs to preserve custom fields (published, SEO, slugs)
+      const cleanAuthor = (authorName?: string) => {
+        if (!authorName) return "Kshitij, Founder & CEO";
+        if (authorName === "Elena Vance, CTO" || 
+            authorName === "Marcus Sterling, Lead Designer" || 
+            authorName === "CoreBuild Team") {
+          return "Kshitij, Founder & CEO";
+        }
+        return authorName;
+      };
+
       const localBlogsRaw = localStorage.getItem("core_blogs");
       const localBlogs: Blog[] = localBlogsRaw ? JSON.parse(localBlogsRaw) : [];
-      let finalBlogs = resBlogs.data && resBlogs.data.length > 0 ? resBlogs.data : fallbackBlogs;
+      const databaseBlogs = resBlogs.data && resBlogs.data.length > 0 ? resBlogs.data : [];
       
-      const mergedBlogs = [...finalBlogs];
-      localBlogs.forEach((lb: Blog) => {
-        const idx = mergedBlogs.findIndex(b => b.id === lb.id);
+      // Start with all fallback blogs (ensuring all new posts are present)
+      const mergedBlogs = fallbackBlogs.map(b => ({
+        ...b,
+        author: cleanAuthor(b.author)
+      }));
+
+      // Merge database records
+      databaseBlogs.forEach((db: Blog) => {
+        const idx = mergedBlogs.findIndex(b => b.id === db.id);
+        const cleanDb = {
+          ...db,
+          author: cleanAuthor(db.author)
+        };
         if (idx !== -1) {
-          mergedBlogs[idx] = { ...mergedBlogs[idx], ...lb };
+          mergedBlogs[idx] = { ...mergedBlogs[idx], ...cleanDb };
         } else {
-          mergedBlogs.unshift(lb);
+          mergedBlogs.push(cleanDb);
         }
       });
+
+      // Merge local storage records
+      localBlogs.forEach((lb: Blog) => {
+        const idx = mergedBlogs.findIndex(b => b.id === lb.id);
+        const cleanLb = {
+          ...lb,
+          author: cleanAuthor(lb.author)
+        };
+        if (idx !== -1) {
+          mergedBlogs[idx] = { ...mergedBlogs[idx], ...cleanLb };
+        } else {
+          mergedBlogs.unshift(cleanLb);
+        }
+      });
+
       setBlogs(mergedBlogs);
 
       if (resTest.data && resTest.data.length > 0) setTestimonials(resTest.data);
@@ -750,6 +785,9 @@ export const DatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         supabase.from('SystemSettings').insert([settingsWithDate]),
         supabase.from('SeoSettings').insert(seoWithDates)
       ]);
+
+      // Clear local storage cache
+      localStorage.removeItem("core_blogs");
 
       // 4. Reload
       await loadInitialData();

@@ -569,39 +569,39 @@ export const fallbackTeam: TeamMember[] = [
 export const fallbackSeoSettings: SeoSettings[] = [
   {
     page: 'home',
-    title: 'CoreBuild Solutions | Premium Global Web & Software Agency',
-    description: 'We design and engineer elite web applications, mobile apps, and custom AI systems that premium businesses trust. Beautiful design meets world-class engineering.',
-    keywords: 'web design, web development, premium agency, custom software, AI automation, luxury brands design'
+    title: 'Website Development Company in Raipur, Chhattisgarh | CoreBuild Solutions',
+    description: 'Looking for the best website development company in Raipur, Chhattisgarh? CoreBuild Solutions builds premium, SEO-friendly websites, custom web applications, e-commerce storefronts, and mobile apps for businesses across India.',
+    keywords: 'website development company raipur, website design company raipur, web development company chhattisgarh, website developer raipur, software development company raipur, mobile app development raipur, web design raipur, custom website development chhattisgarh, digital marketing raipur, best software agency india'
   },
   {
     page: 'about',
-    title: 'Our Story | CoreBuild Solutions',
-    description: 'Meet the award-winning team of product designers, staff developers, and brand strategists engineering the digital future for high-ticket brands.',
-    keywords: 'about agency, team, founders, developers, creative agency, core values'
+    title: 'Best Website Developers in Raipur - About CoreBuild Solutions',
+    description: 'About CoreBuild Solutions - The leading web development agency in Raipur, Chhattisgarh. Our team of certified software developers, UI/UX designers, and SEO specialists build high-performance systems for startups and enterprises in India.',
+    keywords: 'web development agency raipur, website design team raipur, software developers chhattisgarh, best tech company raipur, corebuild solutions team, local website developers raipur, software agency chhattisgarh'
   },
   {
     page: 'services',
-    title: 'Elite Digital Services | CoreBuild Solutions',
-    description: 'Explore our tailored services including custom web apps, native-feeling mobile software, and vector-backed artificial intelligence systems.',
-    keywords: 'web development cost, mobile app dev, AI systems, SaaS creation, custom CMS development'
+    title: 'Website Development Services in Raipur, Chhattisgarh | CoreBuild',
+    description: 'Premium digital services by CoreBuild Solutions in Raipur. We specialize in custom web application development, Android/iOS mobile apps, secure e-commerce portals, UI/UX design, and SEO optimization in Chhattisgarh, India.',
+    keywords: 'website development services raipur, e-commerce website development raipur, mobile app development chhattisgarh, software engineering raipur, custom web development india, local seo services raipur'
   },
   {
     page: 'portfolio',
-    title: 'Award-Winning Projects Showcase | CoreBuild Solutions',
-    description: 'View the elite projects we have shipped for real estate platforms, global concierge apps, and Quantitative FinTech funds.',
-    keywords: 'portfolio, design gallery, case studies, nextjs examples, react app showcase'
+    title: 'Our Web Design & Software Projects | CoreBuild Raipur',
+    description: 'Explore our work portfolio. CoreBuild Solutions showcases custom website designs, mobile apps, SaaS applications, and e-commerce stores successfully delivered for businesses in Raipur, Chhattisgarh, and across India.',
+    keywords: 'web design portfolio raipur, website design examples chhattisgarh, custom software showcase raipur, mobile apps portfolio india, e-commerce developer portfolio chhattisgarh'
   },
   {
     page: 'blog',
-    title: 'Premium Engineering & AI Insights Blog | CoreBuild Solutions',
-    description: 'Read the latest technical articles, case studies, and engineering guidelines on AI system architectures, custom web development, and premium UI/UX designs.',
-    keywords: 'engineering blog, tech articles, AI architecture, custom software development blog, UI/UX designs, tech agency insights'
+    title: 'Web Development & Local SEO Insights Blog | CoreBuild Solutions',
+    description: 'Read local SEO growth hacks, website optimization tips, and custom software development guides from the best website developer company in Raipur, Chhattisgarh, India.',
+    keywords: 'web design blog raipur, software development guides chhattisgarh, local seo tips india, e-commerce growth tips raipur, tech insights chhattisgarh'
   },
   {
     page: 'contact',
-    title: 'Secure Your Strategic Consultation | CoreBuild Solutions',
-    description: 'Contact our agency leads today. Request a custom development blueprint, book a virtual meeting, or initiate your digital roadmap.',
-    keywords: 'contact agency, book a call, development quote, hire web agency, London design firm'
+    title: 'Hire Best Website Development Company in Raipur | Contact Us',
+    description: 'Get a free quote today! Contact CoreBuild Solutions, the top website design & web development company in Raipur, Chhattisgarh, India. Let\'s discuss your next digital project.',
+    keywords: 'contact website developers raipur, hire web development company chhattisgarh, web design quote raipur, hire mobile app developer raipur, best tech support raipur'
   }
 ];
 

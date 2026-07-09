@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Smartphone, Cpu, Check, ArrowLeft, ArrowUpRight, Plus, Minus, Layers, Users, Zap, Award } from 'lucide-react';
+import { Globe, Smartphone, Cpu, Check, ArrowLeft, ArrowUpRight, Plus, Minus, Layers, Users, Zap, Award, ShoppingBag, TrendingUp, Terminal } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
 import SEO from '../components/SEO';
 import { detailedServices } from '../servicesContent';
@@ -14,7 +14,12 @@ export default function ServiceDetail() {
   const slugToIdMap: Record<string, string> = {
     'custom-web-applications': 'srv-1',
     'mobile-app-development': 'srv-2',
-    'ai-machine-learning': 'srv-3'
+    'ai-machine-learning': 'srv-3',
+    'e-commerce-development': 'srv-4',
+    'ui-ux-design': 'srv-5',
+    'branding-logo-design': 'srv-6',
+    'seo-optimization': 'srv-7',
+    'custom-enterprise-software': 'srv-8'
   };
 
   const serviceId = slugToIdMap[id || ''] || id || '';
@@ -41,7 +46,12 @@ export default function ServiceDetail() {
   const serviceIcons = {
     'Globe': Globe,
     'Smartphone': Smartphone,
-    'Cpu': Cpu
+    'Cpu': Cpu,
+    'ShoppingBag': ShoppingBag,
+    'Layers': Layers,
+    'Award': Award,
+    'LineChart': TrendingUp,
+    'Terminal': Terminal
   };
   const Icon = serviceIcons[service.icon as keyof typeof serviceIcons] || Layers;
 

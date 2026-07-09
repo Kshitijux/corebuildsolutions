@@ -239,5 +239,292 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
       { q: 'How long does it take to integrate a custom AI agent?', a: 'A standard AI agent integration takes between 6 to 10 weeks, depending on data formats, vector pipeline setup, and dashboard requirement parameters.' },
       { q: 'Can you train a model on our specific company voice?', a: 'Yes. We clean, format, and prepare dataset files representing your company\'s historic customer responses to run fine-tuning jobs on models, aligning their tone and vocabulary with your brand.' }
     ]
+  },
+  'srv-4': {
+    id: 'srv-4',
+    slug: 'e-commerce-development',
+    seoTitle: 'E-commerce Website Development Company Raipur Chhattisgarh | CoreBuild',
+    metaDescription: 'CoreBuild Solutions is the best E-commerce Website Development Company in Raipur. We build high-converting, sub-second checkout online storefronts in Chhattisgarh, India.',
+    keywords: 'E-commerce Website Development Company Raipur, E-commerce Developer Raipur Chhattisgarh, E-commerce Website Cost India, Shopify Developer Raipur, WooCommerce Development Raipur',
+    h1: 'E-commerce Development Company in Raipur',
+    subtitle: 'High-Converting Online Storefronts Engineered for Speed & Scale',
+    introTitle: 'Engineering High-Throughput E-commerce Architecture',
+    introduction: 'At CoreBuild Solutions, we build high-converting e-commerce web applications designed to load in under a second and maximize overall sales metrics. Our online storefront architectures utilize React frontends combined with headless CMS frameworks to ensure zero layout shifts and rapid catalog navigations.',
+    whyChooseUsTitle: 'Why Choose Our E-commerce Solutions?',
+    whyChooseUsDesc: 'Ordinary shop builders cause heavy page load lag that increases cart abandonment. Here is how we build different storefronts:',
+    whyChooseUsPoints: [
+      { title: 'Sub-Second Product Renders', desc: 'We pre-render all catalogs on global Edge CDNs to ensure listings load instantly when users browse.' },
+      { title: 'Decoupled Store Carts', desc: 'We build client-side cart managers using Zustand to allow instant add-to-cart operations without database delays.' },
+      { title: 'Integrated Payment Gateways', desc: 'Secure integrations with Stripe, Razorpay, and Google/Apple Pay directly into the checkout layout.' }
+    ],
+    processTitle: 'Our E-commerce Development Lifecycle',
+    processDesc: 'We follow a structured 4-phase agile delivery timeline to deploy your custom online storefront:',
+    processSteps: [
+      { step: '01', title: 'Data Schema Mapping', desc: 'Designing database models for products, variations, categories, and inventory sync systems.' },
+      { step: '02', title: 'Luxury Visual Checkout UX', desc: 'Crafting responsive product display grids, single-page checkouts, and clean checkout states.' },
+      { step: '03', title: 'Headless CMS Integration', desc: 'Configuring Shopify Headless or WooCommerce backends with a custom React frontend wrapper.' },
+      { step: '04', title: 'Gateway Audits & Launch', desc: 'Testing webhooks, running transactional security reviews, and deploying catalog edge caches.' }
+    ],
+    techTitle: 'Technologies We Use for E-commerce Platforms',
+    techDesc: 'We build storefronts using high-performance headless architectures:',
+    techCategories: [
+      { name: 'Frontend', items: ['React.js', 'Vite', 'Tailwind CSS', 'Zustand State'] },
+      { name: 'Headless Engines', items: ['Shopify Storefront API', 'WooCommerce Headless', 'Strapi CMS'] },
+      { name: 'Payments', items: ['Stripe API', 'Razorpay SDK', 'Apple Pay, Google Pay'] },
+      { name: 'Hosting', items: ['Vercel Edge CDN', 'AWS CloudFront', 'Docker Nodes'] }
+    ],
+    industriesTitle: 'Storefront Types We Deliver',
+    industriesDesc: 'We build high-converting storefronts for retail brands, wholesale vendors, and SaaS teams in Raipur, Chhattisgarh:',
+    industries: [
+      { name: 'B2C Luxury Retail', desc: 'Stunning displays, smooth damping scroll motions, and single-click checkout states.' },
+      { name: 'B2B Wholesale Platforms', desc: 'Custom wholesale role permissions, bulk order forms, and automated invoice delivery.' },
+      { name: 'Digital Subscriptions', desc: 'Automated subscription billing cycles, client account dashboards, and content paywalls.' }
+    ],
+    benefitsTitle: 'Measurable Storefront ROI',
+    benefitsDesc: 'We build storefronts that directly improve sales conversions and lower customer acquisition costs:',
+    benefits: [
+      { title: 'Reduced Cart Abandonment', desc: 'By making checkout single-page, responsive, and secure, customer dropoff is minimized.' },
+      { title: 'Lighthouse Page Speed Boost', desc: 'Fast product listing renders mean higher organic rankings and cheaper Google Ads traffic costs.' },
+      { title: 'Decoupled Server Scaling', desc: 'Decoupled storefront architecture scales independently, preventing server crashes during high traffic sales.' }
+    ],
+    whyBusinessesChooseUsTitle: 'Why Choose CoreBuild?',
+    whyBusinessesChooseUsDesc: 'We deliver custom storefronts with full ownership and high technical execution standards:',
+    whyBusinessesChooseUsPoints: [
+      { title: '100% Platform Ownership', desc: 'You own the complete custom React storefront code and data configurations.' },
+      { title: 'Advanced Analytics Logs', desc: 'Integrated tracking scripts (Google Analytics, Meta Pixel) to analyze checkout funnels.' }
+    ],
+    faqs: [
+      { q: 'Why hire an E-commerce Developer in Raipur?', a: 'Partnering with a Raipur website developer allows for face-to-face strategizing, local support, and payment gateway alignment.' },
+      { q: 'What is a Headless E-commerce Store?', a: 'A headless store separates the frontend design from the backend commerce engine, resulting in faster loading and greater design freedom.' }
+    ]
+  },
+  'srv-5': {
+    id: 'srv-5',
+    slug: 'ui-ux-design',
+    seoTitle: 'UI/UX Interface Design Agency Raipur Chhattisgarh | CoreBuild',
+    metaDescription: 'CoreBuild Solutions is the premier UI/UX Design Agency in Raipur, Chhattisgarh. We design luxury, high-fidelity app interfaces, wireframes, and responsive designs.',
+    keywords: 'UI/UX Design Agency Raipur, UI/UX Designer Raipur Chhattisgarh, Web Designer Raipur, App Interface Design India, Figma Prototyping Raipur',
+    h1: 'UI/UX Interface Design Agency in Raipur',
+    subtitle: 'Stunning Luxury Digital Interfaces Engineered for Visual Excellence',
+    introTitle: 'Designing Luxury Digital Interfaces That Build Brand Equity',
+    introduction: 'We design premium interface systems tailored specifically for startups and enterprises demanding visual authority. Our UI/UX processes balance negative space, typography, and motion to create stunning first impressions.',
+    whyChooseUsTitle: 'Why Choose Our Design Studio?',
+    whyChooseUsDesc: 'We avoid generic, bloated templates. We focus on details that communicate luxury and trust:',
+    whyChooseUsPoints: [
+      { title: 'Whitespace as a Luxury Asset', desc: 'Generous section padding to give content breathing room and direct visual focus.' },
+      { title: 'Typographic Authority', desc: 'Pairing high-end editorial display fonts with modern sans-serif body copies.' },
+      { title: 'Choreographed Spring Motion', desc: 'Custom damping motion wireframes that respond organically to user gestures.' }
+    ],
+    processTitle: 'Our UI/UX Design Lifecycle',
+    processDesc: 'We translate product requirements into premium visual guides across 4 phases:',
+    processSteps: [
+      { step: '01', title: 'Moodboard Strategy', desc: 'Auditing brand guides, outlining font families, and compiling visual inspiration boards.' },
+      { step: '02', title: 'Wireframe Prototyping', desc: 'Creating structural interactive layouts to test user navigation and content hierarchy.' },
+      { step: '03', title: 'High-Fidelity UI Design', desc: 'Applying color theories, design elements, typography systems, and components in Figma.' },
+      { step: '04', title: 'Developer Handoff', desc: 'Delivering design libraries, styling assets, and gesture motion specs to engineers.' }
+    ],
+    techTitle: 'Design Frameworks We Use',
+    techDesc: 'We build prototypes and component design systems using industry-standard applications:',
+    techCategories: [
+      { name: 'Design Tools', items: ['Figma', 'Adobe Creative Cloud', 'Illustrator', 'Photoshop'] },
+      { name: 'Prototyping', items: ['Figma Interactive Prototypes', 'Framer', 'Lottie Animations'] },
+      { name: 'Component Systems', items: ['Figma Design Tokens', 'Material Design Components', 'Apple Human Interface'] }
+    ],
+    industriesTitle: 'Interfaces We Design',
+    industriesDesc: 'We create high-end designs for mobile devices, web apps, and custom dashboards in Raipur Chhattisgarh:',
+    industries: [
+      { name: 'Mobile Applications', desc: 'Fluid gestures, thumb-friendly actions, and clean dark/light UI modes.' },
+      { name: 'SaaS Web Applications', desc: 'Data-rich layouts, filter panels, and administrative user workflows.' },
+      { name: 'Consumer Portals', desc: 'Sleek onboarding paths, graphic indicators, and responsive landing setups.' }
+    ],
+    benefitsTitle: 'UX Design Business Benefits',
+    benefitsDesc: 'Elite UX directly influences customer retention and boosts brand value:',
+    benefits: [
+      { title: 'Increased User Dwell Time', desc: 'Aesthetically pleasing screens invite interaction, keeping users on your app longer.' },
+      { title: 'Lower Conversion Friction', desc: 'Intuitive navigation maps guide users to CTA goals, maximizing inquiries.' },
+      { title: 'Reduced Engineering Rebuilds', desc: 'Validating wireframes in Figma beforehand saves weeks of development coding.' }
+    ],
+    whyBusinessesChooseUsTitle: 'Why Choose Our Studio?',
+    whyBusinessesChooseUsDesc: 'We deliver pixel-perfect digital designs that set your company apart:',
+    whyBusinessesChooseUsPoints: [
+      { title: 'Figma Library Delivery', desc: 'You receive complete Figma layout files with nested components.' },
+      { title: 'Design System Documentation', desc: 'Fully documented tokens, variables, and typography scale sheets.' }
+    ],
+    faqs: [
+      { q: 'Why hire a UI/UX Designer in Raipur?', a: 'Working with a local Raipur designer allows you to review layout blueprints, iterate on branding goals, and align workflows in real-time.' },
+      { q: 'What is a Figma prototype?', a: 'A Figma prototype is an interactive mock representation of the application, allowing you to click buttons and navigate pages before coding.' }
+    ]
+  },
+  'srv-6': {
+    id: 'srv-6',
+    slug: 'branding-logo-design',
+    seoTitle: 'Branding & Logo Design Company Raipur Chhattisgarh | CoreBuild',
+    metaDescription: 'Looking for the best branding and logo design company in Raipur, Chhattisgarh? CoreBuild Solutions crafts custom logos, premium corporate identities, and brand guides.',
+    keywords: 'Branding Logo Design Company Raipur, Logo Designer Raipur Chhattisgarh, Graphic Design Raipur, Corporate Identity Design India, Brand Strategist Raipur',
+    h1: 'Branding & Logo Design Company in Raipur',
+    subtitle: 'Custom Corporate Identity & Premium Brand Strategies',
+    introTitle: 'Crafting Authoritative Corporate Brand Identities',
+    introduction: 'We establish premium corporate identity frameworks designed to communicate authority, reliability, and modern aesthetic value. From logo geometry to detailed brand voice guides, we shape how your business is perceived.',
+    whyChooseUsTitle: 'Why Choose Our Brand Planners?',
+    whyChooseUsDesc: 'A logo is not just a graphic; it is your business\'s signature. Here is how we design signature identities:',
+    whyChooseUsPoints: [
+      { title: 'Geometric Logo Construction', desc: 'Custom logos built using grids and math to ensure readability from favicons to billboard sizes.' },
+      { title: 'Cohesive Color Systems', desc: 'Curating color palettes based on industry psychology, ensuring consistent rendering across digital and print media.' },
+      { title: 'Complete Brand Voice Systems', desc: 'Guidelines detailing typography systems, photography grids, and communication styles.' }
+    ],
+    processTitle: 'Our Branding Journey Lifecycle',
+    processDesc: 'We develop your corporate identity system across 4 structured phases:',
+    processSteps: [
+      { step: '01', title: 'Brand Discovery Audit', desc: 'Reviewing market positioning, research values, competitor branding, and target audiences.' },
+      { step: '02', title: 'Geometric Concepts', desc: 'Drafting vector ideas, evaluating geometry, and reviewing emblem weights.' },
+      { step: '03', title: 'Corporate System Prep', desc: 'Expanding the chosen emblem into complete brand identity assets (business cards, letterheads, social mockups).' },
+      { step: '04', title: 'Brand Book Delivery', desc: 'Compiling all vector logs, custom guides, and source files into your Brand Guideline PDF.' }
+    ],
+    techTitle: 'Vector Design Tools We Use',
+    techDesc: 'We construct high-fidelity vector illustrations using standard creative suites:',
+    techCategories: [
+      { name: 'Creative Software', items: ['Adobe Illustrator', 'Adobe Photoshop', 'Figma', 'InDesign'] },
+      { name: 'Asset Formats', items: ['Scalable Vector Graphics (SVG)', 'Encapsulated PostScript (EPS)', 'Adobe PDF Source', 'High-Res PNG'] }
+    ],
+    industriesTitle: 'Branding Deliverables We Craft',
+    industriesDesc: 'We design complete brand systems for retail companies, manufacturing groups, and startup brands in Raipur Chhattisgarh:',
+    industries: [
+      { name: 'Logo & Emblem Suites', desc: 'Primary logomarks, secondary seals, custom wordmarks, and tiny browser favicons.' },
+      { name: 'Corporate Stationery', desc: 'Professional letterheads, email banners, envelopes, and premium business card layouts.' },
+      { name: 'Digital Brand Assets', desc: 'Social media profile templates, pitch deck presentation layouts, and branding guides.' }
+    ],
+    benefitsTitle: 'Branding Business Benefits',
+    benefitsDesc: 'A cohesive brand directly drives buyer trust and consumer pricing authority:',
+    benefits: [
+      { title: 'Establishes Premium Authority', desc: 'Clean, professional branding creates immediate buyer trust and credibility.' },
+      { title: 'Cohesive Multi-Channel Presence', desc: 'Ensuring your identity is consistent across your site, print items, and social media.' },
+      { title: 'Protects Brand Equity', desc: 'Vector guidelines prevent pixelated logos and inconsistent layouts across teams.' }
+    ],
+    whyBusinessesChooseUsTitle: 'Why Choose CoreBuild?',
+    whyBusinessesChooseUsDesc: 'We deliver branding suites with full copyright ownership and high production values:',
+    whyBusinessesChooseUsPoints: [
+      { title: 'Full Ownership & Rights', desc: 'You own 100% of the vector layouts, emblem copyright, and guide assets.' },
+      { title: 'High-Res Deliverables', desc: 'Every design is exported in scalable vector paths ready for print production.' }
+    ],
+    faqs: [
+      { q: 'Why hire a Logo Designer in Raipur?', a: 'Working with a local Raipur logo developer allows you to inspect print proofs, review color swatches, and collaborate in person.' },
+      { q: 'What is a Brand Guideline Book?', a: 'A brand guideline is a document detailing your logo variations, color hex codes, font weights, and spacing rules for consistent design.' }
+    ]
+  },
+  'srv-7': {
+    id: 'srv-7',
+    slug: 'seo-optimization',
+    seoTitle: 'Best SEO Agency in Raipur Chhattisgarh | CoreBuild Solutions',
+    metaDescription: 'Grow your business online with the best SEO Agency in Raipur, Chhattisgarh. We optimize software websites for maximum Google rankings and organic traffic.',
+    keywords: 'SEO Agency Raipur, SEO Services Raipur Chhattisgarh, Search Engine Optimization Raipur, Best SEO Company India, Local SEO Raipur Chhattisgarh',
+    h1: 'Search Engine Optimization (SEO) Agency in Raipur',
+    subtitle: 'Data-Driven SEO Services Engineered for Maximum Google Rankings',
+    introTitle: 'Generating Organic Leads with Search Engine Optimization',
+    introduction: 'We engineer data-driven search engine optimization plans designed to rank your company at the top of Google searches. Our specialists audit search intent, optimize load speeds, build schema markup, and write optimized copy.',
+    whyChooseUsTitle: 'Why Choose Our SEO Specialists?',
+    whyChooseUsDesc: 'We avoid fake traffic shortcuts. We focus on search intent, crawl compliance, and conversion parameters:',
+    whyChooseUsPoints: [
+      { title: 'Technical Crawl Optimization', desc: 'Auditing page loading speed, indexation errors, sitemap structure, and canonical tags.' },
+      { title: 'Keyword Intent Strategy', desc: 'Targeting keywords that connect with buyers looking to purchase your services.' },
+      { title: 'Dynamic Schema Injection', desc: 'Injecting JSON-LD breadcrumb and FAQ schemas to capture rich Google snippets.' }
+    ],
+    processTitle: 'Our SEO Campaign Lifecycle',
+    processDesc: 'We grow your organic visibility across 4 phases:',
+    processSteps: [
+      { step: '01', title: 'SEO Site Audit', desc: 'Auditing keyword ranking, site errors, loading speed, and competitor backlinks.' },
+      { step: '02', title: 'Keyword Research', desc: 'Identifying terms that combine high search volume with low keyword difficulty.' },
+      { step: '03', title: 'On-Page Optimization', desc: 'Updating title tags, description metas, heading structures, and alt tags.' },
+      { step: '04', title: 'Crawl Monitoring', desc: 'Tracking Google Search Console indexation logs, search traffic, and keyword placement.' }
+    ],
+    techTitle: 'SEO & Analytics Platforms We Use',
+    techDesc: 'We analyze queries and monitor indexation logs using professional suites:',
+    techCategories: [
+      { name: 'Audit & Analysis', items: ['Google Search Console', 'Ahrefs', 'SEMrush', 'Screaming Frog'] },
+      { name: 'Performance Logs', items: ['Google PageSpeed Insights', 'GTmetrix', 'Google Lighthouse'] },
+      { name: 'Tracking Scripts', items: ['Google Analytics 4', 'Microsoft Clarity', 'JSON-LD Schema Creator'] }
+    ],
+    industriesTitle: 'SEO Campaigns We Run',
+    industriesDesc: 'We optimize websites for local, national, and e-commerce companies in Raipur Chhattisgarh:',
+    industries: [
+      { name: 'Local SEO Raipur', desc: 'Google Business Profile, local citation building, and Raipur- Chhattisgarh localized page copy.' },
+      { name: 'E-commerce SEO', desc: 'Optimizing product schema tags, catalog navigation speed, and category rank keywords.' },
+      { name: 'Enterprise B2B SEO', desc: 'Writing comprehensive articles that establish brand authority and capture corporate leads.' }
+    ],
+    benefitsTitle: 'Measurable SEO Benefits',
+    benefitsDesc: 'Organic rank growth delivers stable lead capture and minimizes paid ads spend:',
+    benefits: [
+      { title: 'Consistent Inbound Leads', desc: 'Ranking on page 1 generates a daily stream of organic customer inquiries without ongoing ad spend.' },
+      { title: 'Compounded Long-Term Growth', desc: 'Unlike paid ads that stop when budget runs dry, search optimization delivers traffic indefinitely.' },
+      { title: 'Lower Conversion Costs', desc: 'Organic visitors trust search results more than sponsored ads, resulting in higher conversions.' }
+    ],
+    whyBusinessesChooseUsTitle: 'Why Choose CoreBuild?',
+    whyBusinessesChooseUsDesc: 'We deliver transparent SEO audit reports with clear growth tracking:',
+    whyBusinessesChooseUsPoints: [
+      { title: 'No Spam Black-Hat Tactics', desc: 'We adhere strictly to Google crawler guidelines, safeguarding your domain from search penalty risks.' },
+      { title: 'Clear Reporting Dashboards', desc: 'Regular reports tracking keyword placement, search impressions, and click growth.' }
+    ],
+    faqs: [
+      { q: 'Why hire an SEO Agency in Raipur?', a: 'Working with a local Raipur SEO team allows you to sync campaign goals, audit local search patterns, and coordinate support in Chhattisgarh.' },
+      { q: 'How long does it take to see SEO results?', a: 'A typical search engine campaign takes between 3 to 6 months to demonstrate stable page 1 ranking growth, depending on competition.' }
+    ]
+  },
+  'srv-8': {
+    id: 'srv-8',
+    slug: 'custom-enterprise-software',
+    seoTitle: 'Custom Software Development Company Raipur Chhattisgarh | CoreBuild',
+    metaDescription: 'Looking for a custom software development company in Raipur, Chhattisgarh? CoreBuild Solutions builds scalable enterprise portals, SaaS platforms, and APIs in India.',
+    keywords: 'Custom Software Development Company Raipur, Software Developer Raipur Chhattisgarh, Enterprise Software Developer India, SaaS Developer Raipur, Custom ERP Software Chhattisgarh',
+    h1: 'Custom Software Development Company in Raipur',
+    subtitle: 'Scalable Enterprise Portals, SaaS Platforms, & Backend APIs',
+    introTitle: 'Engineering Decoupled Custom Enterprise Software Systems',
+    introduction: 'We engineer secure custom software systems tailored specifically for enterprises needing database scaling, workflow automation, and custom roles. We bypass templates to write clean, high-performance backend code.',
+    whyChooseUsTitle: 'Why Choose Our Software Engineers?',
+    whyChooseUsDesc: 'We follow robust coding guidelines to deliver clean, scalable backend systems:',
+    whyChooseUsPoints: [
+      { title: 'Secure Relational Database Design', desc: 'Structuring custom relational databases using PostgreSQL and Prisma to guarantee data integrity.' },
+      { title: 'Decoupled Microservice APIs', desc: 'Engineering modular backend APIs that scale independently and connect with any frontend wrapper.' },
+      { title: 'Custom Role & Access Policies', desc: 'Setting up robust authentication (JWT/OAuth) to configure complex user access policies.' }
+    ],
+    processTitle: 'Our Software Development Lifecycle',
+    processDesc: 'We deliver scalable enterprise software systems across 6 sprint milestones:',
+    processSteps: [
+      { step: '01', title: 'System Blueprinting', desc: 'Auditing workflow constraints, outlining schema connections, and drafting backend API routes.' },
+      { step: '02', title: 'Database Schema Setup', desc: 'Configuring migrations, writing mock seed data, and validating relational models.' },
+      { step: '03', title: 'Modular API Sprint', desc: 'Writing backend endpoints, structuring user roles, and configuring auth controllers.' },
+      { step: '04', title: 'Admin Panel Interface', desc: 'Designing responsive React portals to manage tables, run queries, and audit logs.' },
+      { step: '05', title: 'API Security Audits', desc: 'Running penetration checks, validating tokens, and verifying database access constraints.' },
+      { step: '06', title: 'Docker Edge Deploy', desc: 'Containerizing services using Docker and deploying to high-availability AWS/Google Cloud servers.' }
+    ],
+    techTitle: 'Technologies We Use for Enterprise Systems',
+    techDesc: 'We write clean, modular software systems utilizing standard enterprise stacks:',
+    techCategories: [
+      { name: 'Languages & Engines', items: ['Node.js (TypeScript)', 'Go', 'Python (FastAPI)', 'Docker'] },
+      { name: 'Databases & Schema', items: ['PostgreSQL', 'MongoDB', 'Redis Cache', 'Prisma ORM'] },
+      { name: 'Hosting & Pipeline', items: ['AWS ECS / EC2', 'Google Cloud Run', 'GitHub Actions CI/CD'] }
+    ],
+    industriesTitle: 'Custom Software We Deliver',
+    industriesDesc: 'We construct custom software solutions for industries in Raipur Chhattisgarh and across India:',
+    industries: [
+      { name: 'Custom ERP & Inventory Tools', desc: 'Automating inventory tracking, client invoice delivery, and staff shifts.' },
+      { name: 'B2B SaaS Products', desc: 'Multi-tenant database structures, subscription gates, and user management panels.' },
+      { name: 'Quantitative Dashboards', desc: 'Quantitative real-time charts, WebSocket analytics sync, and report builders.' }
+    ],
+    benefitsTitle: 'Custom Software Business Benefits',
+    benefitsDesc: 'Bespoke software eliminates manual spreadsheet tasks and adapts to your operations:',
+    benefits: [
+      { title: 'Zero License Fee Overheads', desc: 'Unlike SaaS subscriptions that charge per user monthly, you own your custom codebase forever.' },
+      { title: 'Automated Manual Workflows', desc: 'Syncing databases and APIs automates paperwork, saving hundreds of hours of manual labor.' },
+      { title: 'Absolute Data Ownership', desc: 'Your database runs on your private cloud accounts, securing sensitive user metrics.' }
+    ],
+    whyBusinessesChooseUsTitle: 'Why Choose CoreBuild?',
+    whyBusinessesChooseUsDesc: 'We deliver software systems under clear milestones and professional standards:',
+    whyBusinessesChooseUsPoints: [
+      { title: 'Strict Type Safety Guard', desc: 'We write codebase in TypeScript, eliminating runtime variables bugs.' },
+      { title: '1 Year Priority Support', desc: 'Providing active server support, software updates, and scaling audits.' }
+    ],
+    faqs: [
+      { q: 'Why hire a Custom Software Developer in Raipur?', a: 'Working with a local developer in Raipur, Chhattisgarh, allows you to coordinate system design reviews and secure support in Chhattisgarh.' },
+      { q: 'Can you migrate data from old systems?', a: 'Yes. We write database migration scripts to securely transfer data from old databases or Excel sheets to modern schemas.' }
+    ]
   }
 };

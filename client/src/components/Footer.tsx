@@ -127,25 +127,25 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/e-commerce-development" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>E-commerce Development</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹79,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/ui-ux-design" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>UI/UX Interface Design</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹24,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/branding-logo-design" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>Branding & Logo Design</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹14,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/seo-optimization" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>SEO Optimization</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹19,999+</span>
                 </Link>
@@ -157,7 +157,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/custom-enterprise-software" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>Custom Enterprise Software</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹1,49,999+</span>
                 </Link>

@@ -10,7 +10,10 @@ import {
   ChevronRight, 
   Clock, 
   TrendingUp, 
-  Award 
+  Award,
+  ShoppingBag,
+  Layers,
+  Terminal
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
 import SEO from '../components/SEO';
@@ -67,13 +70,23 @@ export default function Services() {
   const serviceIcons = {
     'Globe': Globe,
     'Smartphone': Smartphone,
-    'Cpu': Cpu
+    'Cpu': Cpu,
+    'ShoppingBag': ShoppingBag,
+    'Layers': Layers,
+    'Award': Award,
+    'LineChart': TrendingUp,
+    'Terminal': Terminal
   };
 
   const idToSlugMap: Record<string, string> = {
     'srv-1': 'custom-web-applications',
     'srv-2': 'mobile-app-development',
-    'srv-3': 'ai-machine-learning'
+    'srv-3': 'ai-machine-learning',
+    'srv-4': 'e-commerce-development',
+    'srv-5': 'ui-ux-design',
+    'srv-6': 'branding-logo-design',
+    'srv-7': 'seo-optimization',
+    'srv-8': 'custom-enterprise-software'
   };
 
   return (

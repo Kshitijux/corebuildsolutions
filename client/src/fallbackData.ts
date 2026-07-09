@@ -503,6 +503,131 @@ export const fallbackServices: Service[] = [
       { q: 'Can we fine-tune a model on our company voice?', a: 'Absolutely. We organize your historic data, clean and format training datasets, and run fine-tuning jobs on models to adapt their tone, vocabulary, and response structures to match your brand.' },
       { q: 'How do you measure and ensure AI accuracy?', a: 'We set up automated evaluation test sets that run sample queries against the system, check semantic similarity scores, verify source citations, and implement human-in-the-loop audit logs for continuous reinforcement learning.' }
     ]
+  },
+  {
+    id: 'srv-4',
+    name: 'E-commerce Development',
+    subtitle: 'High-converting online storefronts engineered for speed & scale.',
+    description: 'We build fast, secure headless e-commerce systems backed by Shopify or WooCommerce platforms.',
+    icon: 'ShoppingBag',
+    details: ['Headless React Storefronts', 'Decoupled cart integrations', 'Secure payment checkouts', 'Dynamic product variations schemas', 'Multi-channel inventory sync'],
+    workflow: [
+      { step: 1, title: 'Data Inventory Mapping', desc: 'Defining catalog schemas and syncing variables.' },
+      { step: 2, title: 'Luxury UI/UX Layout', desc: 'Designing lightning-fast single-page checkout funnels.' },
+      { step: 3, title: 'Headless Engineering', desc: 'Coding custom frontend interfaces with Shopify Storefront API.' },
+      { step: 4, title: 'Security Audits & Launch', desc: 'Verifying checkout security, webhooks, and CDNs.' }
+    ],
+    pricing: [
+      { plan: 'Core Storefront Launch', price: '₹79,999', features: ['Custom React Front', 'Headless CMS Setup', '100 Catalog Items Support', 'Secure Payment integrations', '3 Months support'], description: 'Perfect for local brands entering digital commerce.', popular: false, ctaText: 'Initiate Project', active: true, order: 1 },
+      { plan: 'Omni-channel Enterprise', price: '₹2,19,999', features: ['Custom multi-vendor store', 'ERP Inventory sync pipeline', 'Advanced analytics dashboards', '1 Year Priority Support'], description: 'High-throughput storefront engineered for high volume sales.', popular: true, ctaText: 'Get Started', active: true, order: 2 }
+    ],
+    whatIsIt: 'Custom Headless E-commerce Development separates the frontend layout design from the backend shopping cart systems to deliver sub-second page loads and zero layout shifts.',
+    whoIsItFor: 'Designed for retail companies, wholesale vendors, and startup brands that want to bypass standard slow e-commerce sites to increase checkout conversions.',
+    processDescription: 'We operate across 4 agile phases: inventory strategy audit, visual design and interactive prototyping, headless React engine coding, and transactional webhook audits.',
+    technologiesDescription: 'We build on Shopify Storefront API, WooCommerce, React, Vite, Zustand, Tailwind CSS, Stripe, and Vercel.',
+    serviceFaqs: [
+      { q: 'What is a headless store?', a: 'Headless separates your store frontend visual from the commerce backend, boosting page speed by 4x.' }
+    ]
+  },
+  {
+    id: 'srv-5',
+    name: 'UI/UX Interface Design',
+    subtitle: 'Stunning luxury digital interfaces engineered for visual excellence.',
+    description: 'We design premium interface systems balancing negative space, typography, and motion in Figma.',
+    icon: 'Layers',
+    details: ['High-fidelity visual mockups', 'Interactive wireframe prototypes', 'Custom design systems libraries', 'Responsive dark/light UI systems', 'Motion choreography guides'],
+    workflow: [
+      { step: 1, title: 'Moodboard Strategy', desc: 'Auditing branding guidelines and visual benchmarks.' },
+      { step: 2, title: 'Interaction Prototyping', desc: 'Creating structural interactive layouts to test navigation.' },
+      { step: 3, title: 'High-Fidelity UI Design', desc: 'Designing beautiful UI screens utilizing Outfit typography.' },
+      { step: 4, title: 'Developer Handoff', desc: 'Delivering design libraries and spacing variables to engineers.' }
+    ],
+    pricing: [
+      { plan: 'Essential Wireframe Suite', price: '₹24,999', features: ['Figma wireframes (up to 8 pages)', 'Responsive mobile layouts', 'Design Token library', '2 Revision rounds'], description: 'Validate navigation schemas before engineering code.', popular: false, ctaText: 'Initiate Project', active: true, order: 1 },
+      { plan: 'Luxury Design System', price: '₹74,999', features: ['Interactive prototypes (Unlimited)', 'Custom motion guides', 'Comprehensive brand guide', 'Complete Figma system handoff'], description: 'Elite visual styles designed to elevate your company brand equity.', popular: true, ctaText: 'Get Started', active: true, order: 2 }
+    ],
+    whatIsIt: 'UI/UX Design is the art and engineering of digital interface mockups designed to make user navigation intuitive.',
+    whoIsItFor: 'Ideal for product managers, founders, and enterprises wanting custom app and dashboard visuals before code development.',
+    processDescription: 'We run strategy blueprinting, wireframe prototyping, visual skin design, and developer asset handoff.',
+    technologiesDescription: 'We use Figma, Adobe Creative Cloud, Framer, and Lottie animations.',
+    serviceFaqs: [
+      { q: 'Do we own the design files?', a: 'Yes. You receive full ownership of the Figma source libraries and brand guide variables.' }
+    ]
+  },
+  {
+    id: 'srv-6',
+    name: 'Branding & Logo Design',
+    subtitle: 'Custom corporate identity & premium brand strategies.',
+    description: 'We craft geometric vector logos, cohesive corporate colors, and comprehensive brand books.',
+    icon: 'Award',
+    details: ['Geometric logomark suites', 'Cohesive color psychology systems', 'Corporate stationery guides', 'Social media assets mockups', 'Scalable vector source logs'],
+    workflow: [
+      { step: 1, title: 'Brand discovery audit', desc: 'Reviewing competitor identity designs and visual goals.' },
+      { step: 2, title: 'Geometric Concepts', desc: 'Drafting vector ideas based on clean grids.' },
+      { step: 3, title: 'Stationery Expansion', desc: 'Extending the chosen mark to business cards and invoice templates.' },
+      { step: 4, title: 'Brand Guide Delivery', desc: 'Packaging vector files and typography guidelines.' }
+    ],
+    pricing: [
+      { plan: 'Core Identity Emblem', price: '₹14,999', features: ['Custom geometric logo mark', 'Primary color guide', 'Business card vector design', 'High-res source files'], description: 'Clean visual signature for emerging startups.', popular: false, ctaText: 'Initiate Project', active: true, order: 1 },
+      { plan: 'Executive Branding Book', price: '₹39,999', features: ['Full corporate identity guide', 'Letterhead, envelope, invoice vector designs', 'Brand typography book', 'Social media kit templates'], description: 'Complete brand guide engineered to communicate corporate authority.', popular: true, ctaText: 'Get Started', active: true, order: 2 }
+    ],
+    whatIsIt: 'Corporate Branding and Logo Design is the process of building a cohesive graphic representation of your company.',
+    whoIsItFor: 'Perfect for retail groups, manufacturers, and startup brands wishing to establish instant aesthetic trust.',
+    processDescription: 'We coordinate positioning research, concept sketching, brand collateral extension, and guideline publishing.',
+    technologiesDescription: 'We leverage Adobe Illustrator, Photoshop, InDesign, and vector SVG files.',
+    serviceFaqs: [
+      { q: 'Will the logo work on big print banners?', a: 'Yes, every layout is exported in infinite resolution vector paths ready for massive print runs.' }
+    ]
+  },
+  {
+    id: 'srv-7',
+    name: 'SEO Optimization',
+    subtitle: 'Data-driven SEO campaigns engineered for page 1 rankings.',
+    description: 'We execute technical crawler audits, search intent indexing, and keyword copywriting.',
+    icon: 'LineChart',
+    details: ['Technical crawl indexing audit', 'Commercial keyword research', 'Rich schema tags injections', 'On-page title/heading updates', 'Search Console logs monitor'],
+    workflow: [
+      { step: 1, title: 'SEO Site Audit', desc: 'Evaluating indexing errors, loading times, and backlinks.' },
+      { step: 2, title: 'Keyword Intent Map', desc: 'Targeting keywords that convert searchers to paying leads.' },
+      { step: 3, title: 'On-Page Optimization', desc: 'Updating metadata tags, headings, and alt descriptions.' },
+      { step: 4, title: 'Crawl Analytics Monitor', desc: 'Tracking Google search impression changes and keyword ranks.' }
+    ],
+    pricing: [
+      { plan: 'Local Raipur Domination', price: '₹19,999', features: ['Raipur local SEO setup', 'Google Business Profile audit', 'On-page updates (10 key pages)', 'Monthly progress reports'], description: 'Rank for high-volume searches in Raipur and Chhattisgarh.', popular: false, ctaText: 'Initiate Project', active: true, order: 1 },
+      { plan: 'National Rank Accelerator', price: '₹49,999', features: ['National keyword campaigns', 'Comprehensive indexation audits', 'Structured FAQ schema scripting', 'Backlinks acquisition strategies'], description: 'Dominate high-traffic keywords across India to scale leads.', popular: true, ctaText: 'Get Started', active: true, order: 2 }
+    ],
+    whatIsIt: 'Search Engine Optimization is the technical process of formatting site code and copy to rank on page 1 of search engine results.',
+    whoIsItFor: 'Designed for local businesses in Raipur and software companies in India looking to generate inbound sales inquiries.',
+    processDescription: 'We conduct crawling audits, target intent research, on-page optimization, and analytics reporting.',
+    technologiesDescription: 'We run campaigns using Google Search Console, Ahrefs, SEMrush, Screaming Frog, and Lighthouse.',
+    serviceFaqs: [
+      { q: 'Do you guarantee rank position 1?', a: 'No SEO company can guarantee rank positions, but we use safe white-hat methods that consistently achieve page 1 search results.' }
+    ]
+  },
+  {
+    id: 'srv-8',
+    name: 'Custom Software Development',
+    subtitle: 'Scalable enterprise portals, SaaS platforms, & backend APIs.',
+    description: 'We develop secure backend architectures, database schemas, and custom API systems.',
+    icon: 'Terminal',
+    details: ['Relational database setup (PostgreSQL)', 'Decoupled API microservices', 'Custom role-based permissions', 'Multi-tenant SaaS architectures', 'Docker containerized servers'],
+    workflow: [
+      { step: 1, title: 'System Blueprinting', desc: 'Outlining database relations and API endpoint routes.' },
+      { step: 2, title: 'Database Setup', desc: 'Creating Prisma migrations and seeding testing records.' },
+      { step: 3, title: 'API Coding Sprint', desc: 'Writing modular backend routes and auth controllers.' },
+      { step: 4, title: 'Docker Edge Deploy', desc: 'Containerizing endpoints and hosting on AWS servers.' }
+    ],
+    pricing: [
+      { plan: 'Enterprise API Layer', price: '₹1,49,999', features: ['Custom Node/Go API backend', 'PostgreSQL database setup', 'Prisma ORM migration scripts', 'OAuth/JWT Session security', '6 Months Support'], description: 'Decoupled secure system to run your software integrations.', popular: false, ctaText: 'Initiate Project', active: true, order: 1 },
+      { plan: 'SaaS Platform Engine', price: '₹3,49,999', features: ['Multi-tenant database schema', 'Custom billing/subscriptions pipeline', 'Staff admin panel dashboard', 'Docker deployment & AWS ECS', '1 Year Priority Support'], description: 'Production-ready software engine designed to scale your business growth.', popular: true, ctaText: 'Get Started', active: true, order: 2 }
+    ],
+    whatIsIt: 'Custom Software Development is the engineering of custom backend logic, database tables, and API services.',
+    whoIsItFor: 'Ideal for companies needing database performance, custom user permissions, and custom ERP workflows.',
+    processDescription: 'We structure DB mapping blueprints, Prisma setups, API coding, security reviews, and edge deployments.',
+    technologiesDescription: 'We write in Node.js (TypeScript), Go, Python, PostgreSQL, Prisma, Redis, Docker, and AWS.',
+    serviceFaqs: [
+      { q: 'Who owns the custom software code?', a: 'You own 100% of the custom backend code files and database configuration scripts.' }
+    ]
   }
 ];
 

@@ -88,7 +88,7 @@ export default function Navbar() {
             {/* CTA Button */}
             <Link
               to="/contact"
-              className="relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-slate-900 dark:bg-white dark:text-slate-900 rounded-full group overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+              className="relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 dark:bg-white dark:text-zinc-900 rounded-full group overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
             >
               <span className="relative z-10 flex items-center gap-1">
                 Start Project <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

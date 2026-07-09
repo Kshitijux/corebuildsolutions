@@ -159,7 +159,7 @@ export default function Blog() {
               onClick={() => setActiveCategory(cat)}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === cat
-                  ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-md'
+                  ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-md'
                   : 'bg-white/50 dark:bg-slate-900/50 text-slate-650 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-900'
               }`}
             >

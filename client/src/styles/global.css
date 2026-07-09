@@ -317,6 +317,51 @@ body[data-theme="dark"] .bg-blue-600:hover {
 }
 
 /* ==========================================
+    DARK/LIGHT BUTTON CONTRAST PRESERVATION OVERRIDES
+    (Resolves white-on-white text visibility on active states)
+   ========================================== */
+
+/* Light Mode: Buttons and links with dark backgrounds (bg-slate-900 / bg-black) */
+body[data-theme="light"] button.bg-slate-900,
+body[data-theme="light"] a.bg-slate-900,
+body[data-theme="light"] button.bg-black,
+body[data-theme="light"] a.bg-black,
+body[data-theme="light"] .bg-slate-900 button,
+body[data-theme="light"] .bg-slate-900 a {
+  background-color: #111111 !important;
+  color: #FFFFFF !important;
+  border-color: #111111 !important;
+}
+body[data-theme="light"] button.bg-slate-900 *,
+body[data-theme="light"] a.bg-slate-900 *,
+body[data-theme="light"] button.bg-black *,
+body[data-theme="light"] a.bg-black *,
+body[data-theme="light"] .bg-slate-900 button *,
+body[data-theme="light"] .bg-slate-900 a * {
+  color: #FFFFFF !important;
+}
+
+/* Dark Mode: Buttons and links with light backgrounds (bg-white / dark:bg-white) */
+body[data-theme="dark"] button.bg-white,
+body[data-theme="dark"] a.bg-white,
+body[data-theme="dark"] button.dark\:bg-white,
+body[data-theme="dark"] a.dark\:bg-white,
+body[data-theme="dark"] .bg-white button,
+body[data-theme="dark"] .bg-white a {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+  border-color: #FFFFFF !important;
+}
+body[data-theme="dark"] button.bg-white *,
+body[data-theme="dark"] a.bg-white *,
+body[data-theme="dark"] button.dark\:bg-white *,
+body[data-theme="dark"] a.dark\:bg-white *,
+body[data-theme="dark"] .bg-white button *,
+body[data-theme="dark"] .bg-white a * {
+  color: #111111 !important;
+}
+
+/* ==========================================
     SECONDARY BUTTON STYLING (MODE ADAPTIVE)
    ========================================== */
 body[data-theme="light"] .border-slate-200, 

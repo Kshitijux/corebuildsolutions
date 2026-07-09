@@ -11,10 +11,17 @@ import {
   Globe 
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import SEO from '../components/SEO';
 import confetti from 'canvas-confetti';
 
 export default function Contact() {
-  const { settings, addLead } = useDatabase();
+  const { settings, addLead, seoSettings } = useDatabase();
+
+  const contactSeo = seoSettings.find(s => s.page === 'contact') || {
+    title: 'Hire Best Website Development Company in Raipur | Contact Us',
+    description: 'Get a free quote today! Contact CoreBuild Solutions, the top website design & web development company in Raipur, Chhattisgarh, India. Let\'s discuss your next digital project.',
+    keywords: 'contact website developers raipur, hire web development company chhattisgarh, web design quote raipur, hire mobile app developer raipur, best tech support raipur'
+  };
   
   // Standard contact form state
   const [formName, setFormName] = useState('');
@@ -132,6 +139,11 @@ export default function Contact() {
 
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors pt-24 pb-20">
+      <SEO 
+        title={contactSeo.title}
+        description={contactSeo.description}
+        keywords={contactSeo.keywords}
+      />
       
       {/* Background blobs */}
       <div className="liquid-bg">

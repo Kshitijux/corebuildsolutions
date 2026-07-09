@@ -13,10 +13,17 @@ import {
   FileText
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import SEO from '../components/SEO';
 
 export default function About() {
-  const { team, careers, addLead, homeSections } = useDatabase();
+  const { team, careers, addLead, homeSections, seoSettings } = useDatabase();
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
+
+  const aboutSeo = seoSettings.find(s => s.page === 'about') || {
+    title: 'Best Website Developers in Raipur - About CoreBuild Solutions',
+    description: 'About CoreBuild Solutions - The leading web development agency in Raipur, Chhattisgarh. Our team of certified software developers, UI/UX designers, and SEO specialists build high-performance systems for startups and enterprises in India.',
+    keywords: 'web development agency raipur, website design team raipur, software developers chhattisgarh, best tech company raipur, corebuild solutions team, local website developers raipur, software agency chhattisgarh'
+  };
   
   // Application Form State
   const [appFormName, setAppFormName] = useState('');
@@ -85,6 +92,11 @@ export default function About() {
 
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors pt-24 pb-20">
+      <SEO 
+        title={aboutSeo.title}
+        description={aboutSeo.description}
+        keywords={aboutSeo.keywords}
+      />
       
       {/* Background decoration */}
       <div className="liquid-bg">

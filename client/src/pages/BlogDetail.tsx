@@ -15,7 +15,7 @@ export default function BlogDetail() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 gap-6 pt-24 pb-20">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 gap-6 pt-24 pb-20">
         <h1 className="font-heading text-4xl font-extrabold">Insights Blueprint Not Found</h1>
         <p className="text-sm text-slate-500 max-w-sm text-center">
           The requested engineering article or system architecture document does not exist in our indices.
@@ -34,7 +34,7 @@ export default function BlogDetail() {
   const isAdmin = user && (user.role === 'admin' || user.role === 'super_admin');
   if (post.published === false && !isAdmin) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 gap-6 pt-24 pb-20">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 gap-6 pt-24 pb-20">
         <h1 className="font-heading text-4xl font-extrabold text-red-500">Draft Access Restricted</h1>
         <p className="text-sm text-slate-500 max-w-sm text-center">
           The requested engineering article or system architecture document is currently in draft state and cannot be accessed.
@@ -164,7 +164,7 @@ export default function BlogDetail() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
+    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors pt-24 pb-20">
       <SEO 
         title={post.metaTitle || `${post.title} | CoreBuild Solutions Blog`}
         description={post.metaDescription || post.summary}

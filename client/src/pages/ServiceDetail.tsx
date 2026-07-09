@@ -23,7 +23,7 @@ export default function ServiceDetail() {
 
   if (!service || !detailedContent) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 dark:text-slate-50 gap-6 pt-24 pb-20">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 gap-6 pt-24 pb-20">
         <h1 className="font-heading text-4xl font-extrabold">Service Architecture Not Found</h1>
         <p className="text-sm text-slate-500 max-w-sm text-center">
           The requested service engineering layer does not exist in our system catalog.
@@ -104,7 +104,7 @@ export default function ServiceDetail() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
+    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors pt-24 pb-20">
       <SEO 
         title={detailedContent.seoTitle}
         description={detailedContent.metaDescription}

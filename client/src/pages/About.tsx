@@ -84,7 +84,7 @@ export default function About() {
   ];
 
   return (
-    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors pt-24 pb-20">
+    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors pt-24 pb-20">
       
       {/* Background decoration */}
       <div className="liquid-bg">

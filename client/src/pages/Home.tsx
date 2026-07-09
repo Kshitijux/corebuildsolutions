@@ -141,7 +141,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors">
+    <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors">
       <SEO 
         title={homeSeo.title}
         description={homeSeo.description}

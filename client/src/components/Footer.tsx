@@ -111,17 +111,57 @@ export default function Footer() {
           {/* Column 2: Services List (span 3) */}
           <div className="lg:col-span-3">
             <h3 className="font-heading font-bold text-xs uppercase tracking-widest text-slate-900 dark:text-white mb-6">
-              Services
+              Services & Pricing
             </h3>
             <ul className="space-y-3.5 text-xs text-slate-650 dark:text-slate-400">
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">Web Development</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">Mobile App Development</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">E-commerce Development</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">UI/UX Design</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">Branding & Logo Design</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">SEO Optimization</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">AI Automation</Link></li>
-              <li><Link to="/services" className="hover:text-blue-600 transition-colors">Custom Software Development</Link></li>
+              <li>
+                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>Web Development</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹49,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/mobile-app-development" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>Mobile App Development</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹89,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>E-commerce Development</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹79,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>UI/UX Interface Design</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹24,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>Branding & Logo Design</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹14,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>SEO Optimization</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹19,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/ai-machine-learning" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>AI & Machine Learning</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹99,999+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                  <span>Custom Enterprise Software</span>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹1,49,999+</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

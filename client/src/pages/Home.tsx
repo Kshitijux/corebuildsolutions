@@ -324,10 +324,10 @@ export default function Home() {
         <div className="max-w-3xl mx-auto mb-16 flex flex-col gap-4">
           <span className="text-xs font-bold uppercase tracking-widest text-blue-500">Capabilities</span>
           <h2 className="font-heading text-3xl md:text-5xl font-extrabold tracking-tight">
-            Engineered for Growth & Speed.
+            Website Development Services in Raipur
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            We operate at the intersection of high-end product design, scalable database architectures, and cognitive machine learning pipelines.
+            We operate at the intersection of premium web design, scalable database architectures, and custom AI systems to help businesses in Raipur grow online.
           </p>
         </div>
 

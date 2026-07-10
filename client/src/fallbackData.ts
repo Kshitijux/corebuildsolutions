@@ -1104,9 +1104,9 @@ export const fallbackTeam: TeamMember[] = [
 export const fallbackSeoSettings: SeoSettings[] = [
   {
     page: 'home',
-    title: 'Website Development Company in Raipur, Chhattisgarh | CoreBuild Solutions',
-    description: 'Looking for the best website development company in Raipur, Chhattisgarh? CoreBuild Solutions builds premium, SEO-friendly websites, custom web applications, e-commerce storefronts, and mobile apps for businesses across India.',
-    keywords: 'website in raipur, app in raipur, website development in raipur, website development company raipur, website design company raipur, web development company chhattisgarh, website developer raipur, software development company raipur, mobile app development raipur, web design raipur, custom website development chhattisgarh, digital marketing raipur, best software agency india'
+    title: 'Web Development Company in Raipur | CoreBuild Solutions',
+    description: 'Looking for the best web development company in Raipur? CoreBuild Solutions builds business websites, eCommerce stores, mobile apps, and AI solutions with modern design and SEO-focused development.',
+    keywords: 'Web Development in Raipur, Website Development Raipur, Web Development Company Raipur, Website Designer Raipur, Software Company Raipur, Website Development Chhattisgarh, Business Website Raipur'
   },
   {
     page: 'about',
@@ -1172,9 +1172,9 @@ export const fallbackHomeSections: HomeSection[] = [
     id: 'hs-hero',
     key: 'hero',
     content: {
-      badge: 'Award-Winning Digital Craftsmanship',
-      title: 'Building the Products Premium Brands Want.',
-      description: 'We craft high-performance web applications, native-feeling mobile software, and custom AI automation pipelines engineered for absolute speed and luxury aesthetic design.',
+      badge: 'Web Development Company in Raipur',
+      title: 'Web Development Company in Raipur',
+      description: 'We craft high-performance business websites, eCommerce stores, mobile apps, and custom AI solutions for brands in Raipur, Chhattisgarh, and across India.',
       ctaText1: 'Book a consultation',
       ctaText2: 'View Case Studies',
       stats: [
@@ -1195,9 +1195,9 @@ export const fallbackHomeSections: HomeSection[] = [
     id: 'hs-ai',
     key: 'aiSection',
     content: {
-      badge: 'Cognitive Engineering',
-      title: 'AI integrations that save real time.',
-      description: 'We integrate state-of-the-art Large Language Models (LLMs), RAG lookup vector search, and dynamic agent architectures directly into custom dashboards. No standard bots; custom automation designed for your workflows.',
+      badge: 'Cognitive AI Engineering',
+      title: 'AI Automation Solutions in Raipur',
+      description: 'We integrate state-of-the-art Large Language Models (LLMs), RAG lookup vector search, and dynamic agent architectures directly into business dashboards in Raipur, Chhattisgarh. No standard bots; custom automation built for your workflows.',
       features: [
         'RAG Vector (Pinecone/pgvector)',
         'Semantic Intent routing gates',

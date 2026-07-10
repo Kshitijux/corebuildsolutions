@@ -1106,7 +1106,7 @@ export const fallbackSeoSettings: SeoSettings[] = [
     page: 'home',
     title: 'Web Development Company in Raipur | CoreBuild Solutions',
     description: 'Looking for the best web development company in Raipur? CoreBuild Solutions builds business websites, eCommerce stores, mobile apps, and AI solutions with modern design and SEO-focused development.',
-    keywords: 'Web Development in Raipur, Website Development Raipur, Web Development Company Raipur, Website Designer Raipur, Software Company Raipur, Website Development Chhattisgarh, Business Website Raipur'
+    keywords: 'Web Development in Raipur, Website Development Raipur, Web Development Company Raipur, Website Designer Raipur, Software Company Raipur, Website Development Chhattisgarh, Business Website Raipur, Best Web Developers in Raipur, Raipur Website Design Agency, IT Company in Raipur'
   },
   {
     page: 'about',

@@ -200,6 +200,11 @@ body[data-theme="light"] .text-slate-500,
 body[data-theme="light"] .text-slate-600 {
   color: #4B5563 !important;
 }
+body[data-theme="light"] .text-slate-700,
+body[data-theme="light"] .text-slate-800,
+body[data-theme="light"] .text-slate-900 {
+  color: #111111 !important;
+}
 
 /* Contrast Preservation in Dark Containers and Banners */
 body[data-theme="light"] .bg-slate-900, 
@@ -234,6 +239,11 @@ body[data-theme="dark"] .text-slate-300,
 body[data-theme="dark"] .text-slate-400, 
 body[data-theme="dark"] .text-slate-500 {
   color: #CBD5E1 !important;
+}
+body[data-theme="dark"] .text-slate-700,
+body[data-theme="dark"] .text-slate-800,
+body[data-theme="dark"] .text-slate-900 {
+  color: #FFFFFF !important;
 }
 
 /* ==========================================

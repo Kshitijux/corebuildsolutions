@@ -79,14 +79,14 @@ export default function Services() {
   };
 
   const idToSlugMap: Record<string, string> = {
-    'srv-1': 'custom-web-applications',
-    'srv-2': 'mobile-app-development',
-    'srv-3': 'ai-machine-learning',
-    'srv-4': 'e-commerce-development',
-    'srv-5': 'ui-ux-design',
-    'srv-6': 'branding-logo-design',
-    'srv-7': 'seo-optimization',
-    'srv-8': 'custom-enterprise-software'
+    'srv-1': 'web-development-in-raipur',
+    'srv-2': 'mobile-app-development-in-raipur',
+    'srv-3': 'ai-development-in-raipur',
+    'srv-4': 'ecommerce-development-in-raipur',
+    'srv-5': 'ui-ux-design-in-raipur',
+    'srv-6': 'branding-logo-design-in-raipur',
+    'srv-7': 'seo-services-in-raipur',
+    'srv-8': 'custom-software-development-in-raipur'
   };
 
   return (

@@ -418,10 +418,10 @@ export default function Portfolio() {
                 <span>/</span>
                 {(() => {
                   const categorySlugMap: Record<string, string> = {
-                    'web': 'custom-web-applications',
-                    'mobile': 'mobile-app-development',
-                    'ai': 'ai-machine-learning',
-                    'saas': 'custom-enterprise-software'
+                    'web': 'web-development-in-raipur',
+                    'mobile': 'mobile-app-development-in-raipur',
+                    'ai': 'ai-development-in-raipur',
+                    'saas': 'custom-software-development-in-raipur'
                   };
                   const categoryLabelMap: Record<string, string> = {
                     'web': 'Custom Web Applications',

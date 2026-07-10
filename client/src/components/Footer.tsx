@@ -115,49 +115,49 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3.5 text-xs text-slate-650 dark:text-slate-400">
               <li>
-                <Link to="/services/custom-web-applications" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/web-development-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>Web Development</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹49,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/mobile-app-development" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/mobile-app-development-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>Mobile App Development</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹89,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/e-commerce-development" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/ecommerce-development-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>E-commerce Development</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹79,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/ui-ux-design" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/ui-ux-design-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>UI/UX Interface Design</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹24,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/branding-logo-design" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/branding-logo-design-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>Branding & Logo Design</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹14,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/seo-optimization" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/seo-services-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>SEO Optimization</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹19,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/ai-machine-learning" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/ai-development-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>AI & Machine Learning</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹99,999+</span>
                 </Link>
               </li>
               <li>
-                <Link to="/services/custom-enterprise-software" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
+                <Link to="/services/custom-software-development-in-raipur" className="hover:text-blue-600 transition-colors flex items-center justify-between gap-2">
                   <span>Custom Enterprise Software</span>
                   <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold shrink-0">₹1,49,999+</span>
                 </Link>

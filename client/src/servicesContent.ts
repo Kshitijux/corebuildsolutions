@@ -32,7 +32,7 @@ export interface DetailedServiceContent {
 export const detailedServices: Record<string, DetailedServiceContent> = {
   'srv-1': {
     id: 'srv-1',
-    slug: 'custom-web-applications',
+    slug: 'web-development-in-raipur',
     seoTitle: 'Web Development Company in Raipur | CoreBuild Solutions',
     metaDescription: 'CoreBuild Solutions is a leading Web Development Company in Raipur. We build custom React/MERN stack web applications and portals in Chhattisgarh and India.',
     keywords: 'Web Development Company in Raipur, Software Development Company in Chhattisgarh, web developer Raipur, custom website Raipur, MERN stack Raipur, web design Raipur, IT company Chhattisgarh, Web Development Services in Raipur, Custom Web Apps in Raipur, Web App Developers in Raipur',
@@ -102,7 +102,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-2': {
     id: 'srv-2',
-    slug: 'mobile-app-development',
+    slug: 'mobile-app-development-in-raipur',
     seoTitle: 'Mobile App Development Company in Raipur | CoreBuild Solutions',
     metaDescription: 'CoreBuild Solutions is a premier Mobile App Development Company in Raipur. We build high-performance, native iOS & Android apps across Chhattisgarh & India.',
     keywords: 'Mobile App Development Company in Raipur, Software Development Company in Chhattisgarh, Android app developer Raipur, iOS app developer Raipur, React Native Chhattisgarh, hybrid mobile apps Raipur, Mobile App Development in Raipur, App Developers in Raipur, iOS Android Apps Raipur',
@@ -172,7 +172,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-3': {
     id: 'srv-3',
-    slug: 'ai-machine-learning',
+    slug: 'ai-development-in-raipur',
     seoTitle: 'AI Development Company in Raipur | CoreBuild Solutions',
     metaDescription: 'CoreBuild Solutions is the leading AI Development Company in Raipur. We build custom RAG pipelines, LLM integrations, and machine learning systems in Chhattisgarh.',
     keywords: 'AI Development Company in Raipur, Software Development Company in Chhattisgarh, machine learning Raipur, RAG chatbot Chhattisgarh, LLM integration Raipur, custom AI solutions India, AI Automation in Raipur, Machine Learning Raipur, ChatGPT integration Raipur',
@@ -242,7 +242,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-4': {
     id: 'srv-4',
-    slug: 'e-commerce-development',
+    slug: 'ecommerce-development-in-raipur',
     seoTitle: 'E-commerce Website Development in Raipur | CoreBuild Solutions',
     metaDescription: 'CoreBuild Solutions is the best E-commerce Website Development Company in Raipur. We build high-converting, sub-second checkout online stores in Chhattisgarh.',
     keywords: 'E-commerce Website Development in Raipur, Web Development Company in Raipur, e-commerce developer Raipur, online shop builder Chhattisgarh, Shopify headless Raipur, WooCommerce Raipur, Shopify Developers in Raipur, Online Store Design Raipur',
@@ -310,7 +310,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-5': {
     id: 'srv-5',
-    slug: 'ui-ux-design',
+    slug: 'ui-ux-design-in-raipur',
     seoTitle: 'UI/UX Design Company in Raipur | CoreBuild Solutions',
     metaDescription: 'CoreBuild Solutions is the premier UI/UX Design Company in Raipur, Chhattisgarh. We design high-fidelity app interfaces, interactive wireframes, and responsive website layouts.',
     keywords: 'UI/UX Design Company in Raipur, Web Development Company in Raipur, UI UX designer Raipur, web designer Raipur Chhattisgarh, Figma prototype Raipur, mobile app interface design, UI UX Design in Raipur, Figma UI Designer in Raipur',
@@ -377,7 +377,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-6': {
     id: 'srv-6',
-    slug: 'branding-logo-design',
+    slug: 'branding-logo-design-in-raipur',
     seoTitle: 'Branding & Logo Design Company in Raipur | CoreBuild Solutions',
     metaDescription: 'Looking for a branding and logo design company in Raipur, Chhattisgarh? CoreBuild Solutions crafts custom logos, premium corporate identities, and brand guides.',
     keywords: 'Branding & Logo Design Company in Raipur, Software Development Company in Chhattisgarh, logo designer Raipur, brand strategist Raipur, graphic design Chhattisgarh, business branding Raipur, Logo Design in Raipur, Brand Identity Raipur, Creative Agency in Raipur',
@@ -443,7 +443,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-7': {
     id: 'srv-7',
-    slug: 'seo-optimization',
+    slug: 'seo-services-in-raipur',
     seoTitle: 'Best SEO Agency in Raipur | CoreBuild Solutions',
     metaDescription: 'Grow your business online with the best SEO Agency in Raipur, Chhattisgarh. We optimize websites for maximum Google rankings and organic traffic.',
     keywords: 'SEO Agency in Raipur, Web Development Company in Raipur, SEO Services Raipur Chhattisgarh, Search Engine Optimization Raipur, local SEO Chhattisgarh, search ranking Raipur, Local SEO in Raipur, SEO Services in Raipur, Best SEO Company in Raipur',
@@ -510,7 +510,7 @@ export const detailedServices: Record<string, DetailedServiceContent> = {
   },
   'srv-8': {
     id: 'srv-8',
-    slug: 'custom-enterprise-software',
+    slug: 'custom-software-development-in-raipur',
     seoTitle: 'Custom Software Development Company in Raipur | CoreBuild Solutions',
     metaDescription: 'Looking for a custom software development company in Raipur, Chhattisgarh? CoreBuild Solutions builds scalable enterprise portals, SaaS platforms, and APIs in India.',
     keywords: 'Custom Software Development Company in Raipur, Software Development Company in Chhattisgarh, ERP software Raipur, custom CRM Chhattisgarh, IT consultant Raipur, SaaS development India, Custom Software Development in Raipur, ERP Developers in Raipur, Software Developers in Raipur',

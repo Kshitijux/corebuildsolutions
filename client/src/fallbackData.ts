@@ -24,7 +24,7 @@ export const fallbackBlogs: Blog[] = [
     summary: 'A strategic exploration of how LLM agents and semantic routers are shifting backend designs from deterministic APIs to dynamic intent engines.',
     content: `The paradigm of software engineering is undergoing its most radical transformation since the advent of cloud computing. Historically, enterprise applications relied on rigid, deterministic logic flow charts. Database structures were locked, APIs returned static payloads, and user flows were hardcoded step-by-step.
 
-With the arrival of production-grade Large Language Models (LLMs) and vector databases, we are moving towards Intent-Driven Architectures. In these systems, user interface actions are interpreted as natural language payloads, processed by orchestrating agents that select tools, fetch semantic contexts, and compose custom JSON payloads on the fly. To understand this in depth, see our [AI & Machine Learning](/services/ai-machine-learning) service layer.
+With the arrival of production-grade Large Language Models (LLMs) and vector databases, we are moving towards Intent-Driven Architectures. In these systems, user interface actions are interpreted as natural language payloads, processed by orchestrating agents that select tools, fetch semantic contexts, and compose custom JSON payloads on the fly. To understand this in depth, see our [AI & Machine Learning](/services/ai-development-in-raipur) service layer.
           
 ### The Shift to Semantic Routing
 Instead of calling specific REST endpoints (e.g. GET /api/v1/users/profile), frontends now communicate with semantic gateways. These gateways evaluate the request intent and coordinate with dynamic microservices. This allows software to adapt immediately to changing user desires without deploying new code.
@@ -32,7 +32,7 @@ Instead of calling specific REST endpoints (e.g. GET /api/v1/users/profile), fro
 ### High-Performance AI Operations
 To maintain the sub-100ms response times expected of modern premium web apps, companies must adopt aggressive caching and caching-first vector lookups (using Redis in front of Pinecone or pgvector). 
           
-At CoreBuild Solutions, we specialize in building these hybrid architectures, combining the reliability of PostgreSQL with the cognitive versatility of OpenAI and Claude integrations. See how we build these on our [Custom Web Applications](/services/custom-web-applications) page.
+At CoreBuild Solutions, we specialize in building these hybrid architectures, combining the reliability of PostgreSQL with the cognitive versatility of OpenAI and Claude integrations. See how we build these on our [Custom Web Applications](/services/web-development-in-raipur) page.
 
 ### Frequently Asked Questions
 1. **What is an intent-driven architecture?**
@@ -58,7 +58,7 @@ LLM calls can add 1-2 seconds of latency. We optimize this using semantic cachin
     summary: 'Analyze why brands like Apple, Stripe, and Linear rely on high-fidelity whitespace, typography, and subtle micro-motions to increase trust.',
     content: `When high-ticket consumers visit your website, they make an aesthetic judgment in less than 50 milliseconds. Generic layouts, flashy animations, and dense walls of text instantly signal a lack of refinement, degrading brand equity.
           
-To cultivate an elite digital brand presence, designers must align with three principles of luxury design, which we cover in detail on our [UI/UX Design](/services/ui-ux-design) page:
+To cultivate an elite digital brand presence, designers must align with three principles of luxury design, which we cover in detail on our [UI/UX Design](/services/ui-ux-design-in-raipur) page:
           
 ### Negative Space as a Luxury Asset
 Just as luxury boutiques leave vast floor spaces empty, premium digital design uses generous padding (typically 120px to 160px between major sections). This gives the viewer's eyes breathing room, emphasizing only the most critical headlines.
@@ -93,7 +93,7 @@ Yes, custom or premium typography scales convey unique identity and authority, s
     title: 'Website Development Cost in India: 2026 Detailed Breakdown',
     category: 'Web Development',
     summary: 'An honest and detailed review of web development pricing frameworks in India, detailing domain/hosting, frontend structures, and backend complexities.',
-    content: `Calculating the precise cost of engineering a modern web application in India requires analyzing the technical requirements, design complexity, database infrastructure, and hosting architectures. In 2026, website development has evolved beyond simple page construction to deploying optimized cloud architectures. Learn about our process on the [Custom Web Applications](/services/custom-web-applications) page.
+    content: `Calculating the precise cost of engineering a modern web application in India requires analyzing the technical requirements, design complexity, database infrastructure, and hosting architectures. In 2026, website development has evolved beyond simple page construction to deploying optimized cloud architectures. Learn about our process on the [Custom Web Applications](/services/web-development-in-raipur) page.
  
 ### The Pricing Spectrum of Web Engineering
 - **Basic Custom Landing Pages:** For simple marketing portals utilizing Vite, HTML, and CSS, prices range between ₹25,000 to ₹50,000. These are lightweight web portfolios optimized for maximum page speed.
@@ -133,7 +133,7 @@ Every 1-second delay in page load time reduces conversions by up to 7%. Fast web
     title: 'React vs Next.js: Which Frontend Framework Wins SEO in 2026?',
     category: 'Engineering',
     summary: 'A direct technical comparison explaining why Server-Side Rendered (SSR) Next.js apps yield a massive organic search ranking advantage over CSR React.',
-    content: `Choosing the right framework for your web application decides your long-term organic rank visibility. For years, developers built Single Page Applications (SPAs) using pure React client-side rendering (CSR). In 2026, Next.js has emerged as the standard for enterprise-grade search performance. To implement these frameworks on your next project, explore our [Custom Web Applications](/services/custom-web-applications) solutions.
+    content: `Choosing the right framework for your web application decides your long-term organic rank visibility. For years, developers built Single Page Applications (SPAs) using pure React client-side rendering (CSR). In 2026, Next.js has emerged as the standard for enterprise-grade search performance. To implement these frameworks on your next project, explore our [Custom Web Applications](/services/web-development-in-raipur) solutions.
  
 ### Client-Side Rendering (CSR) React Bottlenecks
 A standard React app (built with Vite or Create React App) compiles your code into a single, massive JavaScript bundle. When search engine robots (like Googlebot) crawl your site:
@@ -145,7 +145,7 @@ A standard React app (built with Vite or Create React App) compiles your code in
 Next.js solves this bottleneck by compiling page contents on the edge server before returning the response.
 - **Instant Crawlability:** When Googlebot requests a page, Next.js instantly delivers a pre-rendered HTML file containing the full text, header tags, and structural links. Search engines index your content in seconds.
 - **Core Web Vitals Boost:** Pre-rendered HTML yields faster First Contentful Paint (FCP) and lower Largest Contentful Paint (LCP) times, raising your Google ranking score.
-- **Automatic Code Splitting:** Next.js divides JS assets into small page-specific chunks, avoiding page load drag. Learn more about these setups on our [Search Engine Optimization](/services/seo-optimization) page.
+- **Automatic Code Splitting:** Next.js divides JS assets into small page-specific chunks, avoiding page load drag. Learn more about these setups on our [Search Engine Optimization](/services/seo-services-in-raipur) page.
 
 ### Frequently Asked Questions
 1. **What is Server-Side Rendering?**
@@ -169,7 +169,7 @@ For gated admin panels, standard client-side React is often preferred as search 
     title: 'AI for Small Businesses: Practical Automation and RAG Guide',
     category: 'AI & Automation',
     summary: 'Learn how B2B companies and small businesses can leverage Retrieval-Augmented Generation (RAG) and semantic routing to automate workflows.',
-    content: `Integrating Artificial Intelligence is no longer exclusive to large technology conglomerates. Small businesses and emerging startups are actively utilizing Large Language Models (LLMs) and vector databases to automate customer operations and database queries. Check our services on [AI & Machine Learning](/services/ai-machine-learning).
+    content: `Integrating Artificial Intelligence is no longer exclusive to large technology conglomerates. Small businesses and emerging startups are actively utilizing Large Language Models (LLMs) and vector databases to automate customer operations and database queries. Check our services on [AI & Machine Learning](/services/ai-development-in-raipur).
  
 ### Beyond Chatbots: What is RAG?
 Standard AI tools often hallucinate or output generic responses because they lack context. **Retrieval-Augmented Generation (RAG)** bridges this gap by connecting an LLM to your private company data:
@@ -209,7 +209,7 @@ We use Pinecone, ChromaDB, or pgvector inside PostgreSQL to manage vector data.`
     title: 'E-commerce Website Guide: Engineering for Sub-Second Checkout',
     category: 'E-commerce',
     summary: 'A step-by-step technical guide to building secure, fast, and high-converting online storefronts optimized for Core Web Vitals.',
-    content: `In online retail, every 100ms of latency degrades conversion rates by 7%. Engineering an e-commerce platform that matches luxury brand standards requires balancing heavy product imagery with lightweight client delivery. Learn how on our [E-commerce Website Development](/services/e-commerce-development) page.
+    content: `In online retail, every 100ms of latency degrades conversion rates by 7%. Engineering an e-commerce platform that matches luxury brand standards requires balancing heavy product imagery with lightweight client delivery. Learn how on our [E-commerce Website Development](/services/ecommerce-development-in-raipur) page.
  
 ### 1. Optimize Image Delivery Pipelines
 Product listings rely on high-fidelity imagery. To prevent images from blocking page renders:
@@ -248,7 +248,7 @@ It represents users who add products to their cart but leave without completing 
     title: 'Why Every Startup Needs a High-Performance Web Portal',
     category: 'Startup Growth',
     summary: 'Explore why a custom digital workspace is not just a digital business card, but a high-converting automated lead capture asset.',
-    content: `Many early-stage startup founders postpone investing in a custom website, relying instead on generic landing templates or social media profiles. In a digital-first marketplace, your website is your most critical asset for establishing brand authority and securing capital. Check how we build startup sites on [Custom Web Applications](/services/custom-web-applications).
+    content: `Many early-stage startup founders postpone investing in a custom website, relying instead on generic landing templates or social media profiles. In a digital-first marketplace, your website is your most critical asset for establishing brand authority and securing capital. Check how we build startup sites on [Custom Web Applications](/services/web-development-in-raipur).
  
 ### 1. Building Instant Aesthetic Authority
 When high-ticket clients or venture capitalists visit your portal, they make an assessment of your credibility in less than 50 milliseconds. A generic, slow website suggests a lack of refinement. A custom-engineered portal using editorial typography and smooth micro-animations signals quality.
@@ -286,7 +286,7 @@ Venture capitalists judge a startup\'s execution capabilities by the quality and
     summary: 'Looking for the best website development company in Raipur, Chhattisgarh? Learn why a professional website is critical for local business growth and lead generation.',
     content: `In today's competitive market, every business needs a strong online presence. Whether you own a retail shop, restaurant, coaching institute, hospital, real estate business, manufacturing company, or startup in Raipur, Chhattisgarh, a professional website helps you attract more customers and grow faster.
  
-At CoreBuild Solutions, we create modern, SEO-friendly, and high-performance websites designed to generate leads and increase business growth. Explore our offerings at [Custom Web Applications](/services/custom-web-applications) or [Custom Software Development](/services/custom-enterprise-software).
+At CoreBuild Solutions, we create modern, SEO-friendly, and high-performance websites designed to generate leads and increase business growth. Explore our offerings at [Custom Web Applications](/services/web-development-in-raipur) or [Custom Software Development](/services/custom-software-development-in-raipur).
  
 ### Why Businesses in Raipur Need a Professional Website
 Most customers search online before contacting a business. If your business isn't visible on Google, you're losing potential customers every day. A professional website helps you build trust, get more inquiries, showcase your products, generate online leads, and increase sales. Your website works for your business 24/7, even when your office is closed.
@@ -331,7 +331,7 @@ Yes. We optimize sitemaps, title metas, alt tags, and sitemaps to ensure your si
     title: 'How a Professional Website & Mobile App Can Grow Your Business in 2026',
     category: 'Business Growth',
     summary: 'In 2026, a strong digital presence is essential. Discover how custom web applications and mobile apps act as 24/7 sales engines to accelerate your brand value.',
-    content: `In today's digital world, customers search online before making any purchase. Whether you run a startup, retail store, restaurant, clinic, coaching institute, or enterprise, having a professional website and mobile app is no longer optional—it's essential. A strong digital presence helps businesses attract more customers, improve credibility, and generate sales 24/7. Explore our [Custom Web Applications](/services/custom-web-applications) and [Mobile App Development](/services/mobile-app-development) services.
+    content: `In today's digital world, customers search online before making any purchase. Whether you run a startup, retail store, restaurant, clinic, coaching institute, or enterprise, having a professional website and mobile app is no longer optional—it's essential. A strong digital presence helps businesses attract more customers, improve credibility, and generate sales 24/7. Explore our [Custom Web Applications](/services/web-development-in-raipur) and [Mobile App Development](/services/mobile-app-development-in-raipur) services.
  
 ### Why Every Business Needs a Website
 A website acts as your digital office. Unlike a physical store, it works all day, every day, allowing potential customers to learn about your services, contact your team, or place orders anytime. With a professionally designed website, businesses can build customer trust, showcase products, generate qualified leads, accept online inquiries, and improve Google visibility.
@@ -374,7 +374,7 @@ Google utilizes mobile-first indexing, meaning mobile responsiveness is a primar
     title: 'Choosing the Right Database for Custom Software in 2026',
     category: 'Engineering',
     summary: 'A developer guide comparing PostgreSQL, MongoDB, and Redis to optimize data queries, schema structures, and API response speeds.',
-    content: `Building high-performance software requires selecting a database engine tailored to your relational logic, data volumes, and query frequencies. Choosing the wrong database leads to query latency and schema bottlenecks as your code scales. Review our architectures at [Custom Software Development](/services/custom-enterprise-software).
+    content: `Building high-performance software requires selecting a database engine tailored to your relational logic, data volumes, and query frequencies. Choosing the wrong database leads to query latency and schema bottlenecks as your code scales. Review our architectures at [Custom Software Development](/services/custom-software-development-in-raipur).
 
 ### PostgreSQL: The Relational Gold Standard
 For enterprise applications involving transactions, user roles, and complex table relationships, PostgreSQL is the premier choice. It offers strict schema controls, ACID compliance, and excellent support for JSON payloads. Utilizing pgvector, PostgreSQL also handles high-dimensional vector lookups.
@@ -408,7 +408,7 @@ Yes, MongoDB is excellent for catalog search as product variations and tags can 
     title: 'Top 7 UI/UX Secrets of High-Converting SaaS Dashboards',
     category: 'UI/UX Design',
     summary: 'Discover visual strategies like spacing ratios, nested navigation tabs, and spring animation curves that reduce user dropoffs.',
-    content: `Designing a data-rich Software-as-a-Service (SaaS) dashboard requires balancing information density with visual breathing room. A cluttered interface causes cognitive fatigue, driving up onboarding dropoffs. Learn how we solve this at [UI/UX Design](/services/ui-ux-design).
+    content: `Designing a data-rich Software-as-a-Service (SaaS) dashboard requires balancing information density with visual breathing room. A cluttered interface causes cognitive fatigue, driving up onboarding dropoffs. Learn how we solve this at [UI/UX Design](/services/ui-ux-design-in-raipur).
 
 ### 1. Consistent Spacing Scales
 We implement strict design token grids (e.g., 4px, 8px, 16px, 24px) for margins, padding, and gaps. This mathematical spacing scale ensures alignment across all panels, projecting visual stability.
@@ -445,7 +445,7 @@ Yes, dark modes reduce eye strain for users who monitor dashboards for long hour
     title: 'How to Optimize Your Google Business Profile for Local SEO',
     category: 'SEO',
     summary: 'A step-by-step optimization blueprint for Google Business Profile to dominate local searches in Raipur, Chhattisgarh.',
-    content: `For service-based businesses, local search is the primary source of inbound customer calls. If a user searches for "Web Developer in Raipur" and your profile doesn't show in the Google Maps Local Pack, you are losing leads to competitors. Review our localized optimization services on [SEO Services](/services/seo-optimization).
+    content: `For service-based businesses, local search is the primary source of inbound customer calls. If a user searches for "Web Developer in Raipur" and your profile doesn't show in the Google Maps Local Pack, you are losing leads to competitors. Review our localized optimization services on [SEO Services](/services/seo-services-in-raipur).
 
 ### 1. Claim & Complete Your Profile
 Ensure your Business Name, Address, and Phone Number (NAP) match your website exactly. Add your office hours, catalog list, and service categories.
@@ -479,7 +479,7 @@ Yes. Conflicting address or phone formats across directories confuse Googlebot, 
     title: 'Mobile App Development Cost in Raipur: Startup Guide',
     category: 'Mobile Apps',
     summary: 'Understand the pricing frameworks, developer tiers, and API costs to build cross-platform applications in Chhattisgarh.',
-    content: `Developing a custom mobile application is a major milestone for growing startups. When evaluating options in Raipur, understanding the factors that dictate coding costs helps you align budgets. We map out mobile sprints on our [Mobile App Development](/services/mobile-app-development) page.
+    content: `Developing a custom mobile application is a major milestone for growing startups. When evaluating options in Raipur, understanding the factors that dictate coding costs helps you align budgets. We map out mobile sprints on our [Mobile App Development](/services/mobile-app-development-in-raipur) page.
 
 ### The App Architecture Factor
 - **Basic Informational Apps:** Standard catalogs with database listings and push notifications range from ₹40,000 to ₹90,000.
@@ -514,7 +514,7 @@ We compile release bundles, write metadata, and manage the compliance review pro
     title: 'How RAG is Replacing Simple Chatbots in B2B Operations',
     category: 'AI & Automation',
     summary: 'Analyze why retrieval-grounded AI architectures are replacing standard support widgets to automate enterprise query workflows.',
-    content: `Standard support widgets often fail because they rely on hardcoded script templates. When a user asks a custom question, the bot gets stuck. Retrieval-Augmented Generation (RAG) changes this by connecting AI models directly to your files. Learn more on our [AI & Machine Learning](/services/ai-machine-learning) page.
+    content: `Standard support widgets often fail because they rely on hardcoded script templates. When a user asks a custom question, the bot gets stuck. Retrieval-Augmented Generation (RAG) changes this by connecting AI models directly to your files. Learn more on our [AI & Machine Learning](/services/ai-development-in-raipur) page.
 
 ### Grounding AI in Private Data
 RAG matches user queries against your uploaded PDF manuals or FAQs using vector search. It extracts the exact matching sections and passes them to the model as context. The model drafts an answer based ONLY on that context, eliminating hallucinations.
@@ -545,7 +545,7 @@ We isolate document storage and use enterprise APIs that guarantee your files ar
     title: 'Why Headless Commerce is the Future of Enterprise Retail',
     category: 'E-commerce',
     summary: 'Explore how separating the React frontend from the database Shopify backend delivers sub-second page loads and custom layouts.',
-    content: `Traditional e-commerce templates link layout design to database operations. This coupling creates code bloat, slowing down product listings and increasing checkout dropoffs. Headless commerce solves this by separating the frontend design from the backend engine. Review our solutions on [E-commerce Website Development](/services/e-commerce-development).
+    content: `Traditional e-commerce templates link layout design to database operations. This coupling creates code bloat, slowing down product listings and increasing checkout dropoffs. Headless commerce solves this by separating the frontend design from the backend engine. Review our solutions on [E-commerce Website Development](/services/ecommerce-development-in-raipur).
 
 ### Seamless Frontend Deliveries
 In a headless store, we build the frontend using React and Vite, hosting it on global CDNs. The storefront queries product catalogs via APIs, rendering listings instantly without page reloads.
@@ -576,7 +576,7 @@ Yes. We connect custom React frontends to Shopify using the Shopify Storefront A
     title: 'Custom ERP Software for Manufacturing Units in Chhattisgarh',
     category: 'Software Development',
     summary: 'A strategic guide to automate inventory pipelines, production shifts, and invoicing for industrial units in Urla & Bhilai.',
-    content: `Manufacturing units in industrial zones (like Urla, Siltara, and Bhilai) require robust database architectures to track raw materials, schedule shifts, and manage invoices. Off-the-shelf software often fails to adapt to these workflows. Explore our custom portals at [Custom Software Development](/services/custom-enterprise-software).
+    content: `Manufacturing units in industrial zones (like Urla, Siltara, and Bhilai) require robust database architectures to track raw materials, schedule shifts, and manage invoices. Off-the-shelf software often fails to adapt to these workflows. Explore our custom portals at [Custom Software Development](/services/custom-software-development-in-raipur).
 
 ### 1. Real-Time Raw Material Tracking
 Bespoke database schemas track raw inventory levels, automatically generating replenishment alerts when stocks drop. This avoids production delays.
@@ -610,7 +610,7 @@ A tailored ERP dashboard with raw material tracking and dispatch workflows takes
     title: 'How Page Speed Destroys Your Google Ads Quality Score',
     category: 'SEO',
     summary: 'Analyze the direct link between Lighthouse page speed scores, conversion rates, and paid ad cost-per-click (CPC) rates.',
-    content: `Many businesses spend thousands on Google Ads but fail to check page load speed. When a user clicks a sponsored link, a 3-second delay causes them to bounce. This sends negative signals to Google, raising your Cost-Per-Click (CPC) rates. Review our audit checklist at [SEO Services](/services/seo-optimization).
+    content: `Many businesses spend thousands on Google Ads but fail to check page load speed. When a user clicks a sponsored link, a 3-second delay causes them to bounce. This sends negative signals to Google, raising your Cost-Per-Click (CPC) rates. Review our audit checklist at [SEO Services](/services/seo-services-in-raipur).
 
 ### The Quality Score Formula
 Google evaluates sponsored campaigns using a Quality Score (1 to 10). Landing Page Experience is a primary factor. A slow page lowers this score, meaning you must pay up to 400% more per click than competitors with fast pages.

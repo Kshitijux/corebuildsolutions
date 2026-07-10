@@ -13,14 +13,14 @@ export default function ServiceDetail() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const slugToIdMap: Record<string, string> = {
-    'custom-web-applications': 'srv-1',
-    'mobile-app-development': 'srv-2',
-    'ai-machine-learning': 'srv-3',
-    'e-commerce-development': 'srv-4',
-    'ui-ux-design': 'srv-5',
-    'branding-logo-design': 'srv-6',
-    'seo-optimization': 'srv-7',
-    'custom-enterprise-software': 'srv-8'
+    'web-development-in-raipur': 'srv-1',
+    'mobile-app-development-in-raipur': 'srv-2',
+    'ai-development-in-raipur': 'srv-3',
+    'ecommerce-development-in-raipur': 'srv-4',
+    'ui-ux-design-in-raipur': 'srv-5',
+    'branding-logo-design-in-raipur': 'srv-6',
+    'seo-services-in-raipur': 'srv-7',
+    'custom-software-development-in-raipur': 'srv-8'
   };
 
   const serviceId = slugToIdMap[id || ''] || id || '';

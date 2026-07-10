@@ -223,7 +223,7 @@ export default function ServiceDetail() {
                 <h3 className="font-heading text-xs font-bold text-slate-900 dark:text-white uppercase mt-1">
                   {point.title}
                 </h3>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                   {point.desc}
                 </p>
               </div>
@@ -254,7 +254,7 @@ export default function ServiceDetail() {
                   <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">
                     {step.title}
                   </h3>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
@@ -299,7 +299,7 @@ export default function ServiceDetail() {
                   {cat.name}
                 </h3>
                 <div className="h-[1px] bg-slate-100 dark:bg-slate-800 w-full" />
-                <ul className="space-y-2 text-[11px] text-slate-600 dark:text-slate-400 font-semibold">
+                <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300 font-semibold">
                   {cat.items.map((item, iIdx) => (
                     <li key={iIdx} className="flex items-center gap-1.5">
                       <div className="w-1 h-1 rounded-full bg-blue-500" />
@@ -331,7 +331,7 @@ export default function ServiceDetail() {
                 <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider mb-2">
                   {ind.name}
                 </h3>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                   {ind.desc}
                 </p>
               </div>
@@ -362,7 +362,7 @@ export default function ServiceDetail() {
                   <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase">
                     {benefit.title}
                   </h3>
-                  <p className="text-[11px] text-slate-650 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                     {benefit.desc}
                   </p>
                 </div>
@@ -394,7 +394,7 @@ export default function ServiceDetail() {
                   <h3 className="font-heading font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wider">
                     {point.title}
                   </h3>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                     {point.desc}
                   </p>
                 </div>
@@ -442,6 +442,72 @@ export default function ServiceDetail() {
                     )}
                   </AnimatePresence>
                 </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ==========================================
+            8.2. APPLE-STYLE SERVICES CAROUSEL
+           ========================================== */}
+        <div className="py-12 border-t border-slate-200 dark:border-slate-900 mt-12 text-left">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div className="flex flex-col gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-500">Service Ecosystem</span>
+              <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Explore Our Technical Capabilities
+              </h2>
+            </div>
+            <p className="text-xs text-slate-505 dark:text-slate-400 max-w-sm">
+              We engineer high-performance web, native-mobile, and AI systems tailored to accelerate corporate growth.
+            </p>
+          </div>
+          
+          <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x -mx-6 px-6 md:mx-0 md:px-0">
+            {services.map((srv) => {
+              const IconComponent = serviceIcons[srv.icon as keyof typeof serviceIcons] || Globe;
+              const srvSlug = Object.keys(slugToIdMap).find(key => slugToIdMap[key] === srv.id) || srv.id;
+              const isActive = srv.id === service.id;
+
+              return (
+                <Link
+                  key={srv.id}
+                  to={`/services/${srvSlug}`}
+                  className={`flex-shrink-0 w-80 snap-start p-6 rounded-3xl border transition-all duration-300 flex flex-col justify-between group cursor-pointer ${
+                    isActive 
+                      ? 'bg-blue-600 border-blue-500 text-white shadow-xl shadow-blue-500/10'
+                      : 'bg-white dark:bg-slate-900/40 border-slate-200 dark:border-slate-900/60 hover:border-blue-500/30 hover:shadow-lg'
+                  }`}
+                >
+                  <div className="flex flex-col gap-4">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                      isActive 
+                        ? 'bg-white/10 text-white' 
+                        : 'bg-blue-600/10 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                    }`}>
+                      <IconComponent size={20} />
+                    </div>
+                    <div>
+                      <h3 className={`font-heading text-sm font-bold uppercase tracking-wide group-hover:underline ${
+                        isActive ? 'text-white' : 'text-slate-900 dark:text-white'
+                      }`}>
+                        {srv.name}
+                      </h3>
+                      <p className={`text-xs leading-relaxed mt-2 line-clamp-3 ${
+                        isActive ? 'text-blue-100' : 'text-slate-500 dark:text-slate-400'
+                      }`}>
+                        {srv.description}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider mt-6">
+                    <span>{isActive ? 'Currently Viewing' : 'Explore Capability'}</span>
+                    <ArrowUpRight size={12} className={`group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform ${
+                      isActive ? 'text-white' : 'text-blue-600 dark:text-blue-400'
+                    }`} />
+                  </div>
+                </Link>
               );
             })}
           </div>

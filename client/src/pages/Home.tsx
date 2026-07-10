@@ -183,15 +183,49 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="font-heading text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]"
             >
-              {heroContent.title.includes('Premium Brands') ? (
-                <>
-                  {heroContent.title.split('Premium Brands')[0]}
-                  <span className="text-blue-600 dark:text-blue-500">Premium Brands</span>
-                  {heroContent.title.split('Premium Brands')[1]}
-                </>
-              ) : (
-                heroContent.title
-              )}
+              {(() => {
+                const titleText = heroContent.title.includes('Premium Brands')
+                  ? heroContent.title.replace('Premium Brands', 'Raipur')
+                  : heroContent.title;
+                
+                const words = titleText.split(' ');
+                return words.map((word, wIdx) => {
+                  const isRaipur = word.toLowerCase().includes('raipur');
+                  const space = wIdx < words.length - 1 ? ' ' : '';
+                  
+                  if (isRaipur) {
+                    const cleanWord = word.replace(/[^a-zA-Z]/g, '');
+                    const punctuation = word.replace(/[a-zA-Z]/g, '');
+                    
+                    return (
+                      <span key={wIdx} className="inline-block whitespace-nowrap">
+                        <span className="text-blue-600 dark:text-blue-500 inline-flex">
+                          {cleanWord.split('').map((char, cIdx) => (
+                            <motion.span
+                              key={cIdx}
+                              initial={{ y: 40, rotate: -15, opacity: 0, filter: 'blur(4px)' }}
+                              animate={{ y: 0, rotate: 0, opacity: 1, filter: 'blur(0px)' }}
+                              transition={{
+                                type: 'spring',
+                                stiffness: 100,
+                                damping: 13,
+                                delay: 0.45 + cIdx * 0.07
+                              }}
+                              className="inline-block origin-bottom-left"
+                            >
+                              {char}
+                            </motion.span>
+                          ))}
+                        </span>
+                        {punctuation}
+                        {space}
+                      </span>
+                    );
+                  }
+                  
+                  return <span key={wIdx} className="inline-block">{word}{space}</span>;
+                });
+              })()}
             </motion.h1>
 
             <motion.p

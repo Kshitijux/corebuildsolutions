@@ -106,15 +106,80 @@ export default function BlogDetail() {
     ]
   };
 
+  // Helper to parse inline markdown bold and links
+  const parseInlineMarkdown = (text: string) => {
+    if (!text) return '';
+    const parts: React.ReactNode[] = [];
+    let currentIdx = 0;
+    
+    // Matches markdown links [text](url) or bold text **text**
+    const inlineRegex = /(\[([^\]]+)\]\(([^)]+)\))|(\*\*([^*]+)\*\*)/g;
+    let match;
+    
+    while ((match = inlineRegex.exec(text)) !== null) {
+      const matchIdx = match.index;
+      if (matchIdx > currentIdx) {
+        parts.push(text.substring(currentIdx, matchIdx));
+      }
+      
+      if (match[1]) {
+        // Markdown Link
+        const linkText = match[2];
+        const linkUrl = match[3];
+        const isExternal = linkUrl.startsWith('http');
+        if (isExternal) {
+          parts.push(
+            <a 
+              key={matchIdx} 
+              href={linkUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+            >
+              {linkText}
+            </a>
+          );
+        } else {
+          parts.push(
+            <Link 
+              key={matchIdx} 
+              to={linkUrl} 
+              className="text-blue-605 dark:text-blue-400 hover:underline font-semibold"
+            >
+              {linkText}
+            </Link>
+          );
+        }
+      } else if (match[4]) {
+        // Bold Text
+        const boldText = match[5];
+        parts.push(
+          <strong key={matchIdx} className="text-slate-900 dark:text-white font-bold">
+            {boldText}
+          </strong>
+        );
+      }
+      
+      currentIdx = inlineRegex.lastIndex;
+    }
+    
+    if (currentIdx < text.length) {
+      parts.push(text.substring(currentIdx));
+    }
+    
+    return parts.length > 0 ? parts : text;
+  };
+
   // Helper to render markdown headers/bullet points simply as JSX
   const renderContentParagraphs = (content: string) => {
+    if (!content) return [];
     return content.split('\n\n').map((paragraph, index) => {
       const trimmed = paragraph.trim();
       if (trimmed.startsWith('### ')) {
         return (
-          <h2 key={index} className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mt-8 mb-4">
+          <h3 key={index} className="font-heading text-lg md:text-xl font-bold tracking-tight text-slate-900 dark:text-white mt-8 mb-4">
             {trimmed.replace('### ', '')}
-          </h2>
+          </h3>
         );
       }
       if (trimmed.startsWith('## ')) {
@@ -130,34 +195,15 @@ export default function BlogDetail() {
           <ul key={index} className="list-disc pl-6 space-y-2 text-xs md:text-sm text-slate-650 dark:text-slate-400 my-4 text-left">
             {items.map((item, itemIdx) => {
               const cleanedItem = item.replace(/^(\d+\.\s*|\*\s*|-\s*)/, '');
-              // Check for bold text formatting in item e.g. **Text**
-              if (cleanedItem.includes('**')) {
-                const parts = cleanedItem.split('**');
-                return (
-                  <li key={itemIdx}>
-                    {parts.map((part, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="text-slate-900 dark:text-white font-bold">{part}</strong> : part)}
-                  </li>
-                );
-              }
-              return <li key={itemIdx}>{cleanedItem}</li>;
+              return <li key={itemIdx}>{parseInlineMarkdown(cleanedItem)}</li>;
             })}
           </ul>
-        );
-      }
-      
-      // Inline bold parsing for general paragraph text
-      if (trimmed.includes('**')) {
-        const parts = trimmed.split('**');
-        return (
-          <p key={index} className="text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed mb-4 text-left">
-            {parts.map((part, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="text-slate-900 dark:text-white font-bold">{part}</strong> : part)}
-          </p>
         );
       }
 
       return (
         <p key={index} className="text-xs md:text-sm text-slate-650 dark:text-slate-400 leading-relaxed mb-4 text-left">
-          {trimmed}
+          {parseInlineMarkdown(trimmed)}
         </p>
       );
     });

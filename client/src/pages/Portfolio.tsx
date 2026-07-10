@@ -10,6 +10,7 @@ import {
   Flame 
 } from 'lucide-react';
 import { useDatabase } from '../context/DatabaseContext';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { X, Check } from 'lucide-react';
 import { Project } from '../types';
@@ -415,7 +416,33 @@ export default function Portfolio() {
               <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4">
                 <span>Case Studies</span>
                 <span>/</span>
-                <span>{selectedProject.category}</span>
+                {(() => {
+                  const categorySlugMap: Record<string, string> = {
+                    'web': 'custom-web-applications',
+                    'mobile': 'mobile-app-development',
+                    'ai': 'ai-machine-learning',
+                    'saas': 'custom-enterprise-software'
+                  };
+                  const categoryLabelMap: Record<string, string> = {
+                    'web': 'Custom Web Applications',
+                    'mobile': 'Mobile App Development',
+                    'ai': 'AI & Machine Learning',
+                    'saas': 'Custom Enterprise Software'
+                  };
+                  const slug = categorySlugMap[selectedProject.category];
+                  const label = categoryLabelMap[selectedProject.category] || selectedProject.category;
+                  return slug ? (
+                    <Link 
+                      to={`/services/${slug}`} 
+                      className="hover:underline text-blue-600 dark:text-blue-400"
+                      onClick={() => setSelectedProject(null)}
+                    >
+                      {label}
+                    </Link>
+                  ) : (
+                    <span>{label}</span>
+                  );
+                })()}
               </div>
 
               {/* Title */}

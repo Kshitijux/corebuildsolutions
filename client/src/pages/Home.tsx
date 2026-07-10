@@ -54,7 +54,11 @@ export default function Home() {
   // Helper to get home section content by key
   const getSectionContent = (key: string, fallback: any) => {
     const section = homeSections.find(hs => hs.key === key);
-    return section ? section.content : fallback;
+    if (!section || !section.content) return fallback;
+    if (typeof section.content === 'object' && !Array.isArray(section.content)) {
+      return { ...fallback, ...section.content };
+    }
+    return section.content;
   };
 
   const heroContent = getSectionContent('hero', {

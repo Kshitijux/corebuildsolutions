@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model User {
@@ -12,7 +12,7 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      String   @default("editor") // "super_admin" | "admin" | "editor"
+  role      String   @default("editor")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -36,23 +36,33 @@ model Project {
   afterImage        String?
   featured          Boolean  @default(false)
   url               String?
+  businessProblem   String?  @db.Text
+  solution          String?  @db.Text
+  results           String?  @db.Text
+  features          Json     @default("[]")
+  timeline          String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
 
 model Blog {
-  id        String   @id @default(uuid())
-  title     String
-  category  String
-  summary   String   @db.Text
-  content   String   @db.Text
-  image     String
-  date      String
-  author    String
-  readTime  String
-  tags      Json     @default("[]")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String   @id @default(uuid())
+  title           String
+  category        String
+  summary         String
+  content         String
+  image           String
+  date            String
+  author          String
+  readTime        String
+  tags            Json     @default("[]")
+  published       Boolean  @default(true)
+  slug            String?
+  metaTitle       String?
+  metaDescription String?
+  keywords        String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Testimonial {
@@ -61,7 +71,7 @@ model Testimonial {
   role      String
   company   String
   rating    Int      @default(5)
-  text      String   @db.Text
+  text      String
   image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -71,7 +81,7 @@ model Service {
   id          String   @id @default(uuid())
   name        String
   subtitle    String
-  description String   @db.Text
+  description String
   icon        String
   details     Json     @default("[]")
   workflow    Json     @default("[]")
@@ -86,7 +96,7 @@ model Career {
   department   String
   location     String
   type         String
-  description  String   @db.Text
+  description  String
   requirements Json     @default("[]")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -97,7 +107,7 @@ model TeamMember {
   name       String
   role       String
   image      String
-  bio        String   @db.Text
+  bio        String
   experience String?
   skills     Json     @default("[]")
   order      Int      @default(0)
@@ -114,10 +124,10 @@ model Lead {
   phone     String?
   company   String?
   subject   String?
-  message   String   @db.Text
+  message   String
   service   String?
   date      String
-  status    String   @default("unread") // "unread" | "read" | "resolved" | "pending"
+  status    String   @default("unread")
   source    String
   ip        String?
   createdAt DateTime @default(now())
@@ -128,7 +138,7 @@ model SeoSettings {
   id          String   @id @default(uuid())
   page        String   @unique
   title       String
-  description String   @db.Text
+  description String
   keywords    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -150,7 +160,7 @@ model SystemSettings {
 model FaqItem {
   id        String   @id @default(uuid())
   q         String
-  a         String   @db.Text
+  a         String
   order     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

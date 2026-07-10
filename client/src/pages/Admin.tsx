@@ -68,7 +68,8 @@ export default function Admin() {
   // Project Form State
   const [projForm, setProjForm] = useState<Omit<Project, 'id'>>({
     title: '', client: '', category: 'web', description: '', longDescription: '',
-    image: '', gallery: [], tags: [], stats: [{ label: '', value: '' }], featured: false, url: ''
+    image: '', gallery: [], tags: [], stats: [{ label: '', value: '' }], featured: false, url: '',
+    businessProblem: '', solution: '', results: '', features: [], timeline: ''
   });
 
   // Blog Form State
@@ -441,7 +442,8 @@ export default function Admin() {
       setProjForm({
         title: '', client: '', category: 'web', description: '', longDescription: '',
         image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
-        gallery: [], tags: ['React', 'TypeScript'], stats: [{ label: 'Conversion Rate', value: '+35%' }], featured: false, url: ''
+        gallery: [], tags: ['React', 'TypeScript'], stats: [{ label: 'Conversion Rate', value: '+35%' }], featured: false, url: '',
+        businessProblem: '', solution: '', results: '', features: [], timeline: ''
       });
     } else if (type === 'blog') {
       setBlogForm({
@@ -473,7 +475,26 @@ export default function Admin() {
 
     if (type === 'project') {
       const match = db.projects.find(p => p.id === id);
-      if (match) setProjForm({ ...match });
+      if (match) {
+        setProjForm({
+          title: match.title || '',
+          client: match.client || '',
+          category: match.category || 'web',
+          description: match.description || '',
+          longDescription: match.longDescription || '',
+          image: match.image || '',
+          gallery: match.gallery || [],
+          tags: match.tags || [],
+          stats: match.stats || [{ label: '', value: '' }],
+          featured: match.featured ?? false,
+          url: match.url || '',
+          businessProblem: match.businessProblem || '',
+          solution: match.solution || '',
+          results: match.results || '',
+          features: match.features || [],
+          timeline: match.timeline || ''
+        });
+      }
     } else if (type === 'blog') {
       const match = db.blogs.find(b => b.id === id);
       if (match) {
@@ -2404,6 +2425,58 @@ export default function Admin() {
                       rows={4} required value={projForm.longDescription}
                       onChange={(e) => setProjForm({ ...projForm, longDescription: e.target.value })}
                       className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white resize-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">Client Problem (Case Study)</label>
+                      <textarea
+                        rows={3} value={projForm.businessProblem || ''}
+                        onChange={(e) => setProjForm({ ...projForm, businessProblem: e.target.value })}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white resize-none"
+                        placeholder="Describe the client's problem..."
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">Engineered Solution (Case Study)</label>
+                      <textarea
+                        rows={3} value={projForm.solution || ''}
+                        onChange={(e) => setProjForm({ ...projForm, solution: e.target.value })}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white resize-none"
+                        placeholder="Describe our solution..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">Results (Case Study)</label>
+                      <textarea
+                        rows={2} value={projForm.results || ''}
+                        onChange={(e) => setProjForm({ ...projForm, results: e.target.value })}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white resize-none"
+                        placeholder="Describe measurable results..."
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] text-slate-500 uppercase font-semibold">Timeline (e.g. 8 Weeks)</label>
+                      <input
+                        type="text" value={projForm.timeline || ''}
+                        onChange={(e) => setProjForm({ ...projForm, timeline: e.target.value })}
+                        className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white"
+                        placeholder="e.g. 8 Weeks"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] text-slate-500 uppercase font-semibold">Key Features List (comma separated)</label>
+                    <input
+                      type="text" value={(projForm.features || []).join(', ')}
+                      onChange={(e) => setProjForm({ ...projForm, features: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                      className="px-3 py-2 bg-slate-900 border border-slate-850 rounded-xl text-xs focus:outline-none focus:border-blue-500 text-white"
+                      placeholder="Feature 1, Feature 2, Feature 3"
                     />
                   </div>
 

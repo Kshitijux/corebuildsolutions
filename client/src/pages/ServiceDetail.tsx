@@ -9,7 +9,7 @@ import { fallbackServices } from '../fallbackData';
 
 export default function ServiceDetail() {
   const { id } = useParams();
-  const { services } = useDatabase();
+  const { services, blogs } = useDatabase();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const slugToIdMap: Record<string, string> = {
@@ -113,6 +113,23 @@ export default function ServiceDetail() {
       }
     }))
   };
+
+  // Find related blogs for this service
+  const serviceKeywords = (detailedContent.keywords || '').toLowerCase();
+  const relatedBlogs = (blogs || []).filter(blog => {
+    if (!blog) return false;
+    const blogCategory = (blog.category || '').toLowerCase();
+    const blogTitle = (blog.title || '').toLowerCase();
+    const serviceName = (service?.name || '').toLowerCase();
+    const serviceSlug = (service?.slug || '').replace('-', ' ').toLowerCase();
+    
+    // Match based on category, tags, or if the title/summary contains keywords from the service
+    const matchesCategory = blogCategory === serviceName || 
+                           (serviceSlug && blogCategory.includes(serviceSlug));
+    const matchesTags = (blog.tags || []).some(tag => tag && serviceKeywords.includes(tag.toLowerCase()));
+    const matchesTitle = blogTitle.split(' ').some(word => word && word.length > 3 && serviceKeywords.includes(word));
+    return (matchesCategory || matchesTags || matchesTitle) && blog.published !== false;
+  }).slice(0, 3); // show top 3 related blogs
 
   return (
     <div className="relative w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 transition-colors pt-24 pb-20">
@@ -429,6 +446,48 @@ export default function ServiceDetail() {
             })}
           </div>
         </div>
+
+        {/* ==========================================
+            8.5. RELATED TECHNICAL INSIGHTS
+           ========================================== */}
+        {relatedBlogs.length > 0 && (
+          <div className="py-12 border-t border-slate-200 dark:border-slate-900 mt-12 text-left">
+            <div className="flex flex-col gap-2 mb-8">
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-500">Resource Hub</span>
+              <h2 className="font-heading text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Related Technical Insights & Guides
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedBlogs.map((blog) => (
+                <Link 
+                  key={blog.id} 
+                  to={`/blog/${blog.slug || blog.id}`}
+                  className="p-6 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl flex flex-col justify-between hover:border-blue-500/35 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="flex flex-col gap-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500 bg-blue-50 dark:bg-blue-900/10 px-2.5 py-1 rounded-md self-start">
+                      {blog.category}
+                    </span>
+                    <h3 className="font-heading text-sm md:text-base font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors line-clamp-2">
+                      {blog.title}
+                    </h3>
+                    <p className="text-[11px] md:text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                      {blog.summary}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] text-slate-405 dark:text-slate-500 mt-5 border-t border-slate-100 dark:border-slate-800/80 pt-3">
+                    <span>{blog.date}</span>
+                    <span className="inline-flex items-center gap-0.5 text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider group-hover:translate-x-0.5 transition-transform">
+                      Read Post <ArrowUpRight size={10} />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* ==========================================
             9. CALL TO ACTION (Bottom Banner)

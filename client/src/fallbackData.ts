@@ -1179,7 +1179,7 @@ export const fallbackHomeSections: HomeSection[] = [
       ctaText2: 'View Case Studies',
       stats: [
         { value: '99.9%', label: 'Uptime SLA' },
-        { value: '50M+', label: 'Capital Raised' },
+        { value: '50+', label: 'Projects Delivered' },
         { value: '98%', label: 'Lighthouse Avg' }
       ]
     }

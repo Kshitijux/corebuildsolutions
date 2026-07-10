@@ -282,9 +282,9 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <span>&copy; {currentYear} {settings.agencyName}. All rights reserved.</span>
           <div className="flex items-center gap-6">
-            <Link to="/about" className="hover:text-blue-600">Privacy Policy</Link>
-            <Link to="/about" className="hover:text-blue-600">Terms & Conditions</Link>
-            <Link to="/contact" className="hover:text-blue-600">Sitemap</Link>
+            <Link to="/privacy-policy" className="hover:text-blue-600">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-blue-600">Terms & Conditions</Link>
+            <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">Sitemap</a>
             <Link to="/admin" className="text-slate-400 hover:text-slate-900 flex items-center gap-1">
               <ShieldCheck size={12} /> CMS
             </Link>

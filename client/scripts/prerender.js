@@ -13,6 +13,8 @@ const PORT = 4173;
 // List of all public routes to pre-render
 const ROUTES = [
   '/',
+  '/web-development-company-in-raipur',
+  '/web-development-in-raipur',
   '/about',
   '/contact',
   '/portfolio',

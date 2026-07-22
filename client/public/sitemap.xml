@@ -3,7 +3,13 @@
   <!-- Core Pages -->
   <url>
     <loc>https://corebuildsolutions.in/</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://corebuildsolutions.in/web-development-company-in-raipur</loc>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

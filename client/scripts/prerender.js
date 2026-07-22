@@ -91,16 +91,17 @@ function createStaticServer() {
   });
 
   return new Promise((resolve) => {
-    server.listen(PORT, () => {
-      console.log(`Prerender local server running on http://localhost:${PORT}`);
-      resolve(server);
+    server.listen(0, () => {
+      const assignedPort = server.address().port;
+      console.log(`Prerender local server running on http://localhost:${assignedPort}`);
+      resolve({ server, port: assignedPort });
     });
   });
 }
 
 async function prerender() {
   console.log('🚀 Starting SSG Pre-rendering pipeline...');
-  const server = await createStaticServer();
+  const { server, port } = await createStaticServer();
 
   let browser;
   try {
@@ -127,7 +128,7 @@ async function prerender() {
     await page.setViewport({ width: 1440, height: 900 });
 
     for (const route of ROUTES) {
-      const url = `http://localhost:${PORT}${route}`;
+      const url = `http://localhost:${port}${route}`;
       console.log(`Pre-rendering route: ${route}`);
 
       await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });

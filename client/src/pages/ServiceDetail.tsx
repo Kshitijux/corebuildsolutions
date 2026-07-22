@@ -6,6 +6,7 @@ import { useDatabase } from '../context/DatabaseContext';
 import SEO from '../components/SEO';
 import { detailedServices } from '../servicesContent';
 import { fallbackServices } from '../fallbackData';
+import RaipurWebDevPage from './RaipurWebDevPage';
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -24,6 +25,10 @@ export default function ServiceDetail() {
   };
 
   const serviceId = slugToIdMap[id || ''] || id || '';
+
+  if (serviceId === 'srv-1') {
+    return <RaipurWebDevPage />;
+  }
   const service = services.find(s => s.id === serviceId) || fallbackServices.find(s => s.id === serviceId);
   const detailedContent = detailedServices[serviceId];
 

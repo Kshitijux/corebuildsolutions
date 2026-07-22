@@ -28,7 +28,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: 'Home', path: '/' },
+    { label: 'Home', path: '/web-development-company-in-raipur' },
     { label: 'Services', path: '/services' },
     { label: 'Portfolio', path: '/portfolio' },
     { label: 'Blog', path: '/blog' },
@@ -50,7 +50,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/web-development-company-in-raipur" className="flex items-center gap-2 group">
             <img src={logoImg} alt="CoreBuild Solutions Logo" className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain" />
           </Link>
 

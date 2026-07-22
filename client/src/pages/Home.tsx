@@ -268,7 +268,7 @@ export default function Home() {
         title="Web Development Company in Raipur | CoreBuild Solutions"
         description="CoreBuild Solutions is the premier Web Development Company in Raipur, Chhattisgarh. We build custom React/MERN stack websites, eCommerce portals, and software with 95+ PageSpeed scores."
         keywords="web development company in raipur, website development company in raipur, website designing company in raipur, web design company in raipur, custom website development, business website development, react js development company, mern stack development, node js development, frontend development, backend development, web application development, responsive website, seo friendly website, corporate website, startup website, website redesign, website maintenance, Raipur, Chhattisgarh, Bhilai, Durg, Bilaspur, Korba, Raigarh"
-        canonical="https://corebuildsolutions.in/"
+        canonical="https://corebuildsolutions.in/web-development-company-in-raipur"
         schema={[orgSchema, localBusinessSchema, professionalServiceSchema, personSchema, breadcrumbSchema, webSiteSchema, serviceSchema, faqSchema]}
       />
       

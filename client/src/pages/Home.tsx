@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import ANMLNavbar from '../components/anml/ANMLNavbar';
 import ANMLHero from '../components/anml/ANMLHero';
 import ANMLStatementPills from '../components/anml/ANMLStatementPills';
 import ANMLLogoStrip from '../components/anml/ANMLLogoStrip';
@@ -30,9 +29,6 @@ export default function Home() {
         className="fixed top-0 left-0 right-0 h-[3px] bg-white z-[100] origin-left"
         style={{ scaleX }}
       />
-
-      {/* Navigation Header */}
-      <ANMLNavbar />
 
       {/* Main Content */}
       <main>

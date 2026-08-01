@@ -12,42 +12,7 @@ const PORT = 4173;
 
 // List of all public routes to pre-render
 const ROUTES = [
-  '/',
-  '/web-development-company-in-raipur',
-  '/web-development-in-raipur',
-  '/about',
-  '/contact',
-  '/portfolio',
-  '/services',
-  '/services/web-development-in-raipur',
-  '/services/mobile-app-development-in-raipur',
-  '/services/ai-development-in-raipur',
-  '/services/ecommerce-development-in-raipur',
-  '/services/ui-ux-design-in-raipur',
-  '/services/branding-logo-design-in-raipur',
-  '/services/seo-services-in-raipur',
-  '/services/custom-software-development-in-raipur',
-  '/blog',
-  '/blog/future-ai-enterprise-software-architecture',
-  '/blog/minimalist-interaction-design-premium-brands',
-  '/blog/website-development-cost-india-2026',
-  '/blog/react-vs-nextjs-frontend-framework-seo',
-  '/blog/ai-small-business-automation-rag-guide',
-  '/blog/ecommerce-website-guide-sub-second-checkout',
-  '/blog/why-every-startup-needs-high-performance-web-portal',
-  '/blog/website-development-company-raipur-chhattisgarh',
-  '/blog/how-website-mobile-app-grow-business-2026',
-  '/blog/choosing-right-database-custom-software-2026',
-  '/blog/ui-ux-secrets-high-converting-saas-dashboards',
-  '/blog/optimize-google-business-profile-local-seo-raipur',
-  '/blog/mobile-app-development-cost-raipur-startup-guide',
-  '/blog/rag-replacing-simple-chatbots-b2b-operations',
-  '/blog/why-headless-commerce-future-enterprise-retail',
-  '/blog/custom-erp-software-manufacturing-chhattisgarh-urla',
-  '/blog/page-speed-destroys-google-ads-quality-score-cpc',
-  '/blog/web-development-in-raipur',
-  '/privacy-policy',
-  '/terms-of-service'
+  '/'
 ];
 
 // Simple static file server helper for dist directory

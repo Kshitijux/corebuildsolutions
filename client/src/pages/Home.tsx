@@ -1,68 +1,149 @@
-import React, { useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import ANMLHero from '../components/anml/ANMLHero';
-import ANMLStatementPills from '../components/anml/ANMLStatementPills';
-import ANMLLogoStrip from '../components/anml/ANMLLogoStrip';
-import ANMLWorkGrid from '../components/anml/ANMLWorkGrid';
-import ANMLServices from '../components/anml/ANMLServices';
-import ANMLStatsAwards from '../components/anml/ANMLStatsAwards';
-import ANMLInsights from '../components/anml/ANMLInsights';
-import ANMLFooter from '../components/anml/ANMLFooter';
-import ANMLVideoModal from '../components/anml/ANMLVideoModal';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 
 export default function Home() {
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+  const targetUrl = 'https://therarecompany.in';
 
-  // Top Progress Bar
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          window.location.href = targetUrl;
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleRedirect = () => {
+    window.location.href = targetUrl;
+  };
+
+  const titleWords = ["corebuildsolutions", "is", "therarecompany", "now"];
 
   return (
-    <div className="bg-[#0A0A0A] text-white min-h-screen font-sans selection:bg-white selection:text-black">
-      
-      {/* Top Scroll Progress Indicator */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-white z-[100] origin-left"
-        style={{ scaleX }}
+    <div className="relative w-full h-screen min-h-[600px] flex flex-col justify-between overflow-hidden bg-black text-white font-sans selection:bg-white selection:text-black">
+      {/* Fullscreen Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover -z-10 opacity-75"
+        src="https://www.pexels.com/download/video/18680290/"
       />
 
-      {/* Main Content */}
-      <main>
-        {/* Section 1: Hero Video Reel & Magnetic Cursor */}
-        <ANMLHero onOpenReel={() => setVideoModalOpen(true)} />
+      {/* Dark Ambient Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 -z-10 pointer-events-none" />
 
-        {/* Section 2: Statement Pills with Scroll Text Reveal */}
-        <ANMLStatementPills />
+      {/* Header Bar */}
+      <header className="w-full px-6 md:px-12 pt-8 z-10 flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 shadow-lg"
+        >
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-xs font-semibold uppercase tracking-wider text-white/90">
+            Brand Migration Notice
+          </span>
+        </motion.div>
 
-        {/* Section 3: Client Logo Strip Marquee */}
-        <ANMLLogoStrip />
+        <motion.button
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          onClick={handleRedirect}
+          className="text-xs font-mono text-white/80 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10"
+        >
+          therarecompany.in <ExternalLink size={12} />
+        </motion.button>
+      </header>
 
-        {/* Section 4: Filterable Featured Work Grid */}
-        <ANMLWorkGrid />
+      {/* Main Hero Content */}
+      <main className="w-full max-w-5xl mx-auto px-6 z-10 my-auto text-center flex flex-col items-center gap-8">
+        
+        {/* H1 Heading with Entrance Animation */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.08] text-white max-w-4xl">
+          {titleWords.map((word, idx) => (
+            <span key={idx} className="inline-block overflow-hidden mr-3 sm:mr-4 py-1">
+              <motion.span
+                initial={{ y: '110%', opacity: 0, rotate: 6 }}
+                animate={{ y: '0%', opacity: 1, rotate: 0 }}
+                transition={{
+                  duration: 0.9,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.2 + idx * 0.12,
+                }}
+                className="inline-block"
+              >
+                {word === 'corebuildsolutions' ? (
+                  <span className="text-white/60 font-light line-through decoration-white/30 decoration-2">
+                    {word}
+                  </span>
+                ) : word === 'therarecompany' ? (
+                  <span className="text-white font-semibold underline decoration-white/40 underline-offset-8">
+                    {word}
+                  </span>
+                ) : (
+                  word
+                )}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
 
-        {/* Section 5: Capabilities & Services Breakdown */}
-        <ANMLServices />
+        {/* Subheading & Redirect Notice */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-base sm:text-xl text-gray-200 font-normal max-w-xl leading-relaxed"
+        >
+          CoreBuild Solutions has evolved into <strong className="text-white font-semibold">The Rare Company</strong>. Redirecting you in{' '}
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/20 text-white font-mono font-bold text-sm ml-1 border border-white/30">
+            {countdown}
+          </span>
+        </motion.p>
 
-        {/* Section 6: Stats, Credentials & 6 Webby Awards */}
-        <ANMLStatsAwards />
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <button
+            onClick={handleRedirect}
+            className="group relative inline-flex items-center gap-3.5 px-8 py-4 rounded-full bg-white text-black font-semibold text-base shadow-2xl hover:bg-gray-100 transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95"
+          >
+            <span>Visit therarecompany.in</span>
+            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+              <ArrowUpRight size={18} />
+            </div>
+          </button>
+        </motion.div>
 
-        {/* Section 7: Articles & Insights */}
-        <ANMLInsights />
       </main>
 
-      {/* Footer & Contact CTA */}
-      <ANMLFooter />
-
-      {/* Fullscreen Video Modal Overlay */}
-      <ANMLVideoModal
-        isOpen={videoModalOpen}
-        onClose={() => setVideoModalOpen(false)}
-      />
-
+      {/* Footer */}
+      <footer className="w-full px-6 md:px-12 pb-8 z-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60">
+        <div>© 2026 The Rare Company. All rights reserved.</div>
+        <a
+          href="https://therarecompany.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-white transition-colors flex items-center gap-1"
+        >
+          therarecompany.in &rarr;
+        </a>
+      </footer>
     </div>
   );
 }
